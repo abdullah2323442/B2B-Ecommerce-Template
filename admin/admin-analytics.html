@@ -5,9 +5,9 @@
   <title>বিশ্লেষণ — বাংলাবাজার অ্যাডমিন</title>
   <link rel="stylesheet" href="../assets/css/main.css" />
   <style>
-    html,body{background:#0a1810!important;color:rgba(255,255,255,0.82)}
+    body{background:var(--parchment)}
     .adm-wrap{display:block;min-height:100vh}
-    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
     .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
     .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
     .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
@@ -21,40 +21,40 @@
     .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
     .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}
     .asb__footer-link:hover{color:rgba(255,255,255,0.6)}
-    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-main{margin-left:240px;background:var(--parchment);min-height:100vh;padding:var(--s-6) var(--s-8)}
     .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
-    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
-    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .adm-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:3px}
     .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);margin-bottom:var(--s-6)}
-    .kcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-5);position:relative;overflow:hidden}
+    .kcard{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);position:relative;overflow:hidden}
     .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
     .kcard--g::before{background:var(--green-soft)}.kcard--b::before{background:#1A6B9A}
     .kcard--o::before{background:var(--gold)}.kcard--p::before{background:#7c3aed}
     .kcard__icon{font-size:1.4rem;margin-bottom:var(--s-2)}
-    .kcard__val{font-family:var(--font-serif);font-size:1.9rem;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
-    .kcard__label{font-size:0.72rem;color:rgba(255,255,255,0.45)}
-    .kcard__delta{font-size:0.68rem;margin-top:4px;color:#4ade80}
-    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
-    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
-    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
-    .dark-select{padding:7px 10px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.7);font-family:var(--font-sans);outline:none;cursor:pointer}
-    .dark-select option{background:#0f1f12}
+    .kcard__val{font-family:var(--font-serif);font-size:1.9rem;font-weight:800;color:var(--green-deep);line-height:1;margin-bottom:4px}
+    .kcard__label{font-size:0.72rem;color:var(--ink-60)}
+    .kcard__delta{font-size:0.68rem;margin-top:4px;color:#1a7a45}
+    .acard{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid var(--ink-10);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--green-deep)}
+    .dark-select{padding:7px 10px;font-size:0.78rem;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--ink-70);font-family:var(--font-sans);outline:none;cursor:pointer}
+    .dark-select option{background:var(--white)}
     .chart-area{display:flex;align-items:flex-end;gap:var(--s-2);padding:var(--s-5);height:200px}
     .bar-grp{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
     .bar-fill{width:100%;height:0%;border-radius:3px 3px 0 0;transition:height 1.1s cubic-bezier(0.34,1.56,0.64,1);min-height:3px}
     .bf--green{background:linear-gradient(to top,var(--green-mid),rgba(27,67,50,0.45))}
     .bf--gold{background:linear-gradient(to top,var(--gold),rgba(200,151,43,0.35))}
-    .bar-val{font-size:0.62rem;color:rgba(255,255,255,0.45)}
-    .bar-label{font-size:0.6rem;color:rgba(255,255,255,0.3);text-align:center}
+    .bar-val{font-size:0.62rem;color:var(--ink-60)}
+    .bar-label{font-size:0.6rem;color:var(--ink-40);text-align:center}
     .adm-2col{display:grid;grid-template-columns:3fr 2fr;gap:var(--s-5);margin-bottom:var(--s-5)}
     .dt-dark{width:100%;border-collapse:collapse}
-    .dt-dark th{padding:var(--s-3) var(--s-4);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.28);text-align:left;background:rgba(255,255,255,0.025);border-bottom:1px solid rgba(255,255,255,0.07);white-space:nowrap}
-    .dt-dark td{padding:var(--s-3) var(--s-4);font-size:0.8rem;color:rgba(255,255,255,0.72);border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}
-    .dt-dark tbody tr:hover{background:rgba(255,255,255,0.03)}
+    .dt-dark th{padding:var(--s-3) var(--s-4);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-40);text-align:left;background:var(--ink-02);border-bottom:1px solid var(--border);white-space:nowrap}
+    .dt-dark td{padding:var(--s-3) var(--s-4);font-size:0.8rem;color:var(--ink-70);border-bottom:1px solid var(--border);vertical-align:middle}
+    .dt-dark tbody tr:hover{background:var(--ink-02)}
     .dt-dark tbody tr:last-child td{border:none}
-    .dt-dark thead{background:rgba(255,255,255,0.025)!important}.dt-dark th{background:rgba(255,255,255,0.025)!important;color:rgba(255,255,255,0.28)!important;border-bottom:1px solid rgba(255,255,255,0.07)!important}.dt-dark td{background:transparent!important;color:rgba(255,255,255,0.72)!important;border-bottom:1px solid rgba(255,255,255,0.05)!important}.dt-dark tr:hover td,.dt-dark tbody tr:hover td{background:rgba(255,255,255,0.03)!important}.dt-dark tr:last-child td,.dt-dark tbody tr:last-child td{border-bottom:none!important}
-    .wt{color:var(--white);font-weight:600}.gt{color:rgba(255,255,255,0.35);font-size:0.72rem}
-    .fill-bar{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-top:4px}
+    .dt-dark thead{background:var(--ink-02)!important}.dt-dark th{background:var(--ink-02)!important;color:var(--ink-40)!important;border-bottom:1px solid var(--border)!important}.dt-dark td{background:transparent!important;color:var(--ink-70)!important;border-bottom:1px solid var(--border)!important}.dt-dark tr:hover td,.dt-dark tbody tr:hover td{background:var(--ink-02)!important}.dt-dark tr:last-child td,.dt-dark tbody tr:last-child td{border-bottom:none!important}
+    .wt{color:var(--ink-90);font-weight:600}.gt{color:var(--ink-40);font-size:0.72rem}
+    .fill-bar{height:6px;background:var(--ink-05);border-radius:3px;overflow:hidden;margin-top:4px}
     .fill-bar__in{height:100%;background:var(--gold);border-radius:3px;transition:width 1s}
     @media(max-width:1100px){.adm-2col{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
@@ -117,11 +117,11 @@
       <div class="acard">
         <div class="acard__hd"><span class="acard__title">শীর্ষ ক্যাটাগরি (জিজ্ঞাসা)</span></div>
         <div style="padding:var(--s-4) var(--s-5)">
-          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:rgba(255,255,255,0.7)">টেক্সটাইল ও গার্মেন্টস</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">২৮%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:28%"></div></div></div>
-          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:rgba(255,255,255,0.7)">কৃষি ও খাদ্যপণ্য</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">২২%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:22%"></div></div></div>
-          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:rgba(255,255,255,0.7)">ইলেকট্রনিক্স</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৭%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:17%"></div></div></div>
-          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:rgba(255,255,255,0.7)">হস্তশিল্প</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৪%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:14%"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:rgba(255,255,255,0.7)">অন্যান্য</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৯%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:19%"></div></div></div>
+          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--ink-70)">টেক্সটাইল ও গার্মেন্টস</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">২৮%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:28%"></div></div></div>
+          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--ink-70)">কৃষি ও খাদ্যপণ্য</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">২২%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:22%"></div></div></div>
+          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--ink-70)">ইলেকট্রনিক্স</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৭%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:17%"></div></div></div>
+          <div style="margin-bottom:var(--s-4)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--ink-70)">হস্তশিল্প</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৪%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:14%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.8rem;color:var(--ink-70)">অন্যান্য</span><span style="font-size:0.75rem;color:var(--gold);font-weight:700">১৯%</span></div><div class="fill-bar"><div class="fill-bar__in" style="width:19%"></div></div></div>
         </div>
       </div>
     </div>
@@ -131,11 +131,11 @@
       <table class="dt-dark">
         <thead><tr><th>#</th><th>জেলা</th><th>বিক্রেতা</th><th>পণ্য</th><th>জিজ্ঞাসা</th><th>প্রবৃদ্ধি</th></tr></thead>
         <tbody>
-          <tr><td class="wt">১</td><td class="wt">ঢাকা</td><td>৬৮৪</td><td>১৮,৪০০</td><td>৩,২৩০</td><td style="color:#4ade80">▲ ১৪%</td></tr>
-          <tr><td class="wt">২</td><td class="wt">চট্টগ্রাম</td><td>৪১২</td><td>১০,৮৯০</td><td>১,৯৮০</td><td style="color:#4ade80">▲ ১১%</td></tr>
-          <tr><td class="wt">৩</td><td class="wt">নারায়ণগঞ্জ</td><td>২৮৩</td><td>৭,৬৩০</td><td>১,৪৫০</td><td style="color:#4ade80">▲ ৮%</td></tr>
-          <tr><td class="wt">৪</td><td class="wt">গাজীপুর</td><td>২১৫</td><td>৫,৯৪০</td><td>১,১২০</td><td style="color:#fbbf24">▲ ৩%</td></tr>
-          <tr><td class="wt">৫</td><td class="wt">সিলেট</td><td>১৮৮</td><td>৪,৮৭০</td><td>৮৯০</td><td style="color:#4ade80">▲ ৯%</td></tr>
+          <tr><td class="wt">১</td><td class="wt">ঢাকা</td><td>৬৮৪</td><td>১৮,৪০০</td><td>৩,২৩০</td><td style="color:#1a7a45">▲ ১৪%</td></tr>
+          <tr><td class="wt">২</td><td class="wt">চট্টগ্রাম</td><td>৪১২</td><td>১০,৮৯০</td><td>১,৯৮০</td><td style="color:#1a7a45">▲ ১১%</td></tr>
+          <tr><td class="wt">৩</td><td class="wt">নারায়ণগঞ্জ</td><td>২৮৩</td><td>৭,৬৩০</td><td>১,৪৫০</td><td style="color:#1a7a45">▲ ৮%</td></tr>
+          <tr><td class="wt">৪</td><td class="wt">গাজীপুর</td><td>২১৫</td><td>৫,৯৪০</td><td>১,১২০</td><td style="color:#8a6218">▲ ৩%</td></tr>
+          <tr><td class="wt">৫</td><td class="wt">সিলেট</td><td>১৮৮</td><td>৪,৮৭০</td><td>৮৯০</td><td style="color:#1a7a45">▲ ৯%</td></tr>
         </tbody>
       </table>
     </div>

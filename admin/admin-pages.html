@@ -5,8 +5,8 @@
   <title>CMS পেজ — বাংলাবাজার অ্যাডমিন</title>
   <link rel="stylesheet" href="../assets/css/main.css" />
   <style>
-    html,body{background:#0a1810!important;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
-    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    body{background:var(--parchment)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
     .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
     .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
     .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
@@ -19,27 +19,27 @@
     .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
     .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
     .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
-    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-main{margin-left:240px;background:var(--parchment);min-height:100vh;padding:var(--s-6) var(--s-8)}
     .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
-    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
-    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .adm-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:3px}
     .adm-2col{display:grid;grid-template-columns:240px 1fr;gap:var(--s-5)}
-    .page-list{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden}
-    .page-list__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);font-family:var(--font-serif);font-size:0.9rem;font-weight:700;color:var(--white)}
-    .page-item{display:flex;align-items:center;justify-content:space-between;padding:var(--s-3) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.14s}
+    .page-list{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);overflow:hidden}
+    .page-list__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid var(--ink-10);font-family:var(--font-serif);font-size:0.9rem;font-weight:700;color:var(--green-deep)}
+    .page-item{display:flex;align-items:center;justify-content:space-between;padding:var(--s-3) var(--s-5);border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.14s}
     .page-item:last-child{border:none}
     .page-item:hover,.page-item.active{background:rgba(200,151,43,0.07)}
     .page-item.active .page-item__name{color:var(--gold);font-weight:600}
-    .page-item__name{font-size:0.85rem;color:rgba(255,255,255,0.65)}
-    .page-str{font-size:0.65rem;color:rgba(255,255,255,0.25)}
-    .editor-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden}
-    .editor-card__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
-    .editor-title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
-    .fi-dark{padding:9px 12px;background:#162817;border:1px solid rgba(255,255,255,0.12);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;transition:border-color 0.15s;color-scheme:dark}.fi-dark:focus{border-color:var(--gold)}.fi-dark::placeholder{color:rgba(255,255,255,0.25)}.fi-dark option{background:#0f1f12;color:rgba(255,255,255,0.82)}
+    .page-item__name{font-size:0.85rem;color:var(--ink-70)}
+    .page-str{font-size:0.65rem;color:var(--ink-40)}
+    .editor-card{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);overflow:hidden}
+    .editor-card__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid var(--ink-10);display:flex;align-items:center;justify-content:space-between}
+    .editor-title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--green-deep)}
+    .fi-dark{padding:9px 12px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--ink);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;transition:border-color 0.15s}.fi-dark:focus{border-color:var(--green-mid)}.fi-dark::placeholder{color:var(--ink-40)}.fi-dark option{background:var(--white);color:var(--ink)}
     .form-group-dark{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--s-4)}
-    .form-label-dark{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em}
+    .form-label-dark{font-size:0.72rem;font-weight:600;color:var(--ink-60);text-transform:uppercase;letter-spacing:0.05em}
     .editor-body{padding:var(--s-5)}
-    .editor-area{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:240px;padding:var(--s-3);transition:border-color 0.15s}.editor-area:focus{border-color:var(--gold)}.editor-area::placeholder{color:rgba(255,255,255,0.25)}
+    .editor-area{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--ink);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:240px;padding:var(--s-3);transition:border-color 0.15s}.editor-area:focus{border-color:var(--green-mid)}.editor-area::placeholder{color:var(--ink-40)}
     .aab{padding:6px 14px;font-size:0.78rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
     .aab--save{background:rgba(200,151,43,0.1);color:var(--gold);border-color:rgba(200,151,43,0.25)}.aab--save:hover{background:rgba(200,151,43,0.22)}
     @media(max-width:1000px){.adm-2col{grid-template-columns:1fr}}
@@ -80,10 +80,10 @@
 
     <!-- Summary Stats -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);margin-bottom:var(--s-6)">
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--gold)">৯</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">মোট পেজ</div></div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:#4ade80">৯</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">প্রকাশিত</div></div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:rgba(255,255,255,0.4)">০</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">খসড়া</div></div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--white)">SEO</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">সব পেজে সেট</div></div>
+      <div style="background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--gold)">৯</div><div style="font-size:0.72rem;color:var(--ink-60)">মোট পেজ</div></div>
+      <div style="background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:#1a7a45">৯</div><div style="font-size:0.72rem;color:var(--ink-60)">প্রকাশিত</div></div>
+      <div style="background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--ink-40)">০</div><div style="font-size:0.72rem;color:var(--ink-60)">খসড়া</div></div>
+      <div style="background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--green-deep)">SEO</div><div style="font-size:0.72rem;color:var(--ink-60)">সব পেজে সেট</div></div>
     </div>
 
     <div class="adm-2col">
@@ -92,39 +92,39 @@
         <div class="page-list__hd">📄 পেজ তালিকা</div>
         <div class="page-item active" onclick="selectPage('about')">
           <div><div class="page-item__name">আমাদের সম্পর্কে</div><div class="page-str">about.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('contact')">
           <div><div class="page-item__name">যোগাযোগ করুন</div><div class="page-str">contact.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('privacy')">
           <div><div class="page-item__name">গোপনীয়তা নীতি</div><div class="page-str">privacy.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('terms')">
           <div><div class="page-item__name">সেবার শর্তাবলী</div><div class="page-str">terms.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('faq')">
           <div><div class="page-item__name">সচরাচর জিজ্ঞাসা</div><div class="page-str">faq.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('help')">
           <div><div class="page-item__name">সাহায্য কেন্দ্র</div><div class="page-str">help.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('seller-guide')">
           <div><div class="page-item__name">বিক্রেতা গাইড</div><div class="page-str">seller-guide.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('buyer-guide')">
           <div><div class="page-item__name">ক্রেতা গাইড</div><div class="page-str">buyer-guide.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
         <div class="page-item" onclick="selectPage('success-stories')">
           <div><div class="page-item__name">সফলতার গল্প</div><div class="page-str">success-stories.html</div></div>
-          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(26,122,69,0.08);color:#1a7a45">প্রকাশিত</span>
         </div>
       </div>
 
@@ -133,7 +133,7 @@
         <div class="editor-card__hd">
           <span class="editor-title" id="editor-title">আমাদের সম্পর্কে — সম্পাদনা</span>
           <div style="display:flex;gap:var(--s-2)">
-            <a id="preview-link" href="../about.html" target="_blank" class="aab" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1)">👁️ প্রিভিউ</a>
+            <a id="preview-link" href="../about.html" target="_blank" class="aab" style="background:var(--parchment);color:var(--ink-60);border-color:var(--cream-dark)">👁️ প্রিভিউ</a>
             <button class="aab aab--save" onclick="savePage()">💾 সংরক্ষণ করুন</button>
           </div>
         </div>
@@ -169,18 +169,18 @@
 ২০২৫ সালে ঢাকায় প্রতিষ্ঠিত।</textarea>
           </div>
           <!-- Publish Controls -->
-          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.07);padding-top:var(--s-4)">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:var(--s-4)">
             <div style="display:flex;align-items:center;gap:var(--s-3)">
-              <label style="font-size:0.78rem;color:rgba(255,255,255,0.45)">স্ট্যাটাস:</label>
+              <label style="font-size:0.78rem;color:var(--ink-60)">স্ট্যাটাস:</label>
               <select class="fi-dark" style="width:auto;padding:6px 10px">
                 <option value="published">প্রকাশিত</option>
                 <option value="draft">খসড়া</option>
               </select>
-              <label style="font-size:0.78rem;color:rgba(255,255,255,0.45)">শেষ সম্পাদনা:</label>
-              <span id="last-edited" style="font-size:0.78rem;color:rgba(255,255,255,0.3)">আজ ১৫:৩২</span>
+              <label style="font-size:0.78rem;color:var(--ink-60)">শেষ সম্পাদনা:</label>
+              <span id="last-edited" style="font-size:0.78rem;color:var(--ink-40)">আজ ১৫:৩২</span>
             </div>
             <div style="display:flex;gap:var(--s-2)">
-              <button class="aab" style="background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.4);border-color:rgba(255,255,255,0.08)" onclick="BB.showToast('পূর্ববর্তী সংস্করণ পুনরুদ্ধার করা হয়েছে')">↩ পূর্বাবস্থা</button>
+              <button class="aab" style="background:var(--parchment);color:var(--ink-60);border-color:var(--cream-dark)" onclick="BB.showToast('পূর্ববর্তী সংস্করণ পুনরুদ্ধার করা হয়েছে')">↩ পূর্বাবস্থা</button>
               <button class="aab aab--save" onclick="savePage()">💾 পেজ সংরক্ষণ করুন</button>
             </div>
           </div>

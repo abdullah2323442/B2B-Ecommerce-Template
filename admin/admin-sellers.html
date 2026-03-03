@@ -5,8 +5,8 @@
   <title>বিক্রেতা যাচাই — বাংলাবাজার অ্যাডমিন</title>
   <link rel="stylesheet" href="../assets/css/main.css" />
   <style>
-    html,body{background:#0a1810!important;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
-    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    body{background:var(--parchment)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
     .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
     .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
     .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
@@ -19,29 +19,29 @@
     .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
     .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
     .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
-    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-main{margin-left:240px;background:var(--parchment);min-height:100vh;padding:var(--s-6) var(--s-8)}
     .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
-    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
-    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
-    .seller-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-5);margin-bottom:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .adm-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:3px}
+    .seller-card{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);margin-bottom:var(--s-4)}
     .seller-card__top{display:flex;align-items:flex-start;gap:var(--s-4);margin-bottom:var(--s-4)}
     .s-avatar{width:52px;height:52px;border-radius:50%;background:rgba(200,151,43,0.12);border:1.5px solid rgba(200,151,43,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
     .s-info{flex:1}
-    .s-name{font-family:var(--font-serif);font-size:1rem;font-weight:700;color:var(--white)}
-    .s-meta{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:3px}
+    .s-name{font-family:var(--font-serif);font-size:1rem;font-weight:700;color:var(--green-deep)}
+    .s-meta{font-size:0.75rem;color:var(--ink-60);margin-top:3px}
     .s-docs{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-bottom:var(--s-4)}
-    .doc-chip{padding:5px 12px;border-radius:var(--r-md);font-size:0.72rem;font-weight:600;display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);cursor:pointer;transition:all 0.14s}.doc-chip:hover{border-color:var(--gold);color:var(--gold)}
+    .doc-chip{padding:5px 12px;border-radius:var(--r-md);font-size:0.72rem;font-weight:600;display:flex;align-items:center;gap:5px;background:var(--parchment);border:1px solid var(--cream-dark);color:var(--ink-60);cursor:pointer;transition:all 0.14s}.doc-chip:hover{border-color:var(--gold);color:var(--gold)}
     .s-actions{display:flex;gap:var(--s-3);flex-wrap:wrap}
     .aab{padding:6px 14px;font-size:0.78rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
     .aab--verify{background:rgba(200,151,43,0.1);color:var(--gold);border-color:rgba(200,151,43,0.25)}.aab--verify:hover{background:rgba(200,151,43,0.22)}
-    .aab--approve{background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.25)}.aab--approve:hover{background:rgba(74,222,128,0.22)}
-    .aab--reject{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--reject:hover{background:rgba(248,113,113,0.22)}
-    .aab--suspend{background:rgba(251,191,36,0.1);color:#fbbf24;border-color:rgba(251,191,36,0.25)}
+    .aab--approve{background:rgba(26,122,69,0.08);color:#1a7a45;border-color:rgba(26,122,69,0.25)}.aab--approve:hover{background:rgba(26,122,69,0.16)}
+    .aab--reject{background:rgba(185,28,28,0.08);color:#b91c1c;border-color:rgba(185,28,28,0.25)}.aab--reject:hover{background:rgba(185,28,28,0.16)}
+    .aab--suspend{background:rgba(138,98,24,0.08);color:#8a6218;border-color:rgba(138,98,24,0.25)}
     .dbadge{padding:3px 10px;border-radius:var(--r-full);font-size:0.7rem;font-weight:700;white-space:nowrap}
-    .dbadge--pending{background:rgba(251,191,36,0.1);color:#fbbf24}.dbadge--active{background:rgba(74,222,128,0.1);color:#4ade80}
-    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-3);padding:var(--s-3) var(--s-4);background:rgba(255,255,255,0.03);border-radius:var(--r-md);margin-bottom:var(--s-4)}
-    .ig-item__label{font-size:0.65rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px}
-    .ig-item__val{font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600}
+    .dbadge--pending{background:rgba(138,98,24,0.1);color:#8a6218}.dbadge--active{background:rgba(26,122,69,0.1);color:#1a7a45}
+    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-3);padding:var(--s-3) var(--s-4);background:var(--parchment);border-radius:var(--r-md);margin-bottom:var(--s-4)}
+    .ig-item__label{font-size:0.65rem;color:var(--ink-40);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px}
+    .ig-item__val{font-size:0.82rem;color:var(--ink-80);font-weight:600}
     @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}.info-grid{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
@@ -74,7 +74,7 @@
   <main class="adm-main">
     <div class="adm-topbar">
       <div><h1>বিক্রেতা যাচাই</h1><p>নতুন বিক্রেতাদের নথিপত্র পর্যালোচনা ও অনুমোদন</p></div>
-      <span style="font-size:0.85rem;color:#fbbf24;font-weight:600;background:rgba(251,191,36,0.1);padding:6px 14px;border-radius:var(--r-md);border:1px solid rgba(251,191,36,0.2)">৫টি অপেক্ষায়</span>
+      <span style="font-size:0.85rem;color:#8a6218;font-weight:600;background:rgba(138,98,24,0.08);padding:6px 14px;border-radius:var(--r-md);border:1px solid rgba(138,98,24,0.2)">৫টি অপেক্ষায়</span>
     </div>
 
     <!-- Seller 1 -->

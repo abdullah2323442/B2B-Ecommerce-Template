@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../assets/css/main.css" />
   <style>
     /* ── Base ─────────────────────────────────────────── */
-    html,body { background: #0a1810 !important; color: rgba(255,255,255,0.82); }
+    body { background: var(--parchment); }
 
     /* ── Layout ───────────────────────────────────────── */
     .adm-wrap {
@@ -17,7 +17,7 @@
 
     /* ── Sidebar ──────────────────────────────────────── */
     .asb {
-      background: #060d07;
+      background: var(--green-deep);
       position: fixed;
       inset: 0 auto 0 0;
       width: 240px;
@@ -86,7 +86,7 @@
     /* ── Main ─────────────────────────────────────────── */
     .adm-main {
       margin-left: 240px;
-      background: #0f1f12;
+      background: var(--parchment);
       min-height: 100vh;
       padding: var(--s-6) var(--s-8);
     }
@@ -100,18 +100,18 @@
     }
     .adm-topbar__left h1 {
       font-family: var(--font-serif);
-      font-size: 1.5rem; font-weight: 800; color: var(--white);
+      font-size: 1.5rem; font-weight: 800; color: var(--green-deep);
     }
-    .adm-topbar__left p { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 3px; }
+    .adm-topbar__left p { font-size: 0.78rem; color: var(--ink-60); margin-top: 3px; }
     .adm-topbar__right { display: flex; align-items: center; gap: var(--s-3); }
 
     .adm-notif-btn {
       position: relative; width: 38px; height: 38px;
       border-radius: var(--r-md);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--parchment);
+      border: 1px solid var(--cream-dark);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: rgba(255,255,255,0.5);
+      cursor: pointer; color: var(--ink-60);
       transition: all 0.14s;
     }
     .adm-notif-btn:hover { border-color: var(--gold); color: var(--gold); }
@@ -119,7 +119,7 @@
       position: absolute; top: 6px; right: 6px;
       width: 8px; height: 8px;
       background: #dc2626; border-radius: 50%;
-      border: 1.5px solid #0f1f12;
+      border: 1.5px solid var(--parchment);
     }
 
     .adm-avatar {
@@ -139,13 +139,13 @@
       margin-bottom: var(--s-6);
     }
     .asc {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
       border-radius: var(--r-lg);
       padding: var(--s-5); position: relative; overflow: hidden;
       transition: box-shadow 0.2s, background 0.2s;
     }
-    .asc:hover { background: rgba(255,255,255,0.06); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .asc:hover { background: var(--parchment); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
     .asc::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     }
@@ -157,29 +157,29 @@
     .asc--y::before  { background: #f59e0b; }
 
     .asc__icon  { font-size: 1.4rem; margin-bottom: var(--s-2); display: block; }
-    .asc__val   { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 4px; }
-    .asc__label { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-bottom: 3px; line-height: 1.4; }
+    .asc__val   { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 800; color: var(--green-deep); line-height: 1; margin-bottom: 4px; }
+    .asc__label { font-size: 0.72rem; color: var(--ink-60); margin-bottom: 3px; line-height: 1.4; }
     .asc__delta { font-size: 0.68rem; }
-    .delta--up   { color: #4ade80; }
-    .delta--warn { color: #fbbf24; }
-    .delta--down { color: #f87171; }
+    .delta--up   { color: #1a7a45; }
+    .delta--warn { color: #8a6218; }
+    .delta--down { color: #b91c1c; }
 
     /* ── Admin card ─────────────────────────────────────── */
     .acard {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
       border-radius: var(--r-lg);
       overflow: hidden;
       margin-bottom: var(--s-5);
     }
     .acard__hd {
       padding: var(--s-4) var(--s-5);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid var(--ink-10);
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: var(--s-3);
     }
-    .acard__title { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--white); }
-    .acard__badge { font-size: 0.72rem; color: #fbbf24; font-weight: 600; }
+    .acard__title { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--green-deep); }
+    .acard__badge { font-size: 0.72rem; color: var(--gold); font-weight: 600; }
     .acard__link  { font-size: 0.75rem; color: var(--gold); font-weight: 600; text-decoration: none; }
     .acard__link:hover { text-decoration: underline; }
 
@@ -189,25 +189,25 @@
       padding: var(--s-3) var(--s-4);
       font-size: 0.66rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.07em;
-      color: rgba(255,255,255,0.28); text-align: left;
-      background: rgba(255,255,255,0.025);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      color: var(--ink-40); text-align: left;
+      background: var(--ink-02);
+      border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
     .dt-dark td {
       padding: var(--s-3) var(--s-4);
-      font-size: 0.8rem; color: rgba(255,255,255,0.72);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.8rem; color: var(--ink-70);
+      border-bottom: 1px solid var(--border);
       vertical-align: middle;
     }
     .dt-dark tbody tr { transition: background 0.12s, opacity 0.35s; }
-    .dt-dark tbody tr:hover { background: rgba(255,255,255,0.03); }
+    .dt-dark tbody tr:hover { background: var(--ink-02); }
     .dt-dark tbody tr:last-child td { border-bottom: none; }
     /* Override main.css bare-element table rules */
-    .dt-dark thead { background: rgba(255,255,255,0.025) !important; }
-    .dt-dark th { background: rgba(255,255,255,0.025) !important; color: rgba(255,255,255,0.28) !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
-    .dt-dark td { background: transparent !important; color: rgba(255,255,255,0.72) !important; border-bottom: 1px solid rgba(255,255,255,0.05) !important; }
-    .dt-dark tr:hover td, .dt-dark tbody tr:hover td { background: rgba(255,255,255,0.03) !important; }
+    .dt-dark thead { background: var(--ink-02) !important; }
+    .dt-dark th { background: var(--ink-02) !important; color: var(--ink-40) !important; border-bottom: 1px solid var(--border) !important; }
+    .dt-dark td { background: transparent !important; color: var(--ink-70) !important; border-bottom: 1px solid var(--border) !important; }
+    .dt-dark tr:hover td, .dt-dark tbody tr:hover td { background: var(--ink-02) !important; }
     .dt-dark tr:last-child td, .dt-dark tbody tr:last-child td { border-bottom: none !important; }
 
     /* ── Status badges (dark) ────────────────────────────── */
@@ -215,11 +215,11 @@
       padding: 2px 8px; border-radius: var(--r-full);
       font-size: 0.68rem; font-weight: 700; white-space: nowrap;
     }
-    .dbadge--active    { background: rgba(74,222,128,0.1);  color: #4ade80; }
-    .dbadge--pending   { background: rgba(251,191,36,0.1);  color: #fbbf24; }
-    .dbadge--suspended { background: rgba(248,113,113,0.1); color: #f87171; }
-    .dbadge--seller    { background: rgba(74,222,128,0.1);  color: #4ade80; }
-    .dbadge--buyer     { background: rgba(147,197,253,0.1); color: #93c5fd; }
+    .dbadge--active    { background: rgba(26,122,69,0.1);   color: #1a7a45; }
+    .dbadge--pending   { background: rgba(138,98,24,0.1);   color: #8a6218; }
+    .dbadge--suspended { background: rgba(185,28,28,0.09);  color: #b91c1c; }
+    .dbadge--seller    { background: rgba(26,122,69,0.1);   color: #1a7a45; }
+    .dbadge--buyer     { background: rgba(26,107,154,0.1);  color: #1A6B9A; }
 
     /* ── Action buttons ─────────────────────────────────── */
     .aab {
@@ -228,15 +228,15 @@
       transition: all 0.14s; border: 1px solid;
       white-space: nowrap;
     }
-    .aab--approve { background: rgba(74,222,128,0.1);  color: #4ade80; border-color: rgba(74,222,128,0.25); }
+    .aab--approve { background: rgba(26,122,69,0.08);  color: #1a7a45; border-color: rgba(26,122,69,0.25); }
     .aab--approve:hover { background: rgba(74,222,128,0.22); }
-    .aab--reject  { background: rgba(248,113,113,0.1); color: #f87171; border-color: rgba(248,113,113,0.25); }
+    .aab--reject  { background: rgba(185,28,28,0.08); color: #b91c1c; border-color: rgba(185,28,28,0.25); }
     .aab--reject:hover  { background: rgba(248,113,113,0.22); }
-    .aab--suspend { background: rgba(251,191,36,0.1);  color: #fbbf24; border-color: rgba(251,191,36,0.25); }
+    .aab--suspend { background: rgba(138,98,24,0.08);  color: #8a6218; border-color: rgba(138,98,24,0.25); }
     .aab--suspend:hover { background: rgba(251,191,36,0.2); }
-    .aab--restore { background: rgba(74,222,128,0.1);  color: #4ade80; border-color: rgba(74,222,128,0.25); }
+    .aab--restore { background: rgba(26,122,69,0.08);  color: #1a7a45; border-color: rgba(26,122,69,0.25); }
     .aab--restore:hover { background: rgba(74,222,128,0.22); }
-    .aab--delete  { background: rgba(248,113,113,0.1); color: #f87171; border-color: rgba(248,113,113,0.25); }
+    .aab--delete  { background: rgba(185,28,28,0.08); color: #b91c1c; border-color: rgba(185,28,28,0.25); }
     .aab--delete:hover  { background: #dc2626; color: var(--white); border-color: #dc2626; }
     .aab--verify  { background: rgba(200,151,43,0.1);  color: var(--gold); border-color: rgba(200,151,43,0.25); }
     .aab--verify:hover  { background: rgba(200,151,43,0.22); }
@@ -271,8 +271,8 @@
     .bar-grp--gold .bar-fill {
       background: linear-gradient(to top, var(--gold), rgba(200,151,43,0.35));
     }
-    .bar-val   { font-size: 0.62rem; color: rgba(255,255,255,0.45); }
-    .bar-label { font-size: 0.6rem;  color: rgba(255,255,255,0.3); text-align: center; }
+    .bar-val   { font-size: 0.62rem; color: var(--ink-60); }
+    .bar-label { font-size: 0.6rem;  color: var(--ink-40); text-align: center; }
 
     /* ── Reject modal ─────────────────────────────────────── */
     .modal-overlay {
@@ -282,73 +282,72 @@
     }
     .modal-overlay.open { display: flex; }
     .modal-box {
-      background: #0f1f12;
-      border: 1px solid rgba(200,151,43,0.2);
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
       border-radius: var(--r-xl); padding: var(--s-6);
       width: 420px; max-width: 94vw;
       box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
-    .modal-box h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: var(--s-2); }
-    .modal-box p  { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: var(--s-4); }
-    .modal-product-name { color: #f87171; font-weight: 600; }
+    .modal-box h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: var(--s-2); }
+    .modal-box p  { font-size: 0.82rem; color: var(--ink-60); margin-bottom: var(--s-4); }
+    .modal-product-name { color: #b91c1c; font-weight: 600; }
     .modal-textarea {
       width: 100%; padding: var(--s-3);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: var(--white);
+      border: 1.5px solid var(--border);
       border-radius: var(--r-md);
-      color: var(--white); font-family: var(--font-sans); font-size: 0.875rem;
+      color: var(--ink); font-family: var(--font-sans); font-size: 0.875rem;
       resize: vertical; outline: none; height: 90px;
       transition: border-color 0.15s;
     }
-    .modal-textarea:focus { border-color: #f87171; }
-    .modal-textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .modal-textarea:focus { border-color: var(--green-mid); }
+    .modal-textarea::placeholder { color: var(--ink-40); }
     .modal-actions { display: flex; gap: var(--s-3); justify-content: flex-end; margin-top: var(--s-4); }
 
     /* ── Search/filter inputs (dark) ──────────────────────── */
     .dark-search {
       padding: 7px 12px; font-size: 0.78rem;
-      background: #162817;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--r-md); color: rgba(255,255,255,0.7);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md); color: var(--ink-80);
       font-family: var(--font-sans); outline: none; width: 190px;
-      transition: border-color 0.15s; color-scheme: dark;
+      transition: border-color 0.15s;
     }
     .dark-search:focus { border-color: var(--gold); }
-    .dark-search::placeholder { color: rgba(255,255,255,0.25); }
+    .dark-search::placeholder { color: var(--ink-40); }
 
     .dark-select {
       padding: 7px 10px; font-size: 0.78rem;
-      background: #162817;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--r-md); color: rgba(255,255,255,0.7);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md); color: var(--ink-70);
       font-family: var(--font-sans); outline: none; cursor: pointer;
-      color-scheme: dark;
     }
-    .dark-select option { background: #0f1f12; color: rgba(255,255,255,0.82); }
+    .dark-select option { background: var(--white); color: var(--ink); }
 
     /* ── Dark pagination ──────────────────────────────────── */
     .dark-pager {
       padding: var(--s-3) var(--s-5);
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid var(--ink-10);
       display: flex; align-items: center; justify-content: space-between;
     }
-    .dark-pager span { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .dark-pager span { font-size: 0.75rem; color: var(--ink-40); }
     .dpg-btns { display: flex; gap: 4px; }
     .dpg-btn {
       padding: 4px 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--parchment);
+      border: 1px solid var(--cream-dark);
       border-radius: var(--r-md);
-      color: rgba(255,255,255,0.5); font-size: 0.75rem; font-weight: 600;
+      color: var(--ink-60); font-size: 0.75rem; font-weight: 600;
       cursor: pointer; transition: all 0.12s;
     }
-    .dpg-btn:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    .dpg-btn:hover { background: var(--cream-dark); color: var(--ink); }
     .dpg-btn:disabled { opacity: 0.3; cursor: default; }
     .dpg-btn--active { background: var(--gold); border-color: var(--gold); color: var(--green-deep); }
 
     /* White cell text helpers */
-    .wt  { color: var(--white); font-weight: 600; }
-    .gt  { color: rgba(255,255,255,0.35); font-size: 0.72rem; }
+    .wt  { color: var(--ink-90); font-weight: 600; }
+    .gt  { color: var(--ink-40); font-size: 0.72rem; }
 
     /* ── Responsive ───────────────────────────────────────── */
     @media (max-width: 1400px) {
@@ -589,8 +588,8 @@
             </tbody>
           </table>
         </div>
-        <div style="padding:var(--s-3) var(--s-5);border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">১২টির মধ্যে ১–৫ দেখাচ্ছে</span>
+        <div style="padding:var(--s-3) var(--s-5);border-top:1px solid var(--ink-10);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.72rem;color:var(--ink-40);">১২টির মধ্যে ১–৫ দেখাচ্ছে</span>
           <a href="#moderation" style="font-size:0.75rem;color:var(--gold);text-decoration:none;font-weight:600;">বাকি ৭টি দেখুন →</a>
         </div>
       </div>
@@ -599,7 +598,7 @@
       <div class="acard">
         <div class="acard__hd">
           <span class="acard__title">মাসিক জিজ্ঞাসা</span>
-          <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);">আগস্ট ২০২৪ — মার্চ ২০২৬</span>
+          <span style="font-size:0.7rem;color:var(--ink-40);">আগস্ট ২০২৪ — মার্চ ২০২৬</span>
         </div>
         <div class="bar-chart" data-bar-chart>
           <div class="bar-grp">
@@ -643,8 +642,8 @@
             <div class="bar-label" style="color:var(--gold);">মার্চ</div>
           </div>
         </div>
-        <div style="padding:var(--s-3) var(--s-5);border-top:1px solid rgba(255,255,255,0.06);">
-          <div style="font-size:0.7rem;color:rgba(255,255,255,0.28);">
+        <div style="padding:var(--s-3) var(--s-5);border-top:1px solid var(--ink-10);">
+          <div style="font-size:0.7rem;color:var(--ink-40);">
             মার্চ ২০২৬ চলমান · সর্বোচ্চ মাস: নভেম্বর (৬,৪০০ জিজ্ঞাসা)
           </div>
         </div>
@@ -656,7 +655,7 @@
     <div class="acard">
       <div class="acard__hd">
         <span class="acard__title">বিক্রেতা যাচাই সারি</span>
-        <span class="acard__badge" style="color:#4ade80;">৫জন ডকুমেন্ট জমা দিয়েছেন</span>
+        <span class="acard__badge" style="color:#1a7a45;">৫জন ডকুমেন্ট জমা দিয়েছেন</span>
         <a href="#sellers" class="acard__link">সব দেখুন →</a>
       </div>
       <div style="overflow-x:auto;">
@@ -681,7 +680,7 @@
               <td><span class="dbadge dbadge--seller">প্রস্তুতকারক</span></td>
               <td class="gt">২ দিন আগে</td>
               <td>
-                <a href="#" style="font-size:0.72rem;color:#93c5fd;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info')">ট্রেড লাইসেন্স দেখুন</a>
+                <a href="#" style="font-size:0.72rem;color:#1A6B9A;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info')">ট্রেড লাইসেন্স দেখুন</a>
               </td>
               <td>
                 <div class="row-aa">
@@ -699,7 +698,7 @@
               <td><span class="dbadge dbadge--seller">রপ্তানিকারক</span></td>
               <td class="gt">৩ দিন আগে</td>
               <td>
-                <a href="#" style="font-size:0.72rem;color:#93c5fd;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info')">২টি ডকুমেন্ট দেখুন</a>
+                <a href="#" style="font-size:0.72rem;color:#1A6B9A;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info)'">২টি ডকুমেন্ট দেখুন</a>
               </td>
               <td>
                 <div class="row-aa">
@@ -717,7 +716,7 @@
               <td><span class="dbadge dbadge--seller">পাইকারি বিক্রেতা</span></td>
               <td class="gt">৫ দিন আগে</td>
               <td>
-                <a href="#" style="font-size:0.72rem;color:#93c5fd;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info')">ট্রেড লাইসেন্স দেখুন</a>
+                <a href="#" style="font-size:0.72rem;color:#1A6B9A;text-decoration:none;" onclick="BB.showToast('ডকুমেন্ট লোড হচ্ছে...','info')">ট্রেড লাইসেন্স দেখুন</a>
               </td>
               <td>
                 <div class="row-aa">
@@ -775,7 +774,7 @@
               <td><span class="dbadge dbadge--seller">বিক্রেতা ✅</span></td>
               <td class="gt">rahim@textile.bd</td>
               <td class="gt">মার্চ ২০২১</td>
-              <td style="color:#4ade80;font-weight:600;">১৩৮</td>
+              <td style="color:#1a7a45;font-weight:600;">১৩৮</td>
               <td><span class="dbadge dbadge--active">সক্রিয়</span></td>
               <td>
                 <div class="row-aa">
@@ -792,7 +791,7 @@
               <td><span class="dbadge dbadge--buyer">ক্রেতা</span></td>
               <td class="gt">sakib@example.com</td>
               <td class="gt">জুন ২০২৩</td>
-              <td style="color:rgba(255,255,255,0.3);">—</td>
+              <td style="color:var(--ink-40);">—</td>
               <td><span class="dbadge dbadge--active">সক্রিয়</span></td>
               <td>
                 <div class="row-aa">
@@ -809,7 +808,7 @@
               <td><span class="dbadge dbadge--seller">বিক্রেতা</span></td>
               <td class="gt">ctg@fabrics.bd</td>
               <td class="gt">সেপ্টেম্বর ২০২২</td>
-              <td style="color:#4ade80;font-weight:600;">২৩</td>
+              <td style="color:#1a7a45;font-weight:600;">২৩</td>
               <td><span class="dbadge dbadge--pending">যাচাই বাকি</span></td>
               <td>
                 <div class="row-aa">
@@ -821,13 +820,13 @@
             <tr>
               <td class="gt">০০৪</td>
               <td>
-                <span class="wt" style="color:#f87171;">স্প্যাম অ্যাকাউন্ট</span>
+                <span class="wt" style="color:#b91c1c;">স্প্যাম অ্যাকাউন্ট</span>
                 <div class="gt">অজানা</div>
               </td>
               <td><span class="dbadge dbadge--buyer">ক্রেতা</span></td>
               <td class="gt">spam@xyz.com</td>
               <td class="gt">জানুয়ারি ২০২৫</td>
-              <td style="color:rgba(255,255,255,0.3);">—</td>
+              <td style="color:var(--ink-40);">—</td>
               <td><span class="dbadge dbadge--suspended">স্থগিত</span></td>
               <td>
                 <div class="row-aa">
@@ -845,7 +844,7 @@
               <td><span class="dbadge dbadge--seller">বিক্রেতা</span></td>
               <td class="gt">raj@agro.bd</td>
               <td class="gt">ফেব্রুয়ারি ২০২৫</td>
-              <td style="color:#4ade80;font-weight:600;">৪৭</td>
+              <td style="color:#1a7a45;font-weight:600;">৪৭</td>
               <td><span class="dbadge dbadge--active">সক্রিয়</span></td>
               <td>
                 <div class="row-aa">
@@ -864,7 +863,7 @@
           <button class="dpg-btn dpg-btn--active">১</button>
           <button class="dpg-btn">২</button>
           <button class="dpg-btn">৩</button>
-          <span style="padding:4px 4px;color:rgba(255,255,255,0.3);font-size:0.8rem;">...</span>
+          <span style="padding:4px 4px;color:var(--ink-40);font-size:0.8rem;">...</span>
           <button class="dpg-btn">৫৭১</button>
           <button class="dpg-btn">→</button>
         </div>
@@ -879,10 +878,10 @@
   <div class="modal-box">
     <h3>পণ্য প্রত্যাখ্যান করুন</h3>
     <p>পণ্য: <span class="modal-product-name" id="modal-product-name"></span></p>
-    <label style="font-size:0.78rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">প্রত্যাখ্যানের কারণ লিখুন (বিক্রেতা দেখতে পাবেন) *</label>
+    <label style="font-size:0.78rem;color:var(--ink-60);display:block;margin-bottom:6px;">প্রত্যাখ্যানের কারণ লিখুন (বিক্রেতা দেখতে পাবেন) *</label>
     <textarea class="modal-textarea" id="reject-reason" placeholder="যেমন: ছবি স্পষ্ট না। অনুগ্রহ করে স্পষ্ট ছবি আপলোড করুন..."></textarea>
     <div class="modal-actions">
-      <button class="aab" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.1);" onclick="closeRejectModal()">বাতিল</button>
+      <button class="aab" style="background:var(--parchment);color:var(--ink-60);border-color:var(--cream-dark);" onclick="closeRejectModal()">বাতিল</button>
       <button class="aab aab--reject" style="padding:8px 18px;" onclick="confirmReject()">✗ নিশ্চিত প্রত্যাখ্যান</button>
     </div>
   </div>
