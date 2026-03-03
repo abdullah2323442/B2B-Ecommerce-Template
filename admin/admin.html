@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../assets/css/main.css" />
   <style>
     /* ── Base ─────────────────────────────────────────── */
-    body { background: #0a1810; color: rgba(255,255,255,0.82); }
+    html,body { background: #0a1810 !important; color: rgba(255,255,255,0.82); }
 
     /* ── Layout ───────────────────────────────────────── */
     .adm-wrap {
@@ -203,6 +203,12 @@
     .dt-dark tbody tr { transition: background 0.12s, opacity 0.35s; }
     .dt-dark tbody tr:hover { background: rgba(255,255,255,0.03); }
     .dt-dark tbody tr:last-child td { border-bottom: none; }
+    /* Override main.css bare-element table rules */
+    .dt-dark thead { background: rgba(255,255,255,0.025) !important; }
+    .dt-dark th { background: rgba(255,255,255,0.025) !important; color: rgba(255,255,255,0.28) !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+    .dt-dark td { background: transparent !important; color: rgba(255,255,255,0.72) !important; border-bottom: 1px solid rgba(255,255,255,0.05) !important; }
+    .dt-dark tr:hover td, .dt-dark tbody tr:hover td { background: rgba(255,255,255,0.03) !important; }
+    .dt-dark tr:last-child td, .dt-dark tbody tr:last-child td { border-bottom: none !important; }
 
     /* ── Status badges (dark) ────────────────────────────── */
     .dbadge {
@@ -312,12 +318,13 @@
 
     .dark-select {
       padding: 7px 10px; font-size: 0.78rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #162817;
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: var(--r-md); color: rgba(255,255,255,0.7);
       font-family: var(--font-sans); outline: none; cursor: pointer;
+      color-scheme: dark;
     }
-    .dark-select option { background: #0f1f12; }
+    .dark-select option { background: #0f1f12; color: rgba(255,255,255,0.82); }
 
     /* ── Dark pagination ──────────────────────────────────── */
     .dark-pager {
