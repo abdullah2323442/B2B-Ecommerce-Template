@@ -341,12 +341,60 @@ function highlightActiveNav() {
   });
 }
 
+/* ── Hamburger / Mobile Nav Drawer ──────────────────────────── */
+function initHamburgerNav() {
+  const toggle   = document.getElementById('navToggle');
+  const menu     = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('mobileMenuClose');
+
+  if (!toggle || !menu) return;
+
+  function openMenu() {
+    menu.classList.add('is-open');
+    toggle.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'মেনু বন্ধ করুন');
+  }
+
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    toggle.classList.remove('is-open');
+    document.body.style.overflow = '';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'মেনু খুলুন');
+  }
+
+  toggle.addEventListener('click', () =>
+    menu.classList.contains('is-open') ? closeMenu() : openMenu()
+  );
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  // Close when clicking the backdrop (outside the panel)
+  menu.addEventListener('click', (e) => {
+    const panel = menu.querySelector('.navbar__mobile-menu__panel');
+    if (panel && !panel.contains(e.target)) closeMenu();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Close when resizing back to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+}
+
 /* ── Init All ───────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initOtpInputs();
   initSaveButtons();
   initTabs();
   initMobileMenu();
+  initHamburgerNav();
   initEnquiryButtons();
   initSearchSuggestions();
   initGallery();

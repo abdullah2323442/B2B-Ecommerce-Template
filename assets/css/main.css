@@ -499,6 +499,48 @@ h4 { font-size: 1.1rem; font-family: var(--font-sans); font-weight: 600; }
   color: var(--gold);
 }
 
+/* ── Hamburger Toggle ─────────────────────────────────────── */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(200,151,43,0.25);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background var(--t-fast);
+}
+
+.navbar__toggle:hover {
+  background: rgba(200,151,43,0.18);
+}
+
+.navbar__toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: var(--r-full);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.navbar__toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar__toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.navbar__toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile Nav Drawer ────────────────────────────────────── */
+.navbar__mobile-menu {
+  display: none;
+}
+
 /* Notification badge */
 .badge {
   display: inline-flex;
@@ -1946,8 +1988,129 @@ tr:hover td {
 @media (max-width: 768px) {
   .container { padding-inline: var(--s-4); }
 
-  .navbar__search { display: none; }
-  .navbar__inner  { gap: var(--s-3); }
+  .navbar__search  { display: none; }
+  .navbar__inner   { gap: var(--s-3); }
+  .navbar__actions { display: none; }
+  .navbar__toggle  { display: flex; }
+
+  /* Mobile drawer */
+  .navbar__mobile-menu {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  .navbar__mobile-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.50);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .navbar__mobile-menu.is-open {
+    pointer-events: auto;
+  }
+
+  .navbar__mobile-menu.is-open::before {
+    opacity: 1;
+  }
+
+  .navbar__mobile-menu__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    max-width: 85vw;
+    height: 100%;
+    background: var(--green-deep);
+    border-left: 1px solid rgba(200,151,43,0.20);
+    padding: var(--s-5) var(--s-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    overflow-y: auto;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.25);
+  }
+
+  .navbar__mobile-menu.is-open .navbar__mobile-menu__panel {
+    transform: translateX(0);
+  }
+
+  .mobile-nav__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--s-4);
+    padding-bottom: var(--s-4);
+    border-bottom: 1px solid rgba(200,151,43,0.15);
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__close {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.07);
+    border: none;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    color: rgba(255,255,255,0.70);
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: background var(--t-fast), color var(--t-fast);
+  }
+
+  .mobile-nav__close:hover {
+    background: rgba(200,151,43,0.18);
+    color: var(--gold);
+  }
+
+  .mobile-nav__link {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    color: rgba(255,255,255,0.80);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: var(--r-md);
+    text-decoration: none;
+    transition: background var(--t-fast), color var(--t-fast);
+  }
+
+  .mobile-nav__link:hover {
+    background: rgba(200,151,43,0.12);
+    color: var(--gold);
+  }
+
+  .mobile-nav__link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.70;
+  }
+
+  .mobile-nav__divider {
+    height: 1px;
+    background: rgba(200,151,43,0.12);
+    margin: var(--s-2) 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__cta {
+    margin-top: auto;
+    padding-top: var(--s-4);
+    flex-shrink: 0;
+  }
 
   .dashboard-layout {
     grid-template-columns: 1fr;
