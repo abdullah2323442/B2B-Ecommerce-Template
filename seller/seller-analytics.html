@@ -68,6 +68,8 @@
     .geo-table th{padding:var(--s-2) var(--s-4);font-size:0.64rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-40);background:var(--ink-02);border-bottom:1px solid var(--border);text-align:left}
     .geo-table td{padding:var(--s-3) var(--s-4);color:var(--ink-70);border-bottom:1px solid var(--border)}
     .geo-table tbody tr:last-child td{border:none}
+    /* Override main.css bare table selectors */
+    .geo-table thead{background:var(--ink-02)!important}.geo-table th{background:var(--ink-02)!important;color:var(--ink-40)!important;border-bottom:1px solid var(--border)!important}.geo-table td{background:transparent!important}.geo-table tr:hover td,.geo-table tbody tr:hover td{background:var(--ink-02)!important}.geo-table tr:last-child td,.geo-table tbody tr:last-child td{border-bottom:none!important}
     @media(max-width:1100px){.charts-2{grid-template-columns:1fr}}
     @media(max-width:900px){.dash-main{margin-left:0;padding:var(--s-5)}.sb{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:500px){.kpi-grid{grid-template-columns:1fr}}

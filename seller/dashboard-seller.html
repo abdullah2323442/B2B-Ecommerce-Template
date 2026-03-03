@@ -377,6 +377,12 @@
     .dt tbody tr { transition: background 0.1s; }
     .dt tbody tr:hover { background: var(--parchment); }
     .dt tbody tr:last-child td { border-bottom: none; }
+    /* Override main.css bare table selectors */
+    .dt thead { background: var(--parchment) !important; }
+    .dt th { background: var(--parchment) !important; color: var(--ink-60) !important; border-bottom: 1px solid var(--cream-dark) !important; }
+    .dt td { background: transparent !important; }
+    .dt tr:hover td, .dt tbody tr:hover td { background: var(--parchment) !important; }
+    .dt tr:last-child td, .dt tbody tr:last-child td { border-bottom: none !important; }
 
     .prod-link { font-weight: 600; color: var(--green-mid); text-decoration: none; font-size: 0.875rem; }
     .prod-link:hover { text-decoration: underline; }

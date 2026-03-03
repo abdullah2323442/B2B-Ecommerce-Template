@@ -59,6 +59,12 @@
     table.pt tbody tr { transition: background 0.1s; }
     table.pt tbody tr:hover { background: var(--ink-02); }
     table.pt tbody tr:last-child td { border-bottom: none; }
+    /* Override main.css bare table selectors */
+    table.pt thead { background: var(--ink-02) !important; }
+    table.pt th { background: var(--ink-02) !important; color: var(--ink-40) !important; border-bottom: 1px solid var(--border) !important; }
+    table.pt td { background: transparent !important; }
+    table.pt tr:hover td, table.pt tbody tr:hover td { background: var(--ink-02) !important; }
+    table.pt tr:last-child td, table.pt tbody tr:last-child td { border-bottom: none !important; }
     table.pt tbody tr.row--rejected { background: rgba(220,38,38,0.03); }
     .wt { color: var(--ink-90); font-weight: 600; }
     .gt { color: var(--ink-40); font-size: 0.72rem; }
