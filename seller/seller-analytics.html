@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পরিসংখ্যান — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:var(--parchment)}.dash-wrap{display:block;min-height:100vh}
+    .sb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:260px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;box-shadow:2px 0 24px rgba(0,0,0,0.2)}
+    .sb__brand{padding:22px var(--s-6);border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0}.sb__brand a{text-decoration:none}
+    .sb__brand-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--gold);display:block}
+    .sb__brand-sub{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+    .sb__user{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:var(--s-3);flex-shrink:0}
+    .sb__avatar{width:40px;height:40px;border-radius:50%;background:rgba(200,151,43,0.18);border:1.5px solid rgba(200,151,43,0.35);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;flex-shrink:0}
+    .sb__username{font-size:0.875rem;font-weight:700;color:var(--white);line-height:1.2}
+    .sb__userrole{font-size:0.65rem;color:#4ade80;display:flex;align-items:center;gap:4px;margin-top:2px}
+    .sb__nav{flex:1;padding:var(--s-3) 0}.sb__label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.2);padding:var(--s-4) var(--s-6) var(--s-1)}
+    .sb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-6);font-size:0.875rem;color:rgba(255,255,255,0.58);transition:all 0.14s;border-left:3px solid transparent;text-decoration:none}
+    .sb__item:hover{color:var(--white);background:rgba(255,255,255,0.05);border-left-color:rgba(200,151,43,0.35)}
+    .sb__item.active{color:var(--white);background:rgba(200,151,43,0.1);border-left-color:var(--gold);font-weight:600}
+    .sb__item .ico{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+    .sb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .sb__badge--gold{background:var(--gold);color:var(--green-deep)}
+    .sb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0}
+    .sb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.32);padding:5px 0;text-decoration:none;transition:color 0.14s}
+    .sb__footer-link:hover{color:rgba(255,255,255,0.7)}
+    .dash-main{margin-left:260px;min-height:100vh;padding:var(--s-6) var(--s-8);background:var(--parchment)}
+    .dash-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .dash-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .dash-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:2px}
+    /* kpi grid */
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);margin-bottom:var(--s-6)}
+    .kpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s-5);position:relative;overflow:hidden}
+    .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .kpi--g::before{background:var(--green-soft)}
+    .kpi--o::before{background:var(--gold)}
+    .kpi--b::before{background:#3b82f6}
+    .kpi--r::before{background:#dc2626}
+    .kpi__val{font-family:var(--font-serif);font-size:2rem;font-weight:800;color:var(--green-deep);line-height:1}
+    .kpi__label{font-size:0.72rem;color:var(--ink-50);margin:4px 0 3px}
+    .kpi__delta{font-size:0.7rem;font-weight:600}
+    .delta-up{color:#1a7a45}.delta-dn{color:#b91c1c}
+    /* chart panels */
+    .charts-2{display:grid;grid-template-columns:3fr 2fr;gap:var(--s-5);margin-bottom:var(--s-5)}
+    .panel{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+    .panel__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .panel__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--green-deep)}
+    /* bar chart */
+    .bar-chart{display:flex;align-items:flex-end;gap:var(--s-2);padding:var(--s-5);height:180px}
+    .bar-grp{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+    .bar-fill{width:100%;height:0%;background:linear-gradient(to top,var(--green-mid),rgba(27,67,50,0.3));border-radius:3px 3px 0 0;transition:height 1.1s cubic-bezier(0.34,1.56,0.64,1);min-height:3px}
+    .bar-grp--gold .bar-fill{background:linear-gradient(to top,var(--gold),rgba(200,151,43,0.3))}
+    .bar-val{font-size:0.6rem;color:var(--ink-50)}
+    .bar-label{font-size:0.6rem;color:var(--ink-40);text-align:center}
+    /* top products */
+    .top-prod-list{padding:var(--s-4) var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)}
+    .top-prod-item{display:flex;align-items:center;gap:var(--s-3)}
+    .tp-rank{width:22px;height:22px;border-radius:50%;background:var(--ink-05);font-size:0.65rem;font-weight:800;color:var(--ink-50);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tp-rank--1{background:var(--gold);color:var(--white)}
+    .tp-info{flex:1;min-width:0}
+    .tp-name{font-size:0.8rem;font-weight:600;color:var(--ink-90);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tp-bar-wrap{flex:1;height:6px;background:var(--ink-05);border-radius:3px;overflow:hidden}
+    .tp-bar{height:100%;background:var(--green-soft);border-radius:3px;transition:width 0.8s ease}
+    .tp-count{font-size:0.72rem;color:var(--ink-50);width:40px;text-align:right;flex-shrink:0}
+    /* geo table */
+    .geo-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+    .geo-table th{padding:var(--s-2) var(--s-4);font-size:0.64rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-40);background:var(--ink-02);border-bottom:1px solid var(--border);text-align:left}
+    .geo-table td{padding:var(--s-3) var(--s-4);color:var(--ink-70);border-bottom:1px solid var(--border)}
+    .geo-table tbody tr:last-child td{border:none}
+    @media(max-width:1100px){.charts-2{grid-template-columns:1fr}}
+    @media(max-width:900px){.dash-main{margin-left:0;padding:var(--s-5)}.sb{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.kpi-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+  <aside class="sb">
+    <div class="sb__brand"><a href="../index.html"><span class="sb__brand-name">বাংলাবাজার</span><span class="sb__brand-sub">বিক্রেতা প্যানেল</span></a></div>
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div><div class="sb__username">রহিম টেক্সটাইলস</div><div class="sb__userrole"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>যাচাইকৃত বিক্রেতা</div></div>
+    </div>
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="seller-products.html"  class="sb__item"><span class="ico">📦</span> পণ্য তালিকা <span class="sb__badge sb__badge--gold">১৫৩</span></a>
+      <a href="seller-enquiries.html" class="sb__item"><span class="ico">💬</span> জিজ্ঞাসাসমূহ <span class="sb__badge">৮</span></a>
+      <a href="seller-messages.html"  class="sb__item"><span class="ico">✉️</span> বার্তা <span class="sb__badge">৩</span></a>
+      <a href="seller-reviews.html"   class="sb__item"><span class="ico">⭐</span> পর্যালোচনা</a>
+      <a href="seller-rfq.html"       class="sb__item"><span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)</a>
+      <a href="seller-analytics.html" class="sb__item active"><span class="ico">📈</span> পরিসংখ্যান</a>
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html"       class="sb__item"><span class="ico">🏪</span> প্রোফাইল সম্পাদনা</a>
+      <a href="seller-settings.html"      class="sb__item"><span class="ico">⚙️</span> সেটিংস</a>
+      <a href="seller-notifications.html" class="sb__item"><span class="ico">🔔</span> নোটিফিকেশন সেটিং</a>
+    </nav>
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>পাবলিক প্রোফাইল দেখুন</a>
+      <a href="../index.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>মার্কেটপ্লেসে ফিরুন</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div><h1>পরিসংখ্যান</h1><p>মার্চ ২০২৬ — আপনার প্রোফাইলের পারফরম্যান্স</p></div>
+      <select class="filter-select"><option>এই মাস</option><option>গত ৩ মাস</option><option>গত ৬ মাস</option><option>এ বছর</option></select>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi kpi--g"><div class="kpi__val" data-count="4280">০</div><div class="kpi__label">প্রোফাইল ভিউ</div><div class="kpi__delta delta-up">↑ ১৮% গত মাসের তুলনায়</div></div>
+      <div class="kpi kpi--o"><div class="kpi__val" data-count="284">০</div><div class="kpi__label">মোট জিজ্ঞাসা</div><div class="kpi__delta delta-up">↑ ২৩ নতুন এই মাসে</div></div>
+      <div class="kpi kpi--b"><div class="kpi__val" data-count="153">০</div><div class="kpi__label">সক্রিয় পণ্য</div><div class="kpi__delta delta-up">↑ ১২ যোগ হয়েছে</div></div>
+      <div class="kpi kpi--r"><div style="font-family:var(--font-serif);font-size:2rem;font-weight:800;color:var(--green-deep);line-height:1">৪.৭⭐</div><div class="kpi__label">গড় রেটিং</div><div class="kpi__delta delta-up">↑ ০.২ উন্নতি</div></div>
+    </div>
+
+    <div class="charts-2">
+      <div class="panel">
+        <div class="panel__hd"><span class="panel__title">মাসিক জিজ্ঞাসার প্রবাহ</span><span style="font-size:0.7rem;color:var(--ink-40)">গত ৮ মাস</span></div>
+        <div class="bar-chart" data-bar-chart>
+          <div class="bar-grp"><div class="bar-val">৩১</div><div class="bar-fill" data-bar data-value="52"></div><div class="bar-label">আগ</div></div>
+          <div class="bar-grp"><div class="bar-val">২৮</div><div class="bar-fill" data-bar data-value="46"></div><div class="bar-label">সেপ</div></div>
+          <div class="bar-grp"><div class="bar-val">৩৮</div><div class="bar-fill" data-bar data-value="64"></div><div class="bar-label">অক্ট</div></div>
+          <div class="bar-grp"><div class="bar-val">৪৫</div><div class="bar-fill" data-bar data-value="75"></div><div class="bar-label">নভ</div></div>
+          <div class="bar-grp"><div class="bar-val">৩৫</div><div class="bar-fill" data-bar data-value="58"></div><div class="bar-label">ডিস</div></div>
+          <div class="bar-grp"><div class="bar-val">৪২</div><div class="bar-fill" data-bar data-value="70"></div><div class="bar-label">জান</div></div>
+          <div class="bar-grp"><div class="bar-val">৫৮</div><div class="bar-fill" data-bar data-value="96"></div><div class="bar-label">ফেব</div></div>
+          <div class="bar-grp bar-grp--gold"><div class="bar-val" style="color:var(--gold)">৬০</div><div class="bar-fill" data-bar data-value="100"></div><div class="bar-label" style="color:var(--gold)">মার্চ</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__hd"><span class="panel__title">শীর্ষ পণ্য (ভিউ)</span></div>
+        <div class="top-prod-list">
+          <div class="top-prod-item"><span class="tp-rank tp-rank--1">১</span><div class="tp-info"><div class="tp-name">সুতাবালিশ কভার ২০×২০</div></div><div class="tp-bar-wrap"><div class="tp-bar" style="width:100%"></div></div><span class="tp-count">৮৪২</span></div>
+          <div class="top-prod-item"><span class="tp-rank">২</span><div class="tp-info"><div class="tp-name">জুট শপিং ব্যাগ</div></div><div class="tp-bar-wrap"><div class="tp-bar" style="width:73%"></div></div><span class="tp-count">৬১৫</span></div>
+          <div class="top-prod-item"><span class="tp-rank">৩</span><div class="tp-info"><div class="tp-name">পলিস্টার ফ্যাব্রিক ৬০"</div></div><div class="tp-bar-wrap"><div class="tp-bar" style="width:39%"></div></div><span class="tp-count">৩২৮</span></div>
+          <div class="top-prod-item"><span class="tp-rank">৪</span><div class="tp-info"><div class="tp-name">কটন থ্রেড ৫০০গ্রাম</div></div><div class="tp-bar-wrap"><div class="tp-bar" style="width:49%"></div></div><span class="tp-count">৪১২</span></div>
+          <div class="top-prod-item"><span class="tp-rank">৫</span><div class="tp-info"><div class="tp-name">চামড়ার মানিব্যাগ</div></div><div class="tp-bar-wrap"><div class="tp-bar" style="width:22%"></div></div><span class="tp-count">১৮৫</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel__hd"><span class="panel__title">ক্রেতার ভৌগোলিক বিতরণ</span></div>
+      <table class="geo-table">
+        <thead><tr><th>দেশ/অঞ্চল</th><th>জিজ্ঞাসা</th><th>রূপান্তর</th><th>মোট ভিউ</th></tr></thead>
+        <tbody>
+          <tr><td>🇧🇩 বাংলাদেশ</td><td>১৮৬</td><td>৩৪%</td><td>৩,২০০</td></tr>
+          <tr><td>🇩🇪 জার্মানি</td><td>৪২</td><td>২৮%</td><td>৫৮০</td></tr>
+          <tr><td>🇺🇸 যুক্তরাষ্ট্র</td><td>২৮</td><td>১৮%</td><td>৩৯০</td></tr>
+          <tr><td>🇬🇧 যুক্তরাজ্য</td><td>১৮</td><td>২২%</td><td>২৪০</td></tr>
+          <tr><td>অন্যান্য</td><td>১০</td><td>১৫%</td><td>১৫০</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

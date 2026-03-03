@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ব্যানার — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .banner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s-5);padding:var(--s-5)}
+    .banner-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-lg);overflow:hidden}
+    .banner-img{height:120px;background:linear-gradient(135deg,var(--green-mid),rgba(200,151,43,0.3));display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
+    .banner-active-tag{position:absolute;top:8px;right:8px;padding:2px 8px;border-radius:var(--r-full);font-size:0.62rem;font-weight:700}
+    .banner-active-tag--on{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3)}
+    .banner-active-tag--off{background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.2)}
+    .banner-info{padding:var(--s-3) var(--s-4)}
+    .banner-title{font-size:0.88rem;font-weight:600;color:var(--white);margin-bottom:4px}
+    .banner-meta{font-size:0.72rem;color:rgba(255,255,255,0.4)}
+    .banner-actions{padding:var(--s-3) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:var(--s-2);flex-wrap:wrap}
+    .aab{padding:4px 10px;font-size:0.72rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--edit{background:rgba(147,197,253,0.08);color:#93c5fd;border-color:rgba(147,197,253,0.2)}.aab--edit:hover{background:rgba(147,197,253,0.18)}
+    .aab--toggle-on{background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.25)}.aab--toggle-on:hover{background:rgba(74,222,128,0.22)}
+    .aab--toggle-off{background:rgba(251,191,36,0.1);color:#fbbf24;border-color:rgba(251,191,36,0.25)}
+    .aab--delete{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--delete:hover{background:#dc2626;color:var(--white);border-color:#dc2626}
+    .upload-zone{border:2px dashed rgba(255,255,255,0.15);border-radius:var(--r-xl);padding:var(--s-8);text-align:center;cursor:pointer;transition:all 0.14s;margin:var(--s-5)}
+    .upload-zone:hover{border-color:var(--gold);background:rgba(200,151,43,0.04)}
+    .upload-zone__icon{font-size:2.5rem;margin-bottom:var(--s-3)}
+    .upload-zone__text{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-bottom:var(--s-2)}
+    .upload-zone__hint{font-size:0.72rem;color:rgba(255,255,255,0.28)}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item active"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>ব্যানার ব্যবস্থাপনা</h1><p>হোমপেজ ও পণ্য পেজের ব্যানার নিয়ন্ত্রণ করুন</p></div>
+      <button class="btn btn--primary" onclick="BB.showToast('নতুন ব্যানার আপলোড মোড')">+ নতুন ব্যানার</button>
+    </div>
+
+    <div class="acard">
+      <div class="acard__hd"><span class="acard__title">সক্রিয় ব্যানার</span></div>
+      <div class="banner-grid">
+        <div class="banner-card">
+          <div class="banner-img">🏭<span class="banner-active-tag banner-active-tag--on">সক্রিয়</span></div>
+          <div class="banner-info"><div class="banner-title">টেক্সটাইল মেলা ২০২৫</div><div class="banner-meta">অবস্থান: হোমপেজ হিরো · ১ ফেব্রু – ১৫ ফেব্রু</div></div>
+          <div class="banner-actions"><button class="aab aab--edit" onclick="BB.showToast('ব্যানার সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--toggle-off" onclick="BB.showToast('ব্যানার বন্ধ করা হয়েছে')">বন্ধ করুন</button><button class="aab aab--delete" onclick="BB.showToast('ব্যানার মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+        </div>
+        <div class="banner-card">
+          <div class="banner-img" style="background:linear-gradient(135deg,#1a3a6b,rgba(200,151,43,0.4))">🌾<span class="banner-active-tag banner-active-tag--on">সক্রিয়</span></div>
+          <div class="banner-info"><div class="banner-title">কৃষি পণ্য উৎসব</div><div class="banner-meta">অবস্থান: কৃষি ক্যাটাগরি ব্যানার · স্থায়ী</div></div>
+          <div class="banner-actions"><button class="aab aab--edit" onclick="BB.showToast('ব্যানার সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--toggle-off" onclick="BB.showToast('ব্যানার বন্ধ করা হয়েছে')">বন্ধ করুন</button><button class="aab aab--delete" onclick="BB.showToast('ব্যানার মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+        </div>
+        <div class="banner-card">
+          <div class="banner-img" style="background:linear-gradient(135deg,#3b1f6b,rgba(200,151,43,0.3))">🎨<span class="banner-active-tag banner-active-tag--off">বন্ধ</span></div>
+          <div class="banner-info"><div class="banner-title">হস্তশিল্প মাস</div><div class="banner-meta">অবস্থান: হোমপেজ সেকশন · মেয়াদ শেষ</div></div>
+          <div class="banner-actions"><button class="aab aab--edit" onclick="BB.showToast('ব্যানার সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--toggle-on" onclick="BB.showToast('ব্যানার চালু করা হয়েছে ✓')">চালু করুন</button><button class="aab aab--delete" onclick="BB.showToast('ব্যানার মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="acard__hd"><span class="acard__title">নতুন ব্যানার আপলোড</span></div>
+      <div class="upload-zone" onclick="BB.showToast('ফাইল সিলেক্টর খুলছে')">
+        <div class="upload-zone__icon">🖼️</div>
+        <div class="upload-zone__text">ব্যানার ছবি এখানে টেনে আনুন বা ক্লিক করুন</div>
+        <div class="upload-zone__hint">PNG, JPG, WebP · সর্বোচ্চ ২ MB · প্রস্তাবিত: ১৪০০×৪০০px</div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

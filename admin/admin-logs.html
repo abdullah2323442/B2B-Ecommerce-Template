@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>অ্যাক্টিভিটি লগ — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .filter-bar{display:flex;align-items:center;gap:var(--s-3);padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-wrap:wrap}
+    .dark-search{padding:7px 12px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);transition:border-color 0.15s;outline:none}.dark-search:focus{border-color:var(--gold)}.dark-search::placeholder{color:rgba(255,255,255,0.25)}
+    .dark-select{padding:7px 10px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.7);outline:none;cursor:pointer}.dark-select option{background:#0f1f12}
+    .dark-pager{padding:var(--s-3) var(--s-5);border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
+    .dpg-info{font-size:0.72rem;color:rgba(255,255,255,0.3)}
+    .dpg-btns{display:flex;gap:var(--s-2)}
+    .dpg-btn{padding:4px 10px;font-size:0.72rem;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.14s}.dpg-btn:hover{border-color:rgba(200,151,43,0.4);color:var(--gold)}
+    .dpg-btn--active{background:var(--gold);border-color:var(--gold);color:var(--green-deep);font-weight:700}
+    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .dt-dark{width:100%;border-collapse:collapse}
+    .dt-dark th{background:rgba(255,255,255,0.025);color:rgba(255,255,255,0.28);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:10px var(--s-4);border-bottom:1px solid rgba(255,255,255,0.07);white-space:nowrap;text-align:left}
+    .dt-dark td{padding:11px var(--s-4);font-size:0.8rem;color:rgba(255,255,255,0.72);border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}
+    .dt-dark tr:last-child td{border-bottom:none}
+    .dt-dark tr:hover td{background:rgba(255,255,255,0.025)}
+    .actor-cell{display:flex;align-items:center;gap:var(--s-2)}
+    .a-av{width:28px;height:28px;border-radius:50%;background:rgba(200,151,43,0.15);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.72rem;color:var(--gold);flex-shrink:0}
+    .a-name{font-weight:600;color:var(--white);font-size:0.8rem}
+    .dbadge{padding:2px 8px;border-radius:var(--r-full);font-size:0.66rem;font-weight:700}
+    .dbadge--admin{background:rgba(200,151,43,0.12);color:var(--gold)}
+    .dbadge--seller{background:rgba(74,222,128,0.1);color:#4ade80}
+    .dbadge--buyer{background:rgba(96,165,250,0.1);color:#60a5fa}
+    .log-badge{padding:3px 9px;border-radius:var(--r-full);font-size:0.66rem;font-weight:700;white-space:nowrap}
+    .log-badge--login{background:rgba(96,165,250,0.12);color:#60a5fa}
+    .log-badge--product{background:rgba(74,222,128,0.1);color:#4ade80}
+    .log-badge--mod{background:rgba(251,191,36,0.1);color:#fbbf24}
+    .log-badge--settings{background:rgba(200,151,43,0.1);color:var(--gold)}
+    .log-badge--user{background:rgba(167,139,250,0.1);color:#a78bfa}
+    .log-badge--error{background:rgba(248,113,113,0.1);color:#f87171}
+    .ip-txt{font-family:monospace;font-size:0.73rem;color:rgba(255,255,255,0.35)}
+    .ts-txt{font-size:0.72rem;color:rgba(255,255,255,0.3);white-space:nowrap}
+    .action-desc{font-size:0.8rem;color:rgba(255,255,255,0.72);max-width:200px}
+    .aab{padding:6px 14px;font-size:0.78rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--export{background:rgba(200,151,43,0.1);color:var(--gold);border-color:rgba(200,151,43,0.25)}.aab--export:hover{background:rgba(200,151,43,0.22)}
+    .aab--clear{background:rgba(248,113,113,0.08);color:#f87171;border-color:rgba(248,113,113,0.2)}.aab--clear:hover{background:rgba(220,38,38,0.18)}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}.dt-dark th:nth-child(4),.dt-dark td:nth-child(4),.dt-dark th:nth-child(5),.dt-dark td:nth-child(5){display:none}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item active"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>অ্যাক্টিভিটি লগ</h1><p>প্ল্যাটফর্মের সকল কার্যক্রমের রেকর্ড</p></div>
+      <div style="display:flex;gap:var(--s-3)">
+        <button class="aab aab--export" onclick="BB.showToast('CSV রপ্তানি হচ্ছে…')">📥 CSV রপ্তানি</button>
+        <button class="aab aab--clear" onclick="BB.showToast('৩০ দিনের পুরনো লগ মুছে ফেলা হয়েছে','error')">পুরনো লগ মুছুন</button>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="filter-bar">
+        <input class="dark-search" style="width:200px" placeholder="ব্যবহারকারী খুঁজুন…" />
+        <select class="dark-select">
+          <option>সব ধরন</option>
+          <option>লগইন</option>
+          <option>পণ্য</option>
+          <option>মডারেশন</option>
+          <option>সেটিংস</option>
+          <option>ব্যবহারকারী</option>
+          <option>এরর</option>
+        </select>
+        <select class="dark-select">
+          <option>সব ভূমিকা</option>
+          <option>অ্যাডমিন</option>
+          <option>বিক্রেতা</option>
+          <option>ক্রেতা</option>
+        </select>
+        <input type="date" class="dark-search" style="color:rgba(255,255,255,0.5)" />
+        <input type="date" class="dark-search" style="color:rgba(255,255,255,0.5)" />
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="dt-dark">
+          <thead><tr>
+            <th>অভিনেতা</th>
+            <th>ভূমিকা</th>
+            <th>ধরন</th>
+            <th>কার্যক্রম বিবরণ</th>
+            <th>লক্ষ্য</th>
+            <th>IP ঠিকানা</th>
+            <th>সময়</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">রা</div><span class="a-name">রাফি আহমেদ</span></div></td>
+              <td><span class="dbadge dbadge--admin">অ্যাডমিন</span></td>
+              <td><span class="log-badge log-badge--mod">মডারেশন</span></td>
+              <td class="action-desc">পণ্য অনুমোদন করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">পণ্য #PRD-8821</td>
+              <td><span class="ip-txt">103.47.21.88</span></td>
+              <td><span class="ts-txt">আজ, ১১:৩২</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">কা</div><span class="a-name">কামরুল ইসলাম</span></div></td>
+              <td><span class="dbadge dbadge--seller">বিক্রেতা</span></td>
+              <td><span class="log-badge log-badge--product">পণ্য</span></td>
+              <td class="action-desc">নতুন পণ্য যুক্ত করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">পণ্য #PRD-9002</td>
+              <td><span class="ip-txt">103.47.22.15</span></td>
+              <td><span class="ts-txt">আজ, ১১:১৫</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">না</div><span class="a-name">নাজমুল হাসান</span></div></td>
+              <td><span class="dbadge dbadge--admin">অ্যাডমিন</span></td>
+              <td><span class="log-badge log-badge--settings">সেটিংস</span></td>
+              <td class="action-desc">কমিশন হার পরিবর্তন করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">সিস্টেম কনফিগ</td>
+              <td><span class="ip-txt">103.47.20.02</span></td>
+              <td><span class="ts-txt">আজ, ১০:৫৫</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">সু</div><span class="a-name">সুমাইয়া বেগম</span></div></td>
+              <td><span class="dbadge dbadge--buyer">ক্রেতা</span></td>
+              <td><span class="log-badge log-badge--login">লগইন</span></td>
+              <td class="action-desc">সফল লগইন (OTP যাচাই)</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">USR-4412</td>
+              <td><span class="ip-txt">182.160.8.72</span></td>
+              <td><span class="ts-txt">আজ, ১০:৩৩</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">আ</div><span class="a-name">আনিসুর রহমান</span></div></td>
+              <td><span class="dbadge dbadge--seller">বিক্রেতা</span></td>
+              <td><span class="log-badge log-badge--user">ব্যবহারকারী</span></td>
+              <td class="action-desc">প্রোফাইল তথ্য আপডেট করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">SEL-2203</td>
+              <td><span class="ip-txt">203.76.12.55</span></td>
+              <td><span class="ts-txt">আজ, ০৯:৪৭</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">রা</div><span class="a-name">রাফি আহমেদ</span></div></td>
+              <td><span class="dbadge dbadge--admin">অ্যাডমিন</span></td>
+              <td><span class="log-badge log-badge--mod">মডারেশন</span></td>
+              <td class="action-desc">বিক্রেতা অ্যাকাউন্ট স্থগিত করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">SEL-1887</td>
+              <td><span class="ip-txt">103.47.21.88</span></td>
+              <td><span class="ts-txt">গতকাল, ১৭:২২</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">খ</div><span class="a-name">System</span></div></td>
+              <td><span class="dbadge" style="background:rgba(248,113,113,0.1);color:#f87171">সিস্টেম</span></td>
+              <td><span class="log-badge log-badge--error">এরর</span></td>
+              <td class="action-desc">পেমেন্ট গেটওয়ে টাইমআউট</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">TXN-55021</td>
+              <td><span class="ip-txt">—</span></td>
+              <td><span class="ts-txt">গতকাল, ১৫:08</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">তা</div><span class="a-name">তানভীর আলম</span></div></td>
+              <td><span class="dbadge dbadge--seller">বিক্রেতা</span></td>
+              <td><span class="log-badge log-badge--product">পণ্য</span></td>
+              <td class="action-desc">পণ্যের মূল্য পরিবর্তন করা হয়েছে</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">পণ্য #PRD-7744</td>
+              <td><span class="ip-txt">103.99.14.11</span></td>
+              <td><span class="ts-txt">গতকাল, ১৪:৩৫</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">না</div><span class="a-name">নাজমুল হাসান</span></div></td>
+              <td><span class="dbadge dbadge--admin">অ্যাডমিন</span></td>
+              <td><span class="log-badge log-badge--login">লগইন</span></td>
+              <td class="action-desc">অ্যাডমিন প্যানেলে লগইন</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">ADM-001</td>
+              <td><span class="ip-txt">103.47.20.02</span></td>
+              <td><span class="ts-txt">গতকাল, ০৯:০১</span></td>
+            </tr>
+            <tr>
+              <td><div class="actor-cell"><div class="a-av">সা</div><span class="a-name">সাবরিনা আক্তার</span></div></td>
+              <td><span class="dbadge dbadge--buyer">ক্রেতা</span></td>
+              <td><span class="log-badge log-badge--user">ব্যবহারকারী</span></td>
+              <td class="action-desc">নতুন অ্যাকাউন্ট নিবন্ধন</td>
+              <td style="font-size:0.76rem;color:rgba(255,255,255,0.45)">USR-5501</td>
+              <td><span class="ip-txt">59.153.112.8</span></td>
+              <td><span class="ts-txt">২ দিন আগে</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dark-pager">
+        <span class="dpg-info">মোট ২,৩৪৭ টি লগ এন্ট্রি</span>
+        <div class="dpg-btns">
+          <button class="dpg-btn">‹ আগে</button>
+          <button class="dpg-btn dpg-btn--active">১</button>
+          <button class="dpg-btn">২</button>
+          <button class="dpg-btn">৩</button>
+          <button class="dpg-btn">…</button>
+          <button class="dpg-btn">২৩৫</button>
+          <button class="dpg-btn">পরে ›</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সাহায্য কেন্দ্র — বাংলাবাজার</title>
+  <meta name="description" content="বাংলাবাজার সাহায্য কেন্দ্র। গাইড, টিউটোরিয়াল ও সাপোর্ট রিসোর্স।" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .cms-hero{background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-mid) 100%);padding:72px 0 56px;text-align:center}
+    .cms-hero__eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s-3)}
+    .cms-hero__title{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:var(--s-4)}
+    .cms-hero__sub{font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto var(--s-5)}
+    .hero-search{display:flex;gap:0;max-width:440px;margin:0 auto;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+    .hero-search input{flex:1;padding:13px 18px;border:none;font-family:var(--font-sans);font-size:0.9rem;outline:none}
+    .hero-search button{padding:13px 20px;background:var(--gold);border:none;cursor:pointer;font-weight:700;font-size:0.85rem;color:var(--green-deep)}
+    .cms-body{padding:72px 0 80px}
+    .help-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--s-4);margin-bottom:var(--s-10)}
+    .help-cat{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--r-xl);padding:var(--s-6);text-align:center;text-decoration:none;transition:all 0.18s;cursor:pointer}
+    .help-cat:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(200,151,43,0.1);transform:translateY(-2px)}
+    .help-cat__icon{font-size:2.2rem;margin-bottom:var(--s-3)}
+    .help-cat__title{font-family:var(--font-serif);font-size:1rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-1)}
+    .help-cat__count{font-size:0.75rem;color:var(--muted)}
+    .help-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8)}
+    .help-section h2{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-4);display:flex;align-items:center;gap:var(--s-2)}
+    .help-article{display:flex;align-items:flex-start;gap:var(--s-3);padding:var(--s-3) 0;border-bottom:1px solid var(--cream-dark)}
+    .help-article:last-child{border:none}
+    .help-article__icon{width:36px;height:36px;border-radius:var(--r-md);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .help-article__title{font-weight:600;font-size:0.88rem;color:var(--green-deep);margin-bottom:2px;text-decoration:none;display:block}.help-article__title:hover{color:var(--gold)}
+    .help-article__meta{font-size:0.75rem;color:var(--muted)}
+    .popular-tag{display:inline-block;background:rgba(200,151,43,0.1);color:var(--gold);font-size:0.62rem;font-weight:700;padding:1px 6px;border-radius:var(--r-full);margin-left:6px}
+    .contact-strip{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-xl);padding:var(--s-6);margin-top:var(--s-8)}
+    .contact-strip__title{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-2)}
+    .contact-strip__sub{font-size:0.88rem;color:var(--muted);margin-bottom:var(--s-5)}
+    .contact-strip__channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--s-4)}
+    .ch-card{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4);text-align:center}
+    .ch-card__icon{font-size:1.8rem;margin-bottom:var(--s-2)}
+    .ch-card__name{font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px}
+    .ch-card__detail{font-size:0.78rem;color:var(--muted);margin-bottom:var(--s-3)}
+    @media(max-width:900px){.help-grid{grid-template-columns:1fr}.help-cats{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-name">বাংলাবাজার</span><span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span></a>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="seller/dashboard-seller.html" class="navbar__link">ড্যাশবোর্ড</a>
+          <a href="auth.html" class="btn btn--gold btn--sm">লগইন / নিবন্ধন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="cms-hero">
+    <div class="container">
+      <div class="cms-hero__eyebrow">সাহায্য কেন্দ্র</div>
+      <h1 class="cms-hero__title">আমরা কীভাবে সাহায্য করতে পারি?</h1>
+      <p class="cms-hero__sub">গাইড, টিউটোরিয়াল ও উত্তর খুঁজে পান। অথবা আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
+      <div class="hero-search">
+        <input type="search" placeholder="আপনার প্রশ্ন লিখুন…" />
+        <button>খুঁজুন</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cms-body">
+    <div class="container">
+
+      <!-- Category Cards -->
+      <div class="help-cats">
+        <a href="faq.html#buyer" class="help-cat"><div class="help-cat__icon">🛒</div><div class="help-cat__title">ক্রেতার গাইড</div><div class="help-cat__count">১৮ টি আর্টিকেল</div></a>
+        <a href="seller-guide.html" class="help-cat"><div class="help-cat__icon">🏪</div><div class="help-cat__title">বিক্রেতার গাইড</div><div class="help-cat__count">২৪ টি আর্টিকেল</div></a>
+        <a href="faq.html#payment" class="help-cat"><div class="help-cat__icon">💳</div><div class="help-cat__title">পেমেন্ট ও বিলিং</div><div class="help-cat__count">১২ টি আর্টিকেল</div></a>
+        <a href="faq.html#account" class="help-cat"><div class="help-cat__icon">👤</div><div class="help-cat__title">অ্যাকাউন্ট সেটিং</div><div class="help-cat__count">১৫ টি আর্টিকেল</div></a>
+        <a href="faq.html#rfq" class="help-cat"><div class="help-cat__icon">📋</div><div class="help-cat__title">RFQ সিস্টেম</div><div class="help-cat__count">৮ টি আর্টিকেল</div></a>
+        <a href="faq.html" class="help-cat"><div class="help-cat__icon">🔧</div><div class="help-cat__title">প্রযুক্তি সমস্যা</div><div class="help-cat__count">১০ টি আর্টিকেল</div></a>
+      </div>
+
+      <!-- Article Lists -->
+      <div class="help-grid">
+        <section class="help-section">
+          <h2>🔥 জনপ্রিয় আর্টিকেল</h2>
+          <div class="help-article"><div class="help-article__icon">🏪</div><div><a href="seller-guide.html" class="help-article__title">বিক্রেতা হিসেবে নিবন্ধন করার ধাপসমূহ <span class="popular-tag">জনপ্রিয়</span></a><div class="help-article__meta">বিক্রেতা গাইড · ৫ মিনিট পড়া</div></div></div>
+          <div class="help-article"><div class="help-article__icon">📦</div><div><a href="seller-guide.html#products" class="help-article__title">প্রথম পণ্য কীভাবে যুক্ত করবেন <span class="popular-tag">জনপ্রিয়</span></a><div class="help-article__meta">পণ্য ব্যবস্থাপনা · ৩ মিনিট পড়া</div></div></div>
+          <div class="help-article"><div class="help-article__icon">💬</div><div><a href="faq.html#rfq" class="help-article__title">RFQ পাঠানো ও সাড়া দেওয়ার পদ্ধতি</a><div class="help-article__meta">RFQ সিস্টেম · ৪ মিনিট পড়া</div></div></div>
+          <div class="help-article"><div class="help-article__icon">💳</div><div><a href="faq.html#payment" class="help-article__title">পেমেন্ট পাওয়ার প্রক্রিয়া বিক্রেতার জন্য</a><div class="help-article__meta">পেমেন্ট · ৩ মিনিট পড়া</div></div></div>
+          <div class="help-article"><div class="help-article__icon">⭐</div><div><a href="faq.html#buyer" class="help-article__title">বিক্রেতার মান যাচাই কীভাবে করবেন</a><div class="help-article__meta">ক্রেতার গাইড · ২ মিনিট পড়া</div></div></div>
+          <div class="help-article"><div class="help-article__icon">🔒</div><div><a href="faq.html#account" class="help-article__title">দুই-স্তরীয় নিরাপত্তা চালু করার পদ্ধতি <span class="popular-tag">জনপ্রিয়</span></a><div class="help-article__meta">নিরাপত্তা · ২ মিনিট পড়া</div></div></div>
+        </section>
+
+        <section class="help-section">
+          <h2>🆕 নতুন আর্টিকেল</h2>
+          <div class="help-article"><div class="help-article__icon">📈</div><div><a href="seller-guide.html#analytics" class="help-article__title">বিক্রয় পরিসংখ্যান বোঝার গাইড</a><div class="help-article__meta">বিক্রেতা গাইড · ২৮ ফেব্রু, ২০২৬</div></div></div>
+          <div class="help-article"><div class="help-article__icon">🗺️</div><div><a href="seller-guide.html#shipping" class="help-article__title">ডেলিভারি ও শিপমেন্ট সেটআপ</a><div class="help-article__meta">লজিস্টিক · ২৫ ফেব্রু, ২০২৬</div></div></div>
+          <div class="help-article"><div class="help-article__icon">🏷️</div><div><a href="seller-guide.html#discount" class="help-article__title">ছাড় ও অফার কীভাবে তৈরি করবেন</a><div class="help-article__meta">বিক্রয় টুলস · ২০ ফেব্রু, ২০২৬</div></div></div>
+          <div class="help-article"><div class="help-article__icon">🌐</div><div><a href="seller-guide.html#export" class="help-article__title">বিদেশি ক্রেতার কাছে পণ্য রপ্তানির গাইড</a><div class="help-article__meta">রপ্তানি · ১৫ ফেব্রু, ২০২৬</div></div></div>
+          <div class="help-article"><div class="help-article__icon">📸</div><div><a href="seller-guide.html#photos" class="help-article__title">পণ্যের আকর্ষণীয় ছবি তোলার পরামর্শ</a><div class="help-article__meta">পণ্য উপস্থাপনা · ১০ ফেব্রু, ২০২৬</div></div></div>
+          <div class="help-article"><div class="help-article__icon">🔔</div><div><a href="faq.html#account" class="help-article__title">নোটিফিকেশন সেটিংস কাস্টমাইজ করুন</a><div class="help-article__meta">অ্যাকাউন্ট সেটিং · ৫ ফেব্রু, ২০২৬</div></div></div>
+        </section>
+      </div>
+
+      <!-- Contact Strip -->
+      <div class="contact-strip">
+        <div class="contact-strip__title">আরও সাহায্য দরকার?</div>
+        <p class="contact-strip__sub">প্রশ্নের উত্তর খুঁজে না পেলে আমাদের সাপোর্ট টিম সরাসরি সাহায্য করতে প্রস্তুত।</p>
+        <div class="contact-strip__channels">
+          <div class="ch-card"><div class="ch-card__icon">📧</div><div class="ch-card__name">ইমেইল সাপোর্ট</div><div class="ch-card__detail">সাধারণত ৪৮ ঘণ্টার মধ্যে জবাব</div><a href="contact.html" class="btn btn--outline btn--sm" style="width:100%;justify-content:center;display:flex">ইমেইল করুন</a></div>
+          <div class="ch-card"><div class="ch-card__icon">📞</div><div class="ch-card__name">ফোন হেল্পলাইন</div><div class="ch-card__detail">রবি–বৃহস্পতি, ৯টা–৮টা</div><a href="tel:+8801770000000" class="btn btn--outline btn--sm" style="width:100%;justify-content:center;display:flex">কল করুন</a></div>
+          <div class="ch-card"><div class="ch-card__icon">💬</div><div class="ch-card__name">লাইভ চ্যাট</div><div class="ch-card__detail">তাৎক্ষণিক সহায়তা</div><a href="#" class="btn btn--primary btn--sm" style="width:100%;justify-content:center;display:flex">চ্যাট করুন</a></div>
+          <div class="ch-card"><div class="ch-card__icon">📖</div><div class="ch-card__name">FAQ দেখুন</div><div class="ch-card__detail">সবচেয়ে বেশি জিজ্ঞাসিত প্রশ্ন</div><a href="faq.html" class="btn btn--outline btn--sm" style="width:100%;justify-content:center;display:flex">FAQ দেখুন</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><div class="footer__brand-name">বাংলাবাজার</div><p class="footer__brand-desc">বাংলাদেশের ব্যবসায়ীদের জন্য নির্মিত দেশের প্রথম সম্পূর্ণ বাংলা ভাষার B2B মার্কেটপ্লেস।</p></div>
+        <div><div class="footer__col-title">ক্রেতাদের জন্য</div><a href="search.html" class="footer__link">পণ্য খুঁজুন</a><a href="search.html?type=sellers" class="footer__link">বিক্রেতা খুঁজুন</a><a href="auth.html" class="footer__link">নিবন্ধন করুন</a></div>
+        <div><div class="footer__col-title">বিক্রেতাদের জন্য</div><a href="auth.html?type=seller" class="footer__link">বিক্রেতা হন</a><a href="seller-guide.html" class="footer__link">বিক্রেতা গাইড</a><a href="success-stories.html" class="footer__link">সফলতার গল্প</a><a href="help.html" class="footer__link">সাহায্য কেন্দ্র</a></div>
+        <div><div class="footer__col-title">প্রতিষ্ঠান</div><a href="about.html" class="footer__link">আমাদের সম্পর্কে</a><a href="contact.html" class="footer__link">যোগাযোগ করুন</a><a href="privacy.html" class="footer__link">গোপনীয়তা নীতি</a><a href="terms.html" class="footer__link">সেবার শর্তাবলী</a></div>
+      </div>
+      <div class="footer__bottom"><div class="footer__copy">© ২০২৬ বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।</div></div>
+    </div>
+  </footer>
+</body>
+</html>

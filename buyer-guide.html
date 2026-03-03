@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ক্রেতা গাইড — বাংলাবাজার</title>
+  <meta name="description" content="বাংলাবাজারে পণ্য কেনার সম্পূর্ণ গাইড। সঠিক বিক্রেতা খোঁজা, RFQ পোস্ট করা ও নিরাপদ পেমেন্ট সম্পর্কে জানুন।" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .cms-hero{background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-mid) 100%);padding:80px 0 64px;text-align:center}
+    .cms-hero__eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s-3)}
+    .cms-hero__title{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:var(--s-4)}
+    .cms-hero__sub{font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto}
+    .cms-body{padding:72px 0 80px}
+    .guide-grid{display:grid;grid-template-columns:220px 1fr;gap:var(--s-8);align-items:start}
+    .guide-nav{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-lg);overflow:hidden;position:sticky;top:80px}
+    .guide-nav__hd{padding:var(--s-3) var(--s-4);background:var(--green-deep);font-family:var(--font-serif);font-size:0.88rem;font-weight:700;color:var(--gold)}
+    .guide-nav__link{display:flex;align-items:center;gap:var(--s-2);padding:9px var(--s-4);font-size:0.82rem;color:var(--green-mid);text-decoration:none;border-bottom:1px solid var(--cream-dark);transition:all 0.14s}.guide-nav__link:last-child{border:none}.guide-nav__link:hover{background:rgba(200,151,43,0.06);color:var(--gold)}.guide-nav__link.active{background:rgba(200,151,43,0.08);color:var(--gold);font-weight:700;border-left:3px solid var(--gold)}
+    .guide-section{margin-bottom:var(--s-10);scroll-margin-top:80px}
+    .guide-section__hd{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-5)}
+    .guide-section__num{width:40px;height:40px;border-radius:50%;background:var(--green-deep);color:var(--gold);font-family:var(--font-serif);font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .guide-section__title{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .guide-card{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);margin-bottom:var(--s-4)}
+    .guide-card__title{font-weight:700;color:var(--green-deep);font-size:0.92rem;margin-bottom:var(--s-2);display:flex;align-items:center;gap:var(--s-2)}
+    .guide-card p{font-size:0.88rem;line-height:1.8;color:var(--body-color);margin:0}
+    .step-list{counter-reset:steps;display:flex;flex-direction:column;gap:var(--s-4)}
+    .step-item{display:grid;grid-template-columns:40px 1fr;gap:var(--s-4);align-items:start}
+    .step-item::before{counter-increment:steps;content:counter(steps);width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--green-deep);font-family:var(--font-serif);font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-body h3{font-weight:700;color:var(--green-deep);font-size:0.92rem;margin-bottom:4px}
+    .step-body p{font-size:0.85rem;line-height:1.75;color:var(--body-color);margin:0}
+    .tip-box{background:rgba(200,151,43,0.07);border:1.5px solid rgba(200,151,43,0.2);border-radius:var(--r-lg);padding:var(--s-4) var(--s-5);margin:var(--s-4) 0;display:flex;gap:var(--s-3)}
+    .tip-box__icon{font-size:1.3rem;flex-shrink:0}
+    .tip-box p{font-size:0.85rem;line-height:1.75;color:var(--green-deep);margin:0}
+    .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4);margin:var(--s-4) 0}
+    .benefit-card{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);text-align:center}
+    .benefit-card__icon{font-size:2rem;margin-bottom:var(--s-3)}
+    .benefit-card h3{font-family:var(--font-serif);font-size:0.95rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-2)}
+    .benefit-card p{font-size:0.8rem;line-height:1.7;color:var(--muted);margin:0}
+    .verify-list{display:flex;flex-direction:column;gap:var(--s-3)}
+    .verify-item{display:flex;align-items:flex-start;gap:var(--s-3);background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4)}
+    .verify-badge{background:var(--green-mid);color:var(--white);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;flex-shrink:0}
+    .safety-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+    .safety-do{background:#f0fdf4;border:1.5px solid #a7f3d0;border-radius:var(--r-lg);padding:var(--s-5)}
+    .safety-dont{background:#fef2f2;border:1.5px solid #fecaca;border-radius:var(--r-lg);padding:var(--s-5)}
+    .safety-title{font-weight:800;font-size:0.88rem;margin-bottom:var(--s-3)}
+    .safety-item{display:flex;align-items:flex-start;gap:var(--s-2);font-size:0.82rem;line-height:1.6;margin-bottom:var(--s-2);color:var(--body-color)}
+    @media(max-width:900px){.guide-grid{grid-template-columns:1fr}.guide-nav{position:static}.benefit-grid{grid-template-columns:1fr 1fr}.safety-grid{grid-template-columns:1fr}}
+    @media(max-width:540px){.benefit-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-name">বাংলাবাজার</span><span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span></a>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="seller/dashboard-seller.html" class="navbar__link">ড্যাশবোর্ড</a>
+          <a href="auth.html" class="btn btn--gold btn--sm">লগইন / নিবন্ধন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="cms-hero">
+    <div class="container">
+      <div class="cms-hero__eyebrow">ক্রেতার নির্দেশিকা</div>
+      <h1 class="cms-hero__title">ক্রেতা গাইড</h1>
+      <p class="cms-hero__sub">বাংলাবাজারে সঠিক পণ্য ও বিশ্বস্ত বিক্রেতা খুঁজে নিন। পুরো প্রক্রিয়া সহজ, এই গাইড আপনাকে ধাপে ধাপে সাহায্য করবে।</p>
+    </div>
+  </section>
+
+  <section class="cms-body">
+    <div class="container">
+      <div class="guide-grid">
+
+        <nav class="guide-nav">
+          <div class="guide-nav__hd">📋 বিষয়সূচি</div>
+          <a href="#getting-started" class="guide-nav__link active">১. শুরু করুন</a>
+          <a href="#search" class="guide-nav__link">২. পণ্য খোঁজা</a>
+          <a href="#verify" class="guide-nav__link">৩. বিক্রেতা যাচাই</a>
+          <a href="#contact" class="guide-nav__link">৪. বিক্রেতার সাথে যোগাযোগ</a>
+          <a href="#rfq" class="guide-nav__link">৫. RFQ পোস্ট করুন</a>
+          <a href="#payment" class="guide-nav__link">৬. পেমেন্ট</a>
+          <a href="#safety" class="guide-nav__link">৭. নিরাপত্তা টিপস</a>
+          <a href="#faq-buyer" class="guide-nav__link">৮. সাধারণ প্রশ্ন</a>
+        </nav>
+
+        <article>
+
+          <section class="guide-section" id="getting-started">
+            <div class="guide-section__hd"><div class="guide-section__num">১</div><h2 class="guide-section__title">শুরু করুন</h2></div>
+            <p style="font-size:0.92rem;line-height:1.8;color:var(--body-color);margin-bottom:var(--s-5)">বাংলাবাজার বাংলাদেশের সবচেয়ে বড় B2B মার্কেটপ্লেস যেখানে ৮,৫০০+ যাচাইকৃত বিক্রেতা এবং ৫০,০০০+ পণ্য রয়েছে। ক্রেতা হিসেবে আপনি বিনামূল্যে একটি অ্যাকাউন্ট তৈরি করতে পারেন।</p>
+            <div class="benefit-grid">
+              <div class="benefit-card"><div class="benefit-card__icon">🔍</div><h3>সহজ অনুসন্ধান</h3><p>বাংলায় পণ্যের নাম লিখলেই সঠিক ফলাফল পাবেন।</p></div>
+              <div class="benefit-card"><div class="benefit-card__icon">✅</div><h3>যাচাইকৃত বিক্রেতা</h3><p>সব বিক্রেতার ট্রেড লাইসেন্স ও NID যাচাই করা হয়।</p></div>
+              <div class="benefit-card"><div class="benefit-card__icon">🛡️</div><h3>নিরাপদ লেনদেন</h3><p>Escrow পেমেন্ট সুরক্ষা এবং বিরোধ নিষ্পত্তি সেবা।</p></div>
+            </div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-body"><h3>auth.html-এ যান ও নিবন্ধন করুন</h3><p>মোবাইল নম্বর বা ইমেইল দিয়ে বিনামূল্যে ক্রেতা অ্যাকাউন্ট তৈরি করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>প্রোফাইল সম্পন্ন করুন</h3><p>আপনার ব্যবসার ধরন, ক্রয়ের প্রয়োজনীয়তা ও যোগাযোগ তথ্য যুক্ত করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>পণ্য বা বিক্রেতা খুঁজুন</h3><p>সার্চবারে পণ্যের নাম লিখুন বা ক্যাটাগরি ব্রাউজ করুন।</p></div></div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="search">
+            <div class="guide-section__hd"><div class="guide-section__num">২</div><h2 class="guide-section__title">পণ্য খোঁজার কৌশল</h2></div>
+            <div class="guide-card"><div class="guide-card__title">🔎 স্মার্ট সার্চ ব্যবহার করুন</div><p>বাংলায় বা ইংরেজিতে পণ্যের নাম লিখুন। ফিল্টারে জেলা, মূল্য সীমা, MOQ (ন্যূনতম পরিমাণ), এবং বিক্রেতার ধরন (উৎপাদক/পাইকার) ব্যবহার করে ফলাফল সংকুচিত করুন।</p></div>
+            <div class="guide-card"><div class="guide-card__title">📂 ক্যাটাগরি ব্রাউজিং</div><p>হোমপেজের ক্যাটাগরি মেনু থেকে সরাসরি পণ্যের বিভাগে যান। কৃষি, বস্ত্র, ইলেকট্রনিক্স, খাদ্যপণ্য সহ ২০+ ক্যাটাগরিতে পণ্য রয়েছে।</p></div>
+            <div class="tip-box"><div class="tip-box__icon">💡</div><p><strong>টিপস:</strong> শুধু "যাচাইকৃত বিক্রেতা" ফিল্টার চালু রাখলে সবচেয়ে নির্ভরযোগ্য সরবরাহকারীদের তালিকা পাবেন।</p></div>
+          </section>
+
+          <section class="guide-section" id="verify">
+            <div class="guide-section__hd"><div class="guide-section__num">৩</div><h2 class="guide-section__title">বিক্রেতা যাচাই কীভাবে করবেন</h2></div>
+            <div class="verify-list">
+              <div class="verify-item"><div class="verify-badge">✓</div><div><strong style="font-size:0.88rem;color:var(--green-deep)">যাচাইয়ের ব্যাজ দেখুন</strong><p style="font-size:0.82rem;margin:4px 0 0;color:var(--body-color)">প্রোফাইলে নীল টিক (✅ যাচাইকৃত) থাকলে ট্রেড লাইসেন্স ও NID যাচাই সম্পন্ন।</p></div></div>
+              <div class="verify-item"><div class="verify-badge">★</div><div><strong style="font-size:0.88rem;color:var(--green-deep)">রেটিং ও রিভিউ পড়ুন</strong><p style="font-size:0.82rem;margin:4px 0 0;color:var(--body-color)">আগের ক্রেতাদের রেটিং ও মন্তব্য মনোযোগ দিয়ে পড়ুন।</p></div></div>
+              <div class="verify-item"><div class="verify-badge">📅</div><div><strong style="font-size:0.88rem;color:var(--green-deep)">নিবন্ধনের সময়কাল দেখুন</strong><p style="font-size:0.82rem;margin:4px 0 0;color:var(--body-color)">দীর্ঘদিন ধরে সক্রিয় বিক্রেতা সাধারণত বেশি নির্ভরযোগ্য।</p></div></div>
+              <div class="verify-item"><div class="verify-badge">📸</div><div><strong style="font-size:0.88rem;color:var(--green-deep)">কারখানার ছবি দেখুন</strong><p style="font-size:0.82rem;margin:4px 0 0;color:var(--body-color)">প্রোফাইলে কারখানা বা উৎপাদন সুবিধার ছবি থাকলে উৎপাদক হওয়ার সম্ভাবনা বেশি।</p></div></div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="contact">
+            <div class="guide-section__hd"><div class="guide-section__num">৪</div><h2 class="guide-section__title">বিক্রেতার সাথে যোগাযোগ</h2></div>
+            <div class="guide-card"><div class="guide-card__title">✉️ মেসেজ পাঠান</div><p>পণ্যের পেজ বা বিক্রেতার প্রোফাইল থেকে সরাসরি "বার্তা পাঠান" বাটনে ক্লিক করুন। পরিমাণ, ডেলিভারির সময় ও পেমেন্ট শর্ত সম্পর্কে জিজ্ঞেস করুন।</p></div>
+            <div class="guide-card"><div class="guide-card__title">📋 নমুনা চান</div><p>বড় অর্ডারের আগে নমুনা পণ্য চাওয়ার অধিকার আপনার আছে। বেশিরভাগ বিক্রেতা ন্যূনতম মূল্যে বা বিনামূল্যে নমুনা পাঠান।</p></div>
+          </section>
+
+          <section class="guide-section" id="rfq">
+            <div class="guide-section__hd"><div class="guide-section__num">৫</div><h2 class="guide-section__title">RFQ পোস্ট করুন</h2></div>
+            <p style="font-size:0.92rem;line-height:1.8;color:var(--body-color);margin-bottom:var(--s-4)">নিজে সরবরাহকারী না খুঁজে, RFQ (Request for Quotation) পোস্ট করুন — বিক্রেতারাই আপনার কাছে দরপত্র পাঠাবে।</p>
+            <div class="step-list">
+              <div class="step-item"><div class="step-body"><h3>ড্যাশবোর্ড → "নতুন RFQ" পোস্ট করুন</h3><p>আপনার প্রয়োজনীয় পণ্যের বিবরণ লিখুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>পরিমাণ ও সরবরাহের সময়সীমা উল্লেখ করুন</h3><p>স্পষ্ট তথ্য দিলে বেশি ও প্রাসঙ্গিক প্রস্তাব পাবেন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>দরপত্র তুলনা করুন</h3><p>একাধিক বিক্রেতার প্রস্তাব পাশাপাশি দেখুন ও সেরাটি বেছে নিন।</p></div></div>
+            </div>
+            <div class="tip-box"><div class="tip-box__icon">💡</div><p><strong>টিপস:</strong> বড় ক্রয়ের ক্ষেত্রে কমপক্ষে ৩টি বিক্রেতার প্রস্তাব তুলনা করে সিদ্ধান্ত নিন।</p></div>
+          </section>
+
+          <section class="guide-section" id="payment">
+            <div class="guide-section__hd"><div class="guide-section__num">৬</div><h2 class="guide-section__title">পেমেন্ট পদ্ধতি</h2></div>
+            <div class="guide-card"><div class="guide-card__title">🏦 গৃহীত পেমেন্ট পদ্ধতি</div><p>• ব্যাংক ট্রান্সফার (NPSB/BEFTN) • মোবাইল ব্যাংকিং (বিকাশ, নগদ, রকেট) • আন্তর্জাতিক ক্রেতাদের জন্য: SWIFT/T&T, PayPal, Wise</p></div>
+            <div class="guide-card"><div class="guide-card__title">🛡️ Escrow সুরক্ষা ব্যবহার করুন</div><p>বড় অর্ডারের জন্য বাংলাবাজারের Escrow পেমেন্ট সেবা ব্যবহার করুন। পণ্য পাওয়ার পর নিশ্চিত হলে অর্থ বিক্রেতার কাছে ছাড় হয়।</p></div>
+          </section>
+
+          <section class="guide-section" id="safety">
+            <div class="guide-section__hd"><div class="guide-section__num">৭</div><h2 class="guide-section__title">নিরাপদ লেনদেনের টিপস</h2></div>
+            <div class="safety-grid">
+              <div class="safety-do"><div class="safety-title" style="color:#15803d">✅ করণীয়</div>
+                <div class="safety-item">✓ যাচাইকৃত বিক্রেতা বেছে নিন</div>
+                <div class="safety-item">✓ অর্ডার আগে নমুনা নিন</div>
+                <div class="safety-item">✓ চুক্তিপত্র লিখিতভাবে রাখুন</div>
+                <div class="safety-item">✓ ছোট অর্ডার দিয়ে সম্পর্ক শুরু করুন</div>
+                <div class="safety-item">✓ রেটিং ও রিভিউ পড়ুন</div>
+              </div>
+              <div class="safety-dont"><div class="safety-title" style="color:#dc2626">❌ বর্জনীয়</div>
+                <div class="safety-item">✗ প্ল্যাটফর্মের বাইরে পেমেন্ট করবেন না</div>
+                <div class="safety-item">✗ অযাচাই লিংকে ক্লিক করবেন না</div>
+                <div class="safety-item">✗ পাসওয়ার্ড বা OTP শেয়ার করবেন না</div>
+                <div class="safety-item">✗ ব্যক্তিগত ব্যাংক তথ্য দেবেন না</div>
+                <div class="safety-item">✗ অস্বাভাবিক কম দামে প্রলুব্ধ হবেন না</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="faq-buyer">
+            <div class="guide-section__hd"><div class="guide-section__num">৮</div><h2 class="guide-section__title">সাধারণ প্রশ্ন</h2></div>
+            <div class="guide-card"><div class="guide-card__title">❓ অ্যাকাউন্ট তৈরি কি বিনামূল্যে?</div><p>হ্যাঁ, ক্রেতা হিসেবে নিবন্ধন ও পণ্য অনুসন্ধান সম্পূর্ণ বিনামূল্যে।</p></div>
+            <div class="guide-card"><div class="guide-card__title">❓ বিক্রেতার সাথে সরাসরি যোগাযোগ করতে পারি?</div><p>হ্যাঁ, প্ল্যাটফর্মের মেসেজিং সিস্টেমের মাধ্যমে সরাসরি যোগাযোগ করতে পারেন।</p></div>
+            <div class="guide-card"><div class="guide-card__title">❓ পণ্য না পেলে কী করব?</div><p>আমাদের বিরোধ নিষ্পত্তি টিমে অভিযোগ করুন। ৭ কার্যদিবসের মধ্যে সমাধান দেওয়া হয়।</p></div>
+            <div class="guide-card"><div class="guide-card__title">❓ বিদেশ থেকে কি অর্ডার দেওয়া যাবে?</div><p>হ্যাঁ, বিশ্বের যেকোনো স্থান থেকে বাংলাদেশি পণ্য অর্ডার করা যাবে।</p></div>
+            <div style="margin-top:var(--s-5);text-align:center">
+              <p style="font-size:0.88rem;color:var(--muted);margin-bottom:var(--s-3)">আরও প্রশ্ন আছে?</p>
+              <a href="faq.html" class="btn btn--outline">সকল FAQ দেখুন</a>
+              <a href="contact.html" class="btn btn--primary" style="margin-left:var(--s-3)">আমাদের জিজ্ঞেস করুন</a>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><div class="footer__brand-name">বাংলাবাজার</div><p class="footer__brand-desc">বাংলাদেশের ব্যবসায়ীদের জন্য নির্মিত দেশের প্রথম সম্পূর্ণ বাংলা ভাষার B2B মার্কেটপ্লেস।</p></div>
+        <div><div class="footer__col-title">ক্রেতাদের জন্য</div><a href="search.html" class="footer__link">পণ্য খুঁজুন</a><a href="search.html?type=sellers" class="footer__link">বিক্রেতা খুঁজুন</a><a href="auth.html" class="footer__link">নিবন্ধন করুন</a><a href="buyer-guide.html" class="footer__link">ক্রেতা গাইড</a></div>
+        <div><div class="footer__col-title">বিক্রেতাদের জন্য</div><a href="auth.html?type=seller" class="footer__link">বিক্রেতা হন</a><a href="seller-guide.html" class="footer__link">বিক্রেতা গাইড</a><a href="success-stories.html" class="footer__link">সফলতার গল্প</a><a href="help.html" class="footer__link">সাহায্য কেন্দ্র</a></div>
+        <div><div class="footer__col-title">প্রতিষ্ঠান</div><a href="about.html" class="footer__link">আমাদের সম্পর্কে</a><a href="contact.html" class="footer__link">যোগাযোগ করুন</a><a href="privacy.html" class="footer__link">গোপনীয়তা নীতি</a><a href="terms.html" class="footer__link">সেবার শর্তাবলী</a></div>
+      </div>
+      <div class="footer__bottom"><div class="footer__copy">© ২০২৬ বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।</div></div>
+    </div>
+  </footer>
+
+<script>
+const links = document.querySelectorAll('.guide-nav__link');
+const sections = document.querySelectorAll('.guide-section');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const active = document.querySelector(`.guide-nav__link[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>

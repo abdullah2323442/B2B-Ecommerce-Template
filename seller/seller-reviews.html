@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পর্যালোচনা — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:var(--parchment)}.dash-wrap{display:block;min-height:100vh}
+    .sb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:260px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;box-shadow:2px 0 24px rgba(0,0,0,0.2)}
+    .sb__brand{padding:22px var(--s-6);border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0}
+    .sb__brand a{text-decoration:none}
+    .sb__brand-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--gold);display:block}
+    .sb__brand-sub{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+    .sb__user{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:var(--s-3);flex-shrink:0}
+    .sb__avatar{width:40px;height:40px;border-radius:50%;background:rgba(200,151,43,0.18);border:1.5px solid rgba(200,151,43,0.35);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;flex-shrink:0}
+    .sb__username{font-size:0.875rem;font-weight:700;color:var(--white);line-height:1.2}
+    .sb__userrole{font-size:0.65rem;color:#4ade80;display:flex;align-items:center;gap:4px;margin-top:2px}
+    .sb__nav{flex:1;padding:var(--s-3) 0}
+    .sb__label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.2);padding:var(--s-4) var(--s-6) var(--s-1)}
+    .sb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-6);font-size:0.875rem;color:rgba(255,255,255,0.58);transition:all 0.14s;border-left:3px solid transparent;text-decoration:none}
+    .sb__item:hover{color:var(--white);background:rgba(255,255,255,0.05);border-left-color:rgba(200,151,43,0.35)}
+    .sb__item.active{color:var(--white);background:rgba(200,151,43,0.1);border-left-color:var(--gold);font-weight:600}
+    .sb__item .ico{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+    .sb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .sb__badge--gold{background:var(--gold);color:var(--green-deep)}
+    .sb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0}
+    .sb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.32);padding:5px 0;text-decoration:none;transition:color 0.14s}
+    .sb__footer-link:hover{color:rgba(255,255,255,0.7)}
+    .dash-main{margin-left:260px;min-height:100vh;padding:var(--s-6) var(--s-8);background:var(--parchment)}
+    .dash-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .dash-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .dash-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:2px}
+    /* rating summary */
+    .rating-summary{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s-6);display:flex;gap:var(--s-8);align-items:center;margin-bottom:var(--s-5);flex-wrap:wrap}
+    .rs-big{text-align:center}
+    .rs-score{font-family:var(--font-serif);font-size:3.5rem;font-weight:800;color:var(--green-deep);line-height:1}
+    .rs-stars{font-size:1.3rem;margin:4px 0}
+    .rs-count{font-size:0.75rem;color:var(--ink-50)}
+    .rs-bars{flex:1;min-width:200px}
+    .rbar-row{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-2)}
+    .rbar-label{font-size:0.75rem;color:var(--ink-60);width:40px;text-align:right;flex-shrink:0}
+    .rbar-track{flex:1;height:8px;background:var(--ink-05);border-radius:4px;overflow:hidden}
+    .rbar-fill{height:100%;background:var(--gold);border-radius:4px;transition:width 0.8s ease}
+    .rbar-cnt{font-size:0.72rem;color:var(--ink-50);width:30px;flex-shrink:0}
+    /* review cards */
+    .rv-list{display:flex;flex-direction:column;gap:var(--s-4)}
+    .rv-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s-5)}
+    .rv-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-3);flex-wrap:wrap}
+    .rv-buyer{font-weight:700;font-size:0.875rem;color:var(--ink-90)}
+    .rv-loc{font-size:0.72rem;color:var(--ink-50)}
+    .rv-product{font-size:0.72rem;color:var(--green-mid);font-weight:600;margin-top:2px}
+    .rv-stars{font-size:1.1rem}
+    .rv-date{font-size:0.7rem;color:var(--ink-40)}
+    .rv-text{font-size:0.82rem;color:var(--ink-70);line-height:1.6;margin-bottom:var(--s-3)}
+    .rv-reply{background:rgba(15,45,30,0.04);border-left:3px solid var(--green-mid);padding:var(--s-3) var(--s-4);border-radius:0 var(--r-md) var(--r-md) 0;font-size:0.78rem;color:var(--ink-70);margin-bottom:var(--s-3)}
+    .rv-reply-label{font-size:0.65rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px}
+    .rv-actions{display:flex;gap:var(--s-2)}
+    .rvab{padding:5px 14px;font-size:0.75rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;border:1.5px solid;transition:all 0.14s}
+    .rvab--reply{background:var(--green-deep);color:var(--white);border-color:var(--green-deep)}
+    .rvab--reply:hover{background:var(--green-mid)}
+    .rvab--flag{background:transparent;color:var(--ink-50);border-color:var(--border)}
+    .rvab--flag:hover{background:var(--ink-05)}
+    @media(max-width:900px){.dash-main{margin-left:0;padding:var(--s-5)}.sb{display:none}}
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+  <aside class="sb">
+    <div class="sb__brand"><a href="../index.html"><span class="sb__brand-name">বাংলাবাজার</span><span class="sb__brand-sub">বিক্রেতা প্যানেল</span></a></div>
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div><div class="sb__username">রহিম টেক্সটাইলস</div><div class="sb__userrole"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>যাচাইকৃত বিক্রেতা</div></div>
+    </div>
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="seller-products.html"  class="sb__item"><span class="ico">📦</span> পণ্য তালিকা <span class="sb__badge sb__badge--gold">১৫৩</span></a>
+      <a href="seller-enquiries.html" class="sb__item"><span class="ico">💬</span> জিজ্ঞাসাসমূহ <span class="sb__badge">৮</span></a>
+      <a href="seller-messages.html"  class="sb__item"><span class="ico">✉️</span> বার্তা <span class="sb__badge">৩</span></a>
+      <a href="seller-reviews.html"   class="sb__item active"><span class="ico">⭐</span> পর্যালোচনা</a>
+      <a href="seller-rfq.html"       class="sb__item"><span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)</a>
+      <a href="seller-analytics.html" class="sb__item"><span class="ico">📈</span> পরিসংখ্যান</a>
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html"       class="sb__item"><span class="ico">🏪</span> প্রোফাইল সম্পাদনা</a>
+      <a href="seller-settings.html"      class="sb__item"><span class="ico">⚙️</span> সেটিংস</a>
+      <a href="seller-notifications.html" class="sb__item"><span class="ico">🔔</span> নোটিফিকেশন সেটিং</a>
+    </nav>
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>পাবলিক প্রোফাইল দেখুন</a>
+      <a href="../index.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>মার্কেটপ্লেসে ফিরুন</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div><h1>পর্যালোচনা</h1><p>ক্রেতাদের রেটিং ও মন্তব্য</p></div>
+    </div>
+
+    <div class="rating-summary">
+      <div class="rs-big">
+        <div class="rs-score">৪.৭</div>
+        <div class="rs-stars">⭐⭐⭐⭐⭐</div>
+        <div class="rs-count">১৮৪টি রিভিউ</div>
+      </div>
+      <div class="rs-bars">
+        <div class="rbar-row"><span class="rbar-label">৫ ⭐</span><div class="rbar-track"><div class="rbar-fill" style="width:72%"></div></div><span class="rbar-cnt">১৩৩</span></div>
+        <div class="rbar-row"><span class="rbar-label">৪ ⭐</span><div class="rbar-track"><div class="rbar-fill" style="width:18%"></div></div><span class="rbar-cnt">৩৩</span></div>
+        <div class="rbar-row"><span class="rbar-label">৩ ⭐</span><div class="rbar-track"><div class="rbar-fill" style="width:6%"></div></div><span class="rbar-cnt">১১</span></div>
+        <div class="rbar-row"><span class="rbar-label">২ ⭐</span><div class="rbar-track"><div class="rbar-fill" style="width:3%;background:#f59e0b"></div></div><span class="rbar-cnt">৫</span></div>
+        <div class="rbar-row"><span class="rbar-label">১ ⭐</span><div class="rbar-track"><div class="rbar-fill" style="width:1%;background:#dc2626"></div></div><span class="rbar-cnt">২</span></div>
+      </div>
+    </div>
+
+    <div class="rv-list">
+      <div class="rv-card">
+        <div class="rv-hd">
+          <div><div class="rv-buyer">Mehmet Trading Co. <span class="rv-loc">— চট্টগ্রাম</span></div><div class="rv-product">সুতাবালিশ কভার (২০×২০)</div></div>
+          <div style="text-align:right"><div class="rv-stars">⭐⭐⭐⭐⭐</div><div class="rv-date">২৮ ফেব্রুয়ারি ২০২৬</div></div>
+        </div>
+        <div class="rv-text">অসাধারণ মান! ৫,০০০ পিস অর্ডার করেছিলাম, সময়মতো ডেলিভারি পেয়েছি। প্যাকেজিং দুর্দান্ত ছিল। পরের বার আরও বড় অর্ডার দেব।</div>
+        <div class="rv-reply"><div class="rv-reply-label">বিক্রেতার উত্তর</div>অনেক ধন্যবাদ! আপনার সন্তুষ্টি আমাদের অনুপ্রেরণা। ভবিষ্যতে আরও ভালো সেবা দেওয়ার চেষ্টা করব।</div>
+        <div class="rv-actions"><button class="rvab rvab--flag" onclick="BB.showToast('রিভিউ ফ্ল্যাগ করা হয়েছে')">🚩 রিপোর্ট</button></div>
+      </div>
+
+      <div class="rv-card">
+        <div class="rv-hd">
+          <div><div class="rv-buyer">Green Export House <span class="rv-loc">— ঢাকা</span></div><div class="rv-product">জুট শপিং ব্যাগ</div></div>
+          <div style="text-align:right"><div class="rv-stars">⭐⭐⭐⭐⭐</div><div class="rv-date">১৫ ফেব্রুয়ারি ২০২৬</div></div>
+        </div>
+        <div class="rv-text">কাস্টম প্রিন্টিং এর মান খুবই ভালো। ইউরোপিয়ান ক্লায়েন্টরাও সন্তুষ্ট। অবশ্যই আবার কিনব।</div>
+        <div class="rv-actions">
+          <button class="rvab rvab--reply" onclick="BB.showToast('উত্তর ফর্ম খুলছে...')">উত্তর দিন</button>
+          <button class="rvab rvab--flag" onclick="BB.showToast('রিভিউ ফ্ল্যাগ করা হয়েছে')">🚩 রিপোর্ট</button>
+        </div>
+      </div>
+
+      <div class="rv-card">
+        <div class="rv-hd">
+          <div><div class="rv-buyer">Farhan Industries <span class="rv-loc">— সিলেট</span></div><div class="rv-product">পলিস্টার ফ্যাব্রিক</div></div>
+          <div style="text-align:right"><div class="rv-stars">⭐⭐⭐</div><div class="rv-date">৫ ফেব্রুয়ারি ২০২৬</div></div>
+        </div>
+        <div class="rv-text">মান মোটামুটি ভালো, তবে ডেলিভারিতে একটু দেরি হয়েছিল। দাম যৌক্তিক।</div>
+        <div class="rv-actions">
+          <button class="rvab rvab--reply" onclick="BB.showToast('উত্তর ফর্ম খুলছে...')">উত্তর দিন</button>
+          <button class="rvab rvab--flag" onclick="BB.showToast('রিভিউ ফ্ল্যাগ করা হয়েছে')">🚩 রিপোর্ট</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

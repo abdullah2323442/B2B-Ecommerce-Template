@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>অভিযোগ — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .dt-dark{width:100%;border-collapse:collapse}
+    .dt-dark th{padding:var(--s-3) var(--s-4);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.28);text-align:left;background:rgba(255,255,255,0.025);border-bottom:1px solid rgba(255,255,255,0.07);white-space:nowrap}
+    .dt-dark td{padding:var(--s-3) var(--s-4);font-size:0.8rem;color:rgba(255,255,255,0.72);border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}
+    .dt-dark tbody tr:hover{background:rgba(255,255,255,0.03)}.dt-dark tbody tr:last-child td{border:none}
+    .dbadge{padding:2px 8px;border-radius:var(--r-full);font-size:0.68rem;font-weight:700;white-space:nowrap}
+    .dbadge--active{background:rgba(74,222,128,0.1);color:#4ade80}.dbadge--pending{background:rgba(251,191,36,0.1);color:#fbbf24}.dbadge--suspended{background:rgba(248,113,113,0.1);color:#f87171}
+    .aab{padding:4px 10px;font-size:0.72rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--approve{background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.25)}.aab--approve:hover{background:rgba(74,222,128,0.22)}
+    .aab--reject{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--reject:hover{background:rgba(248,113,113,0.22)}
+    .aab--suspend{background:rgba(251,191,36,0.1);color:#fbbf24;border-color:rgba(251,191,36,0.25)}
+    .aab--delete{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--delete:hover{background:#dc2626;color:var(--white);border-color:#dc2626}
+    .row-aa{display:flex;gap:4px;flex-wrap:wrap}
+    .dark-search{padding:7px 12px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);outline:none;width:200px;transition:border-color 0.15s}.dark-search:focus{border-color:var(--gold)}.dark-search::placeholder{color:rgba(255,255,255,0.25)}
+    .dark-select{padding:7px 10px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.7);font-family:var(--font-sans);outline:none;cursor:pointer}.dark-select option{background:#0f1f12}
+    .dark-pager{padding:var(--s-3) var(--s-5);border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
+    .dark-pager span{font-size:0.75rem;color:rgba(255,255,255,0.3)}.dpg-btns{display:flex;gap:4px}
+    .dpg-btn{padding:4px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.5);font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.12s}.dpg-btn:hover{background:rgba(255,255,255,0.12);color:var(--white)}.dpg-btn--active{background:var(--gold);border-color:var(--gold);color:var(--green-deep)}
+    .wt{color:var(--white);font-weight:600}.gt{color:rgba(255,255,255,0.35);font-size:0.72rem}
+    .sev-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:var(--r-full);font-size:0.65rem;font-weight:700}
+    .sev-badge--high{background:rgba(248,113,113,0.12);color:#f87171}
+    .sev-badge--med{background:rgba(251,191,36,0.1);color:#fbbf24}
+    .sev-badge--low{background:rgba(74,222,128,0.1);color:#4ade80}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item active"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>অভিযোগ ব্যবস্থাপনা</h1><p>ব্যবহারকারীর অভিযোগ ও রিপোর্ট পরিচালনা করুন</p></div>
+      <div style="display:flex;gap:var(--s-3);flex-wrap:wrap">
+        <input class="dark-search" type="text" placeholder="অভিযোগকারী বা বিষয় খুঁজুন…" />
+        <select class="dark-select"><option>সব অভিযোগ</option><option>খোলা</option><option>তদন্তাধীন</option><option>বন্ধ</option></select>
+        <select class="dark-select"><option>সব কারণ</option><option>প্রতারণা</option><option>অসদাচরণ</option><option>ভুল তথ্য</option></select>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="acard__hd"><span class="acard__title">অভিযোগ তালিকা</span><span style="color:#f87171;font-size:0.8rem;font-weight:600">৮টি খোলা অভিযোগ</span></div>
+      <table class="dt-dark">
+        <thead><tr><th>ID</th><th>অভিযোগকারী</th><th>অভিযুক্ত</th><th>কারণ</th><th>বিবরণ</th><th>তারিখ</th><th>গুরুত্ব</th><th>ক্রিয়া</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="wt">#১০২৩</td>
+            <td><div class="wt">সাইফুল ইসলাম</div><div class="gt">ক্রেতা</div></td>
+            <td><div class="wt">XYZ ট্রেডার্স</div><div class="gt">বিক্রেতা</div></td>
+            <td>প্রতারণা</td>
+            <td style="font-size:0.75rem;color:rgba(255,255,255,0.55);max-width:200px">অর্থ পরিশোধ করেছি কিন্তু পণ্য পাইনি</td>
+            <td class="gt">০৩ ফেব্রু</td>
+            <td><span class="sev-badge sev-badge--high">উচ্চ</span></td>
+            <td><div class="row-aa"><button class="aab aab--suspend" onclick="BB.showToast('তদন্ত শুরু হয়েছে')">তদন্ত</button><button class="aab aab--reject" onclick="BB.showToast('বিক্রেতা স্থগিত','error')">স্থগিত</button></div></td>
+          </tr>
+          <tr>
+            <td class="wt">#১০২২</td>
+            <td><div class="wt">নাসরিন বেগম</div><div class="gt">ক্রেতা</div></td>
+            <td><div class="wt">ফ্যাশন হাউস</div><div class="gt">বিক্রেতা</div></td>
+            <td>ভুল তথ্য</td>
+            <td style="font-size:0.75rem;color:rgba(255,255,255,0.55);max-width:200px">ছবির সাথে পণ্য মিলছে না</td>
+            <td class="gt">০২ ফেব্রু</td>
+            <td><span class="sev-badge sev-badge--med">মাঝারি</span></td>
+            <td><div class="row-aa"><button class="aab aab--suspend" onclick="BB.showToast('তদন্ত শুরু হয়েছে')">তদন্ত</button><button class="aab aab--approve" onclick="BB.showToast('অভিযোগ বন্ধ')">বন্ধ করুন</button></div></td>
+          </tr>
+          <tr>
+            <td class="wt">#১০২১</td>
+            <td><div class="wt">রাকিব হাসান</div><div class="gt">বিক্রেতা</div></td>
+            <td><div class="wt">আহমেদ ট্রেড</div><div class="gt">ক্রেতা</div></td>
+            <td>অসদাচরণ</td>
+            <td style="font-size:0.75rem;color:rgba(255,255,255,0.55);max-width:200px">ক্রেতা অপমানজনক বার্তা পাঠিয়েছে</td>
+            <td class="gt">৩১ জানু</td>
+            <td><span class="sev-badge sev-badge--low">কম</span></td>
+            <td><div class="row-aa"><button class="aab aab--suspend" onclick="BB.showToast('সতর্কবার্তা পাঠানো হয়েছে')">সতর্ক করুন</button><button class="aab aab--approve" onclick="BB.showToast('অভিযোগ বন্ধ')">বন্ধ করুন</button></div></td>
+          </tr>
+          <tr>
+            <td class="wt">#১০২০</td>
+            <td><div class="wt">মুসলিমা খানম</div><div class="gt">ক্রেতা</div></td>
+            <td><div class="wt">টেক্স কর্পোরেশন</div><div class="gt">বিক্রেতা</div></td>
+            <td>মূল্য তারতম্য</td>
+            <td style="font-size:0.75rem;color:rgba(255,255,255,0.55);max-width:200px">চালানে অতিরিক্ত চার্জ করা হয়েছে</td>
+            <td class="gt">৩০ জানু</td>
+            <td><span class="sev-badge sev-badge--high">উচ্চ</span></td>
+            <td><div class="row-aa"><button class="aab aab--suspend" onclick="BB.showToast('তদন্ত শুরু হয়েছে')">তদন্ত</button><button class="aab aab--reject" onclick="BB.showToast('বিক্রেতা স্থগিত','error')">স্থগিত</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="dark-pager"><span>মোট ৮টি অভিযোগ</span><div class="dpg-btns"><button class="dpg-btn" disabled>‹</button><button class="dpg-btn dpg-btn--active">১</button><button class="dpg-btn">২</button><button class="dpg-btn">›</button></div></div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ক্যাটাগরি — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .adm-2col{display:grid;grid-template-columns:1fr 340px;gap:var(--s-5)}
+    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .cat-tree{padding:var(--s-3) 0}
+    .cat-parent{border-bottom:1px solid rgba(255,255,255,0.05)}
+    .cat-parent:last-child{border:none}
+    .cat-parent__row{display:flex;align-items:center;justify-content:space-between;padding:var(--s-3) var(--s-5);cursor:pointer}
+    .cat-parent__row:hover{background:rgba(255,255,255,0.03)}
+    .cat-name{font-size:0.88rem;font-weight:600;color:var(--white);display:flex;align-items:center;gap:var(--s-2)}
+    .cat-count{font-size:0.7rem;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.07);padding:2px 8px;border-radius:var(--r-full)}
+    .cat-actions{display:flex;gap:4px}
+    .cat-sub{padding:0 var(--s-5) var(--s-2) 36px;display:flex;flex-direction:column;gap:1px}
+    .cat-sub__item{display:flex;align-items:center;justify-content:space-between;padding:6px var(--s-3);border-radius:var(--r-md)}
+    .cat-sub__item:hover{background:rgba(255,255,255,0.04)}
+    .cat-sub__name{font-size:0.8rem;color:rgba(255,255,255,0.6)}
+    .cat-sub__count{font-size:0.7rem;color:rgba(255,255,255,0.3)}
+    .aab{padding:3px 8px;font-size:0.68rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--edit{background:rgba(147,197,253,0.08);color:#93c5fd;border-color:rgba(147,197,253,0.2)}.aab--edit:hover{background:rgba(147,197,253,0.18)}
+    .aab--delete{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--delete:hover{background:#dc2626;color:var(--white);border-color:#dc2626}
+    .aab--add{background:rgba(200,151,43,0.1);color:var(--gold);border-color:rgba(200,151,43,0.25);padding:4px 10px;font-size:0.72rem}
+    .fi-dark{padding:9px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;transition:border-color 0.15s}.fi-dark:focus{border-color:var(--gold)}.fi-dark::placeholder{color:rgba(255,255,255,0.25)}
+    .form-group-dark{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--s-4)}
+    .form-label-dark{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em}
+    @media(max-width:1100px){.adm-2col{grid-template-columns:1fr}}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item active"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>ক্যাটাগরি ব্যবস্থাপনা</h1><p>পণ্যের ক্যাটাগরি ও সাবক্যাটাগরি পরিচালনা</p></div>
+    </div>
+
+    <div class="adm-2col">
+      <div class="acard">
+        <div class="acard__hd"><span class="acard__title">ক্যাটাগরি গাছ</span><button class="aab aab--add" onclick="BB.showToast('নতুন ক্যাটাগরি ফর্ম খুলছে')">+ নতুন ক্যাটাগরি</button></div>
+        <div class="cat-tree">
+          <div class="cat-parent">
+            <div class="cat-parent__row">
+              <div class="cat-name">🧵 টেক্সটাইল ও গার্মেন্টস <span class="cat-count">১২,৩৪০ পণ্য</span></div>
+              <div class="cat-actions"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--delete" onclick="BB.showToast('ক্যাটাগরি মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+            </div>
+            <div class="cat-sub">
+              <div class="cat-sub__item"><span class="cat-sub__name">শাড়ি</span><span class="cat-sub__count">৩,২৪০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">থান কাপড়</span><span class="cat-sub__count">২,১৮০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">রেডিমেড পোশাক</span><span class="cat-sub__count">৪,৯২০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">পাট পণ্য</span><span class="cat-sub__count">২,০০০ পণ্য</span></div>
+            </div>
+          </div>
+          <div class="cat-parent">
+            <div class="cat-parent__row">
+              <div class="cat-name">🌾 কৃষি ও খাদ্যপণ্য <span class="cat-count">৮,৯৪০ পণ্য</span></div>
+              <div class="cat-actions"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--delete" onclick="BB.showToast('ক্যাটাগরি মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+            </div>
+            <div class="cat-sub">
+              <div class="cat-sub__item"><span class="cat-sub__name">চাল ও শস্য</span><span class="cat-sub__count">১,৮৬০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">মশলা</span><span class="cat-sub__count">২,৪৩০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">শাকসবজি ও ফল</span><span class="cat-sub__count">৪,৬৫০ পণ্য</span></div>
+            </div>
+          </div>
+          <div class="cat-parent">
+            <div class="cat-parent__row">
+              <div class="cat-name">🎨 হস্তশিল্প <span class="cat-count">৫,২৩০ পণ্য</span></div>
+              <div class="cat-actions"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--delete" onclick="BB.showToast('ক্যাটাগরি মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+            </div>
+            <div class="cat-sub">
+              <div class="cat-sub__item"><span class="cat-sub__name">নকশিকাঁথা</span><span class="cat-sub__count">১,৪২০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">মাটির পণ্য</span><span class="cat-sub__count">১,৮৯০ পণ্য</span></div>
+              <div class="cat-sub__item"><span class="cat-sub__name">বাঁশ ও বেতের পণ্য</span><span class="cat-sub__count">১,৯২০ পণ্য</span></div>
+            </div>
+          </div>
+          <div class="cat-parent">
+            <div class="cat-parent__row">
+              <div class="cat-name">💡 ইলেকট্রনিক্স <span class="cat-count">৪,৮৭০ পণ্য</span></div>
+              <div class="cat-actions"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--delete" onclick="BB.showToast('ক্যাটাগরি মুছে ফেলা হয়েছে','error')">মুছুন</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acard" style="margin-bottom:0">
+        <div class="acard__hd"><span class="acard__title">নতুন ক্যাটাগরি যোগ করুন</span></div>
+        <div style="padding:var(--s-5)">
+          <div class="form-group-dark"><label class="form-label-dark">ক্যাটাগরির নাম (বাংলা)</label><input class="fi-dark" type="text" placeholder="যেমন: চামড়া পণ্য" /></div>
+          <div class="form-group-dark"><label class="form-label-dark">ক্যাটাগরির নাম (ইংরেজি)</label><input class="fi-dark" type="text" placeholder="e.g. Leather Goods" /></div>
+          <div class="form-group-dark"><label class="form-label-dark">প্যারেন্ট ক্যাটাগরি</label>
+            <select class="fi-dark"><option value="">মূল ক্যাটাগরি (কোনো প্যারেন্ট নেই)</option><option>টেক্সটাইল ও গার্মেন্টস</option><option>কৃষি ও খাদ্যপণ্য</option><option>হস্তশিল্প</option><option>ইলেকট্রনিক্স</option></select>
+          </div>
+          <div class="form-group-dark"><label class="form-label-dark">আইকন (ইমোজি)</label><input class="fi-dark" type="text" placeholder="🏭" /></div>
+          <div class="form-group-dark"><label class="form-label-dark">বিবরণ</label><textarea class="fi-dark" style="height:70px;resize:vertical" placeholder="এই ক্যাটাগরি সম্পর্কে সংক্ষিপ্ত বিবরণ…"></textarea></div>
+          <button class="btn btn--primary" style="width:100%" onclick="BB.showToast('ক্যাটাগরি সংরক্ষিত হয়েছে ✓')">ক্যাটাগরি সংরক্ষণ করুন</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

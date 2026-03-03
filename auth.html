@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>প্রবেশ করুন — বাংলাবাজার</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    html, body { height: 100%; }
+    body { background: var(--parchment); }
+
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Left brand panel */
+    .auth-brand {
+      background: var(--green-deep);
+      padding: var(--s-12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-brand::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 3L57 30L30 57L3 30Z' stroke='rgba(200,151,43,0.12)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .auth-brand__logo {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-brand__logo .name {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      display: block;
+    }
+
+    .auth-brand__logo .tagline {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .auth-brand__main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-brand__main h2 {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: var(--s-5);
+    }
+
+    .auth-brand__main h2 span {
+      color: var(--gold);
+      display: block;
+    }
+
+    .auth-benefit {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--s-3);
+    }
+
+    .auth-benefit::before {
+      content: '✓';
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(200,151,43,0.2);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .auth-brand__footer {
+      position: relative;
+      z-index: 1;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Right form panel */
+    .auth-form-panel {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-10) var(--s-8);
+      overflow-y: auto;
+    }
+
+    .auth-form-inner {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .auth-tab-bar {
+      display: flex;
+      gap: 0;
+      background: var(--parchment);
+      border-radius: var(--r-lg);
+      padding: 4px;
+      margin-bottom: var(--s-8);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: var(--s-2) var(--s-4);
+      border-radius: var(--r-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink-60);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .auth-tab.active {
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .auth-form-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: var(--s-2);
+    }
+
+    .auth-form-subtitle {
+      font-size: 0.875rem;
+      color: var(--ink-60);
+      margin-bottom: var(--s-7);
+    }
+
+    /* Account type selector */
+    .account-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+      margin-bottom: var(--s-5);
+    }
+
+    .account-type-card {
+      border: 2px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-4);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .account-type-card:hover {
+      border-color: var(--green-mid);
+    }
+
+    .account-type-card.selected {
+      border-color: var(--green-mid);
+      background: var(--green-pale);
+    }
+
+    .account-type-card .icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--s-2);
+      display: block;
+    }
+
+    .account-type-card .type-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .account-type-card .type-desc {
+      font-size: 0.72rem;
+      color: var(--ink-60);
+    }
+
+    /* OTP grid */
+    .otp-label {
+      font-size: 0.875rem;
+      color: var(--ink-60);
+      margin-bottom: var(--s-5);
+      line-height: 1.6;
+    }
+
+    .otp-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--s-2);
+      margin-bottom: var(--s-5);
+    }
+
+    .otp-input {
+      width: 100%;
+      aspect-ratio: 1;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: 2px solid var(--cream-dark);
+      border-radius: var(--r-md);
+      color: var(--green-mid);
+      background: var(--parchment);
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .otp-input:focus {
+      border-color: var(--green-mid);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(27,67,50,0.1);
+    }
+
+    /* Google button */
+    .btn--google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-3);
+      width: 100%;
+      padding: var(--s-3) var(--s-4);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: var(--s-4);
+    }
+
+    .btn--google:hover { background: var(--parchment); border-color: var(--ink-20); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      margin-bottom: var(--s-5);
+      color: var(--ink-20);
+      font-size: 0.78rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--ink-10);
+    }
+
+    @media (max-width: 768px) {
+      .auth-page {
+        grid-template-columns: 1fr;
+      }
+      .auth-brand {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- ── Left Brand Panel ─────────────────────── -->
+    <div class="auth-brand">
+      <div class="auth-brand__logo">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="name">বাংলাবাজার</span>
+          <span class="tagline">Bangladesh B2B Marketplace</span>
+        </a>
+      </div>
+
+      <div class="auth-brand__main">
+        <h2>বাংলাদেশের সবচেয়ে বড় <span>পাইকারি বাজার</span></h2>
+        <div class="auth-benefit">১২,৪০০+ যাচাইকৃত বিক্রেতার সাথে সংযুক্ত হন</div>
+        <div class="auth-benefit">৮৫,০০০+ পণ্য — সব ক্যাটাগরিতে</div>
+        <div class="auth-benefit">সরাসরি চাহিদা পাঠান — দ্রুত উত্তর পান</div>
+        <div class="auth-benefit">সম্পূর্ণ বিনামূল্যে — কোনো কমিশন নেই</div>
+        <div class="auth-benefit">৬৪টি জেলায় ব্যবসায়িক নেটওয়ার্ক</div>
+      </div>
+
+      <div class="auth-brand__footer">
+        © ২০২৫ বাংলাবাজার। সমস্ত অধিকার সংরক্ষিত।
+      </div>
+    </div>
+
+    <!-- ── Right Form Panel ─────────────────────── -->
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+
+        <!-- Tab bar -->
+        <div class="auth-tab-bar" id="auth-tabs">
+          <div class="auth-tab active" data-auth-tab="login" onclick="switchAuthTab('login')">প্রবেশ করুন</div>
+          <div class="auth-tab" data-auth-tab="register" onclick="switchAuthTab('register')">নিবন্ধন করুন</div>
+        </div>
+
+        <!-- ── LOGIN FORM ── -->
+        <div id="login-form">
+          <h1 class="auth-form-title">স্বাগতম!</h1>
+          <p class="auth-form-subtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
+
+          <!-- Google OAuth -->
+          <button class="btn--google">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            গুগল দিয়ে প্রবেশ করুন
+          </button>
+
+          <div class="divider">অথবা ইমেইল দিয়ে</div>
+
+          <div id="login-step-1">
+            <form id="email-form" style="display:flex;flex-direction:column;gap:var(--s-4);">
+              <div class="form-group">
+                <label class="form-label">ইমেইল ঠিকানা <span>*</span></label>
+                <input class="form-input" type="email" placeholder="example@gmail.com" id="login-email" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">পাসওয়ার্ড <span>*</span></label>
+                <input class="form-input" type="password" placeholder="••••••••" required />
+                <a href="#" style="font-size:0.78rem;color:var(--green-mid);float:right;margin-top:4px;text-decoration:none;">পাসওয়ার্ড ভুলে গেছেন?</a>
+              </div>
+              <button type="submit" class="btn btn--primary btn--lg" style="width:100%;margin-top:var(--s-2);">প্রবেশ করুন →</button>
+            </form>
+          </div>
+
+          <p style="text-align:center;font-size:0.8rem;color:var(--ink-60);margin-top:var(--s-6);">
+            অ্যাকাউন্ট নেই?
+            <a href="#" onclick="switchAuthTab('register')" style="color:var(--green-mid);font-weight:700;text-decoration:none;">নিবন্ধন করুন</a>
+          </p>
+        </div>
+
+        <!-- ── REGISTER FORM ── -->
+        <div id="register-form" style="display:none;">
+          <h1 class="auth-form-title">নতুন অ্যাকাউন্ট</h1>
+          <p class="auth-form-subtitle">আজই যোগ দিন — সম্পূর্ণ বিনামূল্যে</p>
+
+          <!-- Account type -->
+          <div style="margin-bottom:var(--s-5);">
+            <label class="form-label" style="margin-bottom:var(--s-3);">আপনি কি? <span>*</span></label>
+            <div class="account-type-grid">
+              <div class="account-type-card selected" onclick="selectAccountType(this)">
+                <span class="icon">🛒</span>
+                <div class="type-name">ক্রেতা</div>
+                <div class="type-desc">পণ্য খুঁজুন ও অর্ডার করুন</div>
+              </div>
+              <div class="account-type-card" onclick="selectAccountType(this)">
+                <span class="icon">🏪</span>
+                <div class="type-name">বিক্রেতা</div>
+                <div class="type-desc">পণ্য তালিকাভুক্ত করুন</div>
+              </div>
+            </div>
+          </div>
+
+          <form id="reg-form" style="display:flex;flex-direction:column;gap:var(--s-4);" onsubmit="showOTP(event)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);">
+              <div class="form-group">
+                <label class="form-label">পুরো নাম <span>*</span></label>
+                <input class="form-input" type="text" placeholder="মোঃ আব্দুর রহিম" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">ফোন নম্বর <span>*</span></label>
+                <input class="form-input" type="tel" placeholder="০১৭XXXXXXXXX" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ইমেইল ঠিকানা <span>*</span></label>
+              <input class="form-input" type="email" placeholder="example@gmail.com" id="reg-email" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">পাসওয়ার্ড <span>*</span></label>
+              <input class="form-input" type="password" placeholder="কমপক্ষে ৮ অক্ষর" minlength="8" required />
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">OTP যাচাই করুন →</button>
+          </form>
+        </div>
+
+        <!-- ── OTP VERIFICATION STEP ── -->
+        <div id="otp-step" style="display:none;">
+          <h1 class="auth-form-title">OTP যাচাই</h1>
+          <p class="otp-label">
+            আপনার ইমেইলে একটি ৬-সংখ্যার যাচাই কোড পাঠানো হয়েছে।<br/>
+            <strong id="otp-email-display" style="color:var(--ink);">example@gmail.com</strong>
+          </p>
+          <div class="otp-grid">
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+            <input class="otp-input" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s-5);">
+            <span style="font-size:0.78rem;color:var(--ink-60);">কোড পাননি?</span>
+            <button style="font-size:0.78rem;color:var(--green-mid);font-weight:700;cursor:pointer;background:none;border:none;" onclick="BB.showToast('নতুন OTP পাঠানো হয়েছে')">পুনরায় পাঠান</button>
+          </div>
+          <button class="btn btn--primary btn--lg" style="width:100%;" onclick="verifyOTP()">যাচাই করুন ও প্রবেশ করুন</button>
+          <button style="width:100%;margin-top:var(--s-3);font-size:0.78rem;color:var(--ink-60);background:none;border:none;cursor:pointer;" onclick="document.getElementById('otp-step').style.display='none'; document.getElementById('register-form').style.display='block';">← পিছনে যান</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Tab button styles for tabs inside data-tabs */
+    .tab-btn {
+      padding: var(--s-2) var(--s-5);
+      border-bottom: 3px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink-60);
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn[aria-selected="true"] {
+      color: var(--green-mid);
+      border-bottom-color: var(--green-mid);
+    }
+  </style>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-auth-tab="${tab}"]`).classList.add('active');
+      document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById('otp-step').style.display = 'none';
+    }
+
+    function selectAccountType(el) {
+      document.querySelectorAll('.account-type-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function showOTP(e) {
+      e.preventDefault();
+      const email = document.getElementById('reg-email').value || 'example@gmail.com';
+      document.getElementById('otp-email-display').textContent = email;
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('otp-step').style.display = 'block';
+      // Focus first OTP input
+      setTimeout(() => document.querySelector('.otp-input').focus(), 100);
+    }
+
+    function verifyOTP() {
+      BB.showToast('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! স্বাগতম 🎉');
+      setTimeout(() => window.location.href = 'dashboard-seller.html', 1500);
+    }
+
+    // Login form submit
+    document.getElementById('email-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      BB.showToast('সফলভাবে প্রবেশ করা হয়েছে!');
+      setTimeout(() => window.location.href = 'dashboard-seller.html', 1000);
+    });
+  </script>
+</body>
+</html>

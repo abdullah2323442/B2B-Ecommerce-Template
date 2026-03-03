@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পণ্য অনুমোদন — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}
+    .asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .acard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s-5)}
+    .acard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3)}
+    .acard__title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .dt-dark{width:100%;border-collapse:collapse}
+    .dt-dark th{padding:var(--s-3) var(--s-4);font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.28);text-align:left;background:rgba(255,255,255,0.025);border-bottom:1px solid rgba(255,255,255,0.07);white-space:nowrap}
+    .dt-dark td{padding:var(--s-3) var(--s-4);font-size:0.8rem;color:rgba(255,255,255,0.72);border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}
+    .dt-dark tbody tr:hover{background:rgba(255,255,255,0.03)}.dt-dark tbody tr:last-child td{border:none}
+    .dbadge{padding:2px 8px;border-radius:var(--r-full);font-size:0.68rem;font-weight:700;white-space:nowrap}
+    .dbadge--pending{background:rgba(251,191,36,0.1);color:#fbbf24}.dbadge--active{background:rgba(74,222,128,0.1);color:#4ade80}.dbadge--suspended{background:rgba(248,113,113,0.1);color:#f87171}
+    .aab{padding:4px 10px;font-size:0.72rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--approve{background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.25)}.aab--approve:hover{background:rgba(74,222,128,0.22)}
+    .aab--reject{background:rgba(248,113,113,0.1);color:#f87171;border-color:rgba(248,113,113,0.25)}.aab--reject:hover{background:rgba(248,113,113,0.22)}
+    .aab--view{background:rgba(147,197,253,0.08);color:#93c5fd;border-color:rgba(147,197,253,0.2)}.aab--view:hover{background:rgba(147,197,253,0.18)}
+    .row-aa{display:flex;gap:4px;flex-wrap:wrap}
+    .dark-search{padding:7px 12px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);outline:none;width:200px;transition:border-color 0.15s}.dark-search:focus{border-color:var(--gold)}.dark-search::placeholder{color:rgba(255,255,255,0.25)}
+    .dark-select{padding:7px 10px;font-size:0.78rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.7);font-family:var(--font-sans);outline:none;cursor:pointer}.dark-select option{background:#0f1f12}
+    .dark-pager{padding:var(--s-3) var(--s-5);border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
+    .dark-pager span{font-size:0.75rem;color:rgba(255,255,255,0.3)}
+    .dpg-btns{display:flex;gap:4px}.dpg-btn{padding:4px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:rgba(255,255,255,0.5);font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.12s}.dpg-btn:hover{background:rgba(255,255,255,0.12);color:var(--white)}.dpg-btn--active{background:var(--gold);border-color:var(--gold);color:var(--green-deep)}
+    .wt{color:var(--white);font-weight:600}.gt{color:rgba(255,255,255,0.35);font-size:0.72rem}
+    .pthumb{width:40px;height:40px;border-radius:var(--r-md);object-fit:cover;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .ptd{display:flex;align-items:center;gap:var(--s-3)}
+    /* Modal */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center}.modal-overlay.open{display:flex}
+    .modal-box{background:#0f1f12;border:1px solid rgba(200,151,43,0.2);border-radius:var(--r-xl);padding:var(--s-6);width:420px;max-width:94vw;box-shadow:0 24px 60px rgba(0,0,0,0.5)}
+    .modal-box h3{font-family:var(--font-serif);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:var(--s-2)}
+    .modal-box p{font-size:0.82rem;color:rgba(255,255,255,0.45);margin-bottom:var(--s-4)}
+    .modal-textarea{width:100%;padding:var(--s-3);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.875rem;resize:vertical;outline:none;height:90px;transition:border-color 0.15s;box-sizing:border-box}.modal-textarea:focus{border-color:#f87171}.modal-textarea::placeholder{color:rgba(255,255,255,0.25)}
+    .modal-actions{display:flex;gap:var(--s-3);justify-content:flex-end;margin-top:var(--s-4)}
+    .status-tabs{display:flex;gap:var(--s-2);flex-wrap:wrap}
+    .stab{padding:5px 14px;border-radius:var(--r-md);font-size:0.78rem;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);background:transparent;transition:all 0.14s}.stab.active{background:var(--gold);border-color:var(--gold);color:var(--green-deep)}.stab:hover:not(.active){background:rgba(255,255,255,0.06);color:var(--white)}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item active"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>পণ্য অনুমোদন কিউ</h1><p>অনুমোদনের অপেক্ষায় থাকা পণ্যগুলো পর্যালোচনা করুন</p></div>
+      <div style="display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
+        <input class="dark-search" type="text" placeholder="পণ্য বা বিক্রেতা খুঁজুন…" />
+        <select class="dark-select"><option>সব ক্যাটাগরি</option><option>টেক্সটাইল</option><option>কৃষি</option><option>ইলেকট্রনিক্স</option><option>হস্তশিল্প</option></select>
+      </div>
+    </div>
+
+    <div class="acard" style="margin-bottom:var(--s-3)">
+      <div style="padding:var(--s-3) var(--s-5)">
+        <div class="status-tabs">
+          <button class="stab active" onclick="BB.showToast('সব পণ্য দেখানো হচ্ছে')">সব (১২)</button>
+          <button class="stab" onclick="BB.showToast('নতুন পণ্য ফিল্টার')">নতুন (৭)</button>
+          <button class="stab" onclick="BB.showToast('পুনর্জমা ফিল্টার')">পুনর্জমা (৫)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="acard__hd"><span class="acard__title">অনুমোদন কিউ</span><span style="font-size:0.8rem;color:#fbbf24;font-weight:600">১২টি অপেক্ষায়</span></div>
+      <table class="dt-dark">
+        <thead><tr><th>পণ্য</th><th>বিক্রেতা</th><th>ক্যাটাগরি</th><th>দাম</th><th>জমার তারিখ</th><th>অবস্থা</th><th>ক্রিয়া</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="ptd"><div class="pthumb">🧵</div><div><div class="wt">হাতে বোনা মসলিন কাপড়</div><div class="gt">SKU: TX-4521</div></div></div></td>
+            <td><div class="wt">রহিম টেক্সটাইলস</div><div class="gt">Rahim@textile.bd</div></td>
+            <td>টেক্সটাইল</td><td class="wt">৳ ১,২০০/মিটার</td><td class="gt">০৩ ফেব্রু ২০২৫</td>
+            <td><span class="dbadge dbadge--pending">অপেক্ষায়</span></td>
+            <td><div class="row-aa"><button class="aab aab--view" onclick="BB.showToast('পণ্য বিস্তারিত দেখাচ্ছে')">দেখুন</button><button class="aab aab--approve" onclick="BB.showToast('পণ্য অনুমোদিত হয়েছে ✓')">অনুমোদন</button><button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.add('open')">প্রত্যাখ্যান</button></div></td>
+          </tr>
+          <tr>
+            <td><div class="ptd"><div class="pthumb">🌾</div><div><div class="wt">জৈব চাল (মিনিকেট)</div><div class="gt">SKU: AG-0023</div></div></div></td>
+            <td><div class="wt">আগ্রোফার্ম</div><div class="gt">info@agrofarm.bd</div></td>
+            <td>কৃষি</td><td class="wt">৳ ৬৫/কেজি</td><td class="gt">০৩ ফেব্রু ২০২৫</td>
+            <td><span class="dbadge dbadge--pending">অপেক্ষায়</span></td>
+            <td><div class="row-aa"><button class="aab aab--view">দেখুন</button><button class="aab aab--approve" onclick="BB.showToast('পণ্য অনুমোদিত ✓')">অনুমোদন</button><button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.add('open')">প্রত্যাখ্যান</button></div></td>
+          </tr>
+          <tr>
+            <td><div class="ptd"><div class="pthumb">🎨</div><div><div class="wt">নকশিকাঁথা (হ্যান্ডমেড)</div><div class="gt">SKU: HC-8872</div></div></div></td>
+            <td><div class="wt">বাংলার কারু</div><div class="gt">craft@bangla.bd</div></td>
+            <td>হস্তশিল্প</td><td class="wt">৳ ৩,৫০০/পিস</td><td class="gt">০২ ফেব্রু ২০২৫</td>
+            <td><span class="dbadge dbadge--pending">পুনর্জমা</span></td>
+            <td><div class="row-aa"><button class="aab aab--view">দেখুন</button><button class="aab aab--approve" onclick="BB.showToast('পণ্য অনুমোদিত ✓')">অনুমোদন</button><button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.add('open')">প্রত্যাখ্যান</button></div></td>
+          </tr>
+          <tr>
+            <td><div class="ptd"><div class="pthumb">💡</div><div><div class="wt">সোলার প্যানেল ৩০০W</div><div class="gt">SKU: EL-1199</div></div></div></td>
+            <td><div class="wt">গ্রিনটেক বিডি</div><div class="gt">sales@greentech.bd</div></td>
+            <td>ইলেকট্রনিক্স</td><td class="wt">৳ ১৮,০০০/পিস</td><td class="gt">০১ ফেব্রু ২০২৫</td>
+            <td><span class="dbadge dbadge--pending">অপেক্ষায়</span></td>
+            <td><div class="row-aa"><button class="aab aab--view">দেখুন</button><button class="aab aab--approve" onclick="BB.showToast('পণ্য অনুমোদিত ✓')">অনুমোদন</button><button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.add('open')">প্রত্যাখ্যান</button></div></td>
+          </tr>
+          <tr>
+            <td><div class="ptd"><div class="pthumb">👗</div><div><div class="wt">সিল্ক শাড়ি (বেনারসি)</div><div class="gt">SKU: TX-9034</div></div></div></td>
+            <td><div class="wt">শাড়ি ঘর</div><div class="gt">sharighor@bd.com</div></td>
+            <td>টেক্সটাইল</td><td class="wt">৳ ৮,৫০০/পিস</td><td class="gt">৩১ জানু ২০২৫</td>
+            <td><span class="dbadge dbadge--pending">অপেক্ষায়</span></td>
+            <td><div class="row-aa"><button class="aab aab--view">দেখুন</button><button class="aab aab--approve" onclick="BB.showToast('পণ্য অনুমোদিত ✓')">অনুমোদন</button><button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.add('open')">প্রত্যাখ্যান</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="dark-pager"><span>১২টির মধ্যে ৫টি দেখানো হচ্ছে</span><div class="dpg-btns"><button class="dpg-btn" disabled>‹</button><button class="dpg-btn dpg-btn--active">১</button><button class="dpg-btn">২</button><button class="dpg-btn">৩</button><button class="dpg-btn">›</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal-overlay" id="rej-modal">
+  <div class="modal-box">
+    <h3>পণ্য প্রত্যাখ্যান</h3>
+    <p>প্রত্যাখ্যানের কারণ উল্লেখ করুন — বিক্রেতাকে ইমেইলে জানানো হবে।</p>
+    <textarea class="modal-textarea" placeholder="প্রত্যাখ্যানের কারণ: যেমন — ছবির মান ভালো নয়, বিভ্রান্তিকর তথ্য, নীতি লঙ্ঘন ইত্যাদি…"></textarea>
+    <div class="modal-actions">
+      <button class="aab" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)" onclick="document.getElementById('rej-modal').classList.remove('open')">বাতিল</button>
+      <button class="aab aab--reject" onclick="document.getElementById('rej-modal').classList.remove('open');BB.showToast('পণ্য প্রত্যাখ্যাত হয়েছে','error')">প্রত্যাখ্যান নিশ্চিত করুন</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

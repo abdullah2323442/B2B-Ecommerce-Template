@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>প্রোফাইল সম্পাদনা — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:var(--parchment)}.dash-wrap{display:block;min-height:100vh}
+    .sb{background:var(--green-deep);position:fixed;inset:0 auto 0 0;width:260px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;box-shadow:2px 0 24px rgba(0,0,0,0.2)}
+    .sb__brand{padding:22px var(--s-6);border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0}.sb__brand a{text-decoration:none}
+    .sb__brand-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--gold);display:block}
+    .sb__brand-sub{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+    .sb__user{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:var(--s-3);flex-shrink:0}
+    .sb__avatar{width:40px;height:40px;border-radius:50%;background:rgba(200,151,43,0.18);border:1.5px solid rgba(200,151,43,0.35);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;flex-shrink:0}
+    .sb__username{font-size:0.875rem;font-weight:700;color:var(--white);line-height:1.2}
+    .sb__userrole{font-size:0.65rem;color:#4ade80;display:flex;align-items:center;gap:4px;margin-top:2px}
+    .sb__nav{flex:1;padding:var(--s-3) 0}.sb__label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.2);padding:var(--s-4) var(--s-6) var(--s-1)}
+    .sb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-6);font-size:0.875rem;color:rgba(255,255,255,0.58);transition:all 0.14s;border-left:3px solid transparent;text-decoration:none}
+    .sb__item:hover{color:var(--white);background:rgba(255,255,255,0.05);border-left-color:rgba(200,151,43,0.35)}
+    .sb__item.active{color:var(--white);background:rgba(200,151,43,0.1);border-left-color:var(--gold);font-weight:600}
+    .sb__item .ico{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+    .sb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .sb__badge--gold{background:var(--gold);color:var(--green-deep)}
+    .sb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0}
+    .sb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.32);padding:5px 0;text-decoration:none;transition:color 0.14s}
+    .sb__footer-link:hover{color:rgba(255,255,255,0.7)}
+    .dash-main{margin-left:260px;min-height:100vh;padding:var(--s-6) var(--s-8);background:var(--parchment)}
+    .dash-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .dash-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .dash-topbar p{font-size:0.78rem;color:var(--ink-60);margin-top:2px}
+    /* form layout */
+    .prof-layout{display:grid;grid-template-columns:1fr 280px;gap:var(--s-5);align-items:start}
+    .fcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-bottom:var(--s-5)}
+    .fcard__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid var(--border);font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--green-deep)}
+    .fcard__body{padding:var(--s-5)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-4)}
+    .form-row--1{grid-template-columns:1fr;margin-bottom:var(--s-4)}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-label{font-size:0.75rem;font-weight:600;color:var(--ink-60)}
+    .form-label span{color:#dc2626}
+    .fi{padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:0.82rem;font-family:var(--font-sans);color:var(--ink-80);outline:none;transition:border-color 0.14s;width:100%;box-sizing:border-box}
+    .fi:focus{border-color:var(--green-mid)}
+    .fi--ta{resize:vertical;min-height:90px}
+    .fi--select{cursor:pointer}
+    .completeness-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s-5);margin-bottom:var(--s-4)}
+    .comp-val{font-family:var(--font-serif);font-size:2rem;font-weight:800;color:var(--green-deep)}
+    .comp-label{font-size:0.78rem;color:var(--ink-50);margin-bottom:var(--s-3)}
+    .comp-bar-track{height:8px;background:var(--ink-05);border-radius:4px;overflow:hidden;margin-bottom:var(--s-4)}
+    .comp-bar-fill{height:100%;background:linear-gradient(to right,var(--green-mid),var(--gold));border-radius:4px;width:72%}
+    .comp-steps{display:flex;flex-direction:column;gap:var(--s-2)}
+    .cs{display:flex;align-items:center;gap:var(--s-2);font-size:0.75rem}
+    .cs--done{color:var(--ink-50);text-decoration:line-through}
+    .cs--todo{color:var(--ink-80);font-weight:600}
+    /* logo upload */
+    .logo-upload{border:2px dashed var(--border);border-radius:var(--r-xl);padding:var(--s-6);text-align:center;cursor:pointer;transition:border-color 0.14s;background:var(--ink-02)}
+    .logo-upload:hover{border-color:var(--green-mid)}
+    .logo-upload__icon{font-size:2rem;margin-bottom:var(--s-2)}
+    .logo-upload__text{font-size:0.78rem;color:var(--ink-50)}
+    .logo-upload__hint{font-size:0.65rem;color:var(--ink-40);margin-top:4px}
+    @media(max-width:1000px){.prof-layout{grid-template-columns:1fr}}
+    @media(max-width:900px){.dash-main{margin-left:0;padding:var(--s-5)}.sb{display:none}.form-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+  <aside class="sb">
+    <div class="sb__brand"><a href="../index.html"><span class="sb__brand-name">বাংলাবাজার</span><span class="sb__brand-sub">বিক্রেতা প্যানেল</span></a></div>
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div><div class="sb__username">রহিম টেক্সটাইলস</div><div class="sb__userrole"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>যাচাইকৃত বিক্রেতা</div></div>
+    </div>
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="seller-products.html"  class="sb__item"><span class="ico">📦</span> পণ্য তালিকা <span class="sb__badge sb__badge--gold">১৫৩</span></a>
+      <a href="seller-enquiries.html" class="sb__item"><span class="ico">💬</span> জিজ্ঞাসাসমূহ <span class="sb__badge">৮</span></a>
+      <a href="seller-messages.html"  class="sb__item"><span class="ico">✉️</span> বার্তা <span class="sb__badge">৩</span></a>
+      <a href="seller-reviews.html"   class="sb__item"><span class="ico">⭐</span> পর্যালোচনা</a>
+      <a href="seller-rfq.html"       class="sb__item"><span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)</a>
+      <a href="seller-analytics.html" class="sb__item"><span class="ico">📈</span> পরিসংখ্যান</a>
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html"       class="sb__item active"><span class="ico">🏪</span> প্রোফাইল সম্পাদনা</a>
+      <a href="seller-settings.html"      class="sb__item"><span class="ico">⚙️</span> সেটিংস</a>
+      <a href="seller-notifications.html" class="sb__item"><span class="ico">🔔</span> নোটিফিকেশন সেটিং</a>
+    </nav>
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>পাবলিক প্রোফাইল দেখুন</a>
+      <a href="../index.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>মার্কেটপ্লেসে ফিরুন</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div><h1>প্রোফাইল সম্পাদনা</h1><p>আপনার ব্যবসার তথ্য আপডেট করুন</p></div>
+      <button class="btn btn--primary" onclick="BB.showToast('প্রোফাইল সংরক্ষিত হয়েছে ✓')">💾 পরিবর্তন সংরক্ষণ করুন</button>
+    </div>
+
+    <div class="prof-layout">
+      <div>
+        <!-- Company Info -->
+        <div class="fcard">
+          <div class="fcard__hd">ব্যবসায়িক তথ্য</div>
+          <div class="fcard__body">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">কোম্পানির নাম <span>*</span></label><input class="fi" type="text" value="রহিম টেক্সটাইলস" /></div>
+              <div class="form-group"><label class="form-label">ট্রেড লাইসেন্স নম্বর</label><input class="fi" type="text" value="TL-2019-045823" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">ব্যবসার ধরন <span>*</span></label>
+                <select class="fi fi--select"><option>প্রস্তুতকারক</option><option>পাইকারি বিক্রেতা</option><option>রপ্তানিকারক</option><option>ডিলার</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">প্রতিষ্ঠার বছর</label><input class="fi" type="number" value="2008" min="1900" max="2026" /></div>
+            </div>
+            <div class="form-row--1">
+              <div class="form-group"><label class="form-label">ব্যবসার বিবরণ <span>*</span></label><textarea class="fi fi--ta" placeholder="আপনার কোম্পানি সম্পর্কে বিস্তারিত লিখুন...">রহিম টেক্সটাইলস ২০০৮ সাল থেকে উচ্চমানের সুতা, কাপড় ও টেক্সটাইল পণ্য উৎপাদন করে আসছে। আমাদের প্রধান বাজার ইউরোপ ও মধ্যপ্রাচ্য।</textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact & Location -->
+        <div class="fcard">
+          <div class="fcard__hd">যোগাযোগ ও অবস্থান</div>
+          <div class="fcard__body">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">মোবাইল নম্বর <span>*</span></label><input class="fi" type="tel" value="01711-234567" /></div>
+              <div class="form-group"><label class="form-label">ব্যবসায়িক ইমেইল</label><input class="fi" type="email" value="rahim@textile.bd" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">বিভাগ <span>*</span></label>
+                <select class="fi fi--select"><option>ঢাকা</option><option>চট্টগ্রাম</option><option selected>নরসিংদী (ঢাকা)</option><option>রাজশাহী</option><option>খুলনা</option><option>সিলেট</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">জেলা <span>*</span></label><input class="fi" type="text" value="নরসিংদী" /></div>
+            </div>
+            <div class="form-row--1">
+              <div class="form-group"><label class="form-label">ব্যবসার ঠিকানা</label><textarea class="fi fi--ta" style="min-height:60px">কারখানা: মাধবদী, নরসিংদী। অফিস: ৪৫/বি, বঙ্গবন্ধু এভিনিউ, ঢাকা-১০০০</textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories & Capabilities -->
+        <div class="fcard">
+          <div class="fcard__hd">ক্যাটাগরি ও সক্ষমতা</div>
+          <div class="fcard__body">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">প্রধান ক্যাটাগরি</label>
+                <select class="fi fi--select"><option selected>টেক্সটাইল ও পোশাক</option><option>পাটজাত পণ্য</option><option>চামড়াজাত পণ্য</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">কর্মচারী সংখ্যা</label>
+                <select class="fi fi--select"><option>১–১০</option><option>১১–৫০</option><option selected>৫১–২০০</option><option>২০০+</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">বার্ষিক উৎপাদন ক্ষমতা</label><input class="fi" type="text" value="৫,০০,০০০ মিটার কাপড়" /></div>
+              <div class="form-group"><label class="form-label">ওয়েবসাইট</label><input class="fi" type="url" placeholder="https://..." /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <div class="completeness-card">
+          <div class="comp-val">৭২%</div>
+          <div class="comp-label">প্রোফাইল সম্পূর্ণতা</div>
+          <div class="comp-bar-track"><div class="comp-bar-fill"></div></div>
+          <div class="comp-steps">
+            <div class="cs cs--done">✅ কোম্পানির নাম</div>
+            <div class="cs cs--done">✅ যোগাযোগ তথ্য</div>
+            <div class="cs cs--done">✅ অবস্থান</div>
+            <div class="cs cs--done">✅ বিবরণ</div>
+            <div class="cs cs--todo">⬜ লোগো আপলোড করুন</div>
+            <div class="cs cs--todo">⬜ সার্টিফিকেট যোগ করুন</div>
+            <div class="cs cs--todo">⬜ কভার ছবি দিন</div>
+          </div>
+        </div>
+
+        <div class="fcard">
+          <div class="fcard__hd">লোগো আপলোড</div>
+          <div class="fcard__body">
+            <div class="logo-upload" onclick="BB.showToast('ফাইল আপলোড উইন্ডো খুলছে...')">
+              <div class="logo-upload__icon">🖼️</div>
+              <div class="logo-upload__text">লোগো আপলোড করতে ক্লিক করুন</div>
+              <div class="logo-upload__hint">PNG, JPG · সর্বোচ্চ ২ MB · ১:১ অনুপাত</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fcard" style="margin-bottom:0">
+          <div class="fcard__hd">সার্টিফিকেশন</div>
+          <div class="fcard__body">
+            <div style="display:flex;flex-direction:column;gap:var(--s-2);margin-bottom:var(--s-3)">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-2) var(--s-3);background:var(--ink-02);border-radius:var(--r-md);font-size:0.78rem">
+                <span>ISO 9001:2015 ✅</span><button style="font-size:0.65rem;color:#b91c1c;background:none;border:none;cursor:pointer" onclick="BB.showToast('সার্টিফিকেট মুছে ফেলা হয়েছে','error')">মুছুন</button>
+              </div>
+            </div>
+            <button class="btn btn--outline" style="width:100%;font-size:0.78rem" onclick="BB.showToast('সার্টিফিকেট আপলোড করুন')">+ সার্টিফিকেট যোগ করুন</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

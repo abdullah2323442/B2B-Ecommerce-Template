@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>বিক্রেতা গাইড — বাংলাবাজার</title>
+  <meta name="description" content="বাংলাবাজারে বিক্রেতা হওয়ার সম্পূর্ণ গাইড। নিবন্ধন থেকে পণ্য বিক্রয় পর্যন্ত ধাপে ধাপে নির্দেশিকা।" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .cms-hero{background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-mid) 100%);padding:80px 0 64px;text-align:center}
+    .cms-hero__eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s-3)}
+    .cms-hero__title{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:var(--s-4)}
+    .cms-hero__sub{font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto var(--s-6)}
+    .hero-steps{display:flex;align-items:center;justify-content:center;gap:var(--s-3);flex-wrap:wrap}
+    .hero-step{display:flex;align-items:center;gap:var(--s-2);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:var(--r-full);padding:8px 16px;font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.88)}
+    .hero-step__num{background:var(--gold);color:var(--green-deep);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;flex-shrink:0}
+    .cms-body{padding:72px 0 80px}
+    .guide-grid{display:grid;grid-template-columns:220px 1fr;gap:var(--s-8);align-items:start}
+    .guide-nav{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-lg);overflow:hidden;position:sticky;top:80px}
+    .guide-nav__hd{padding:var(--s-3) var(--s-4);background:var(--green-deep);font-family:var(--font-serif);font-size:0.88rem;font-weight:700;color:var(--gold)}
+    .guide-nav__link{display:flex;align-items:center;gap:var(--s-2);padding:9px var(--s-4);font-size:0.82rem;color:var(--green-mid);text-decoration:none;border-bottom:1px solid var(--cream-dark);transition:all 0.14s}.guide-nav__link:last-child{border:none}.guide-nav__link:hover{background:rgba(200,151,43,0.06);color:var(--gold)}.guide-nav__link.active{background:rgba(200,151,43,0.08);color:var(--gold);font-weight:700;border-left:3px solid var(--gold)}
+    .guide-content{}
+    .guide-section{margin-bottom:var(--s-10);scroll-margin-top:80px}
+    .guide-section__hd{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-5)}
+    .guide-section__num{width:40px;height:40px;border-radius:50%;background:var(--green-deep);color:var(--gold);font-family:var(--font-serif);font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .guide-section__title{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--green-deep)}
+    .guide-card{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);margin-bottom:var(--s-4)}
+    .guide-card__title{font-weight:700;color:var(--green-deep);font-size:0.92rem;margin-bottom:var(--s-2);display:flex;align-items:center;gap:var(--s-2)}
+    .guide-card p{font-size:0.88rem;line-height:1.8;color:var(--body-color);margin:0}
+    .step-list{counter-reset:steps;display:flex;flex-direction:column;gap:var(--s-4)}
+    .step-item{display:grid;grid-template-columns:40px 1fr;gap:var(--s-4);align-items:start}
+    .step-item::before{counter-increment:steps;content:counter(steps);width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--green-deep);font-family:var(--font-serif);font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-body h3{font-weight:700;color:var(--green-deep);font-size:0.92rem;margin-bottom:4px}
+    .step-body p{font-size:0.85rem;line-height:1.75;color:var(--body-color);margin:0}
+    .tip-box{background:rgba(200,151,43,0.07);border:1.5px solid rgba(200,151,43,0.2);border-radius:var(--r-lg);padding:var(--s-4) var(--s-5);margin:var(--s-4) 0;display:flex;gap:var(--s-3)}
+    .tip-box__icon{font-size:1.3rem;flex-shrink:0}
+    .tip-box p{font-size:0.85rem;line-height:1.75;color:var(--green-deep);margin:0}
+    .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+    .doc-item{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4);display:flex;align-items:flex-start;gap:var(--s-3)}
+    .doc-icon{font-size:1.5rem;flex-shrink:0}
+    .doc-req{font-size:0.62rem;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-full)}
+    .doc-req--must{background:rgba(220,38,38,0.08);color:#dc2626}
+    .doc-req--opt{background:rgba(200,151,43,0.1);color:var(--gold)}
+    .plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+    .plan-card{border-radius:var(--r-xl);border:2px solid var(--cream-dark);padding:var(--s-6);position:relative}
+    .plan-card--premium{border-color:var(--gold);background:linear-gradient(135deg,rgba(200,151,43,0.05),rgba(200,151,43,0.01))}
+    .plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--green-deep);font-size:0.68rem;font-weight:800;padding:3px 12px;border-radius:var(--r-full);white-space:nowrap}
+    .plan-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-1)}
+    .plan-price{font-family:var(--font-serif);font-size:2rem;font-weight:800;color:var(--green-mid);margin-bottom:var(--s-4)}
+    .plan-price span{font-size:0.88rem;color:var(--muted);font-family:var(--font-sans);font-weight:400}
+    .plan-feature{display:flex;align-items:center;gap:var(--s-2);font-size:0.85rem;color:var(--body-color);margin-bottom:var(--s-2)}
+    .plan-feature::before{content:'✓';color:var(--green-mid);font-weight:700;flex-shrink:0}
+    @media(max-width:900px){.guide-grid{grid-template-columns:1fr}.guide-nav{position:static}.doc-grid{grid-template-columns:1fr}.plan-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-name">বাংলাবাজার</span><span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span></a>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="seller/dashboard-seller.html" class="navbar__link">ড্যাশবোর্ড</a>
+          <a href="auth.html?type=seller" class="btn btn--gold btn--sm">বিনামূল্যে শুরু করুন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="cms-hero">
+    <div class="container">
+      <div class="cms-hero__eyebrow">বিক্রেতার নির্দেশিকা</div>
+      <h1 class="cms-hero__title">বিক্রেতা গাইড</h1>
+      <p class="cms-hero__sub">নিবন্ধন থেকে প্রথম বিক্রয় পর্যন্ত — সবকিছু ধাপে ধাপে জানুন। মাত্র ৪৮ ঘণ্টায় শুরু করুন।</p>
+      <div class="hero-steps">
+        <div class="hero-step"><span class="hero-step__num">১</span> নিবন্ধন</div>
+        <div style="color:rgba(255,255,255,0.3)">→</div>
+        <div class="hero-step"><span class="hero-step__num">২</span> যাচাই</div>
+        <div style="color:rgba(255,255,255,0.3)">→</div>
+        <div class="hero-step"><span class="hero-step__num">৩</span> পণ্য যুক্ত করুন</div>
+        <div style="color:rgba(255,255,255,0.3)">→</div>
+        <div class="hero-step"><span class="hero-step__num">৪</span> বিক্রয় শুরু</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cms-body">
+    <div class="container">
+      <div class="guide-grid">
+
+        <nav class="guide-nav">
+          <div class="guide-nav__hd">📋 বিষয়সূচি</div>
+          <a href="#step-register" class="guide-nav__link active">১. নিবন্ধন প্রক্রিয়া</a>
+          <a href="#step-docs" class="guide-nav__link">২. প্রয়োজনীয় কাগজপত্র</a>
+          <a href="#step-profile" class="guide-nav__link">৩. প্রোফাইল সেটআপ</a>
+          <a href="#products" class="guide-nav__link">৪. পণ্য যুক্ত করুন</a>
+          <a href="#photos" class="guide-nav__link">৫. পণ্যের ছবি</a>
+          <a href="#rfq" class="guide-nav__link">৬. RFQ সাড়া দিন</a>
+          <a href="#analytics" class="guide-nav__link">৭. পরিসংখ্যান</a>
+          <a href="#shipping" class="guide-nav__link">৮. ডেলিভারি</a>
+          <a href="#export" class="guide-nav__link">৯. রপ্তানি গাইড</a>
+          <a href="#plans" class="guide-nav__link">১০. প্ল্যান ও মূল্য</a>
+        </nav>
+
+        <article class="guide-content">
+
+          <section class="guide-section" id="step-register">
+            <div class="guide-section__hd"><div class="guide-section__num">১</div><h2 class="guide-section__title">নিবন্ধন প্রক্রিয়া</h2></div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-body"><h3>"বিক্রেতা হিসেবে যোগ দিন" বাটনে ক্লিক করুন</h3><p>হোমপেজ বা auth.html পেজে গিয়ে বিক্রেতা নিবন্ধন ফর্মটি খুলুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>মোবাইল নম্বর দিয়ে OTP যাচাই করুন</h3><p>আপনার সক্রিয় মোবাইল নম্বরে একটি OTP কোড পাঠানো হবে। কোডটি দিয়ে পরিচয় নিশ্চিত করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>ব্যবসার মূল তথ্য পূরণ করুন</h3><p>ব্যবসার নাম, ধরন (উৎপাদক/পাইকার/রপ্তানিকারক), জেলা, ক্যাটাগরি ও যোগাযোগের তথ্য প্রদান করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>ডকুমেন্ট আপলোড করুন</h3><p>ট্রেড লাইসেন্স ও NID স্ক্যান করে আপলোড করুন। JPG, PNG বা PDF ফরম্যাট গৃহীত হয়।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>অনুমোদনের অপেক্ষা করুন</h3><p>আমাদের টিম ৪৮ ঘণ্টার মধ্যে যাচাই করে ইমেইলে অনুমোদনের বিজ্ঞপ্তি পাঠাবে।</p></div></div>
+            </div>
+            <div class="tip-box"><div class="tip-box__icon">💡</div><p><strong>টিপস:</strong> নিবন্ধনের সময় ব্যবসার সঠিক ক্যাটাগরি বেছে নিন। এটি সঠিক ক্রেতার কাছে আপনাকে পৌঁছে দেবে এবং RFQ নোটিফিকেশন পেতে সাহায্য করবে।</p></div>
+          </section>
+
+          <section class="guide-section" id="step-docs">
+            <div class="guide-section__hd"><div class="guide-section__num">২</div><h2 class="guide-section__title">প্রয়োজনীয় কাগজপত্র</h2></div>
+            <div class="doc-grid">
+              <div class="doc-item"><div class="doc-icon">📄</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">ট্রেড লাইসেন্স <span class="doc-req doc-req--must">বাধ্যতামূলক</span></div><p style="font-size:0.8rem;color:var(--muted)">বর্তমান বছরের বৈধ ট্রেড লাইসেন্সের স্পষ্ট স্ক্যান।</p></div></div>
+              <div class="doc-item"><div class="doc-icon">🪪</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">জাতীয় পরিচয়পত্র <span class="doc-req doc-req--must">বাধ্যতামূলক</span></div><p style="font-size:0.8rem;color:var(--muted)">ব্যবসার মালিকের NID (উভয় পাশ)।</p></div></div>
+              <div class="doc-item"><div class="doc-icon">🏦</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">ব্যাংক/mBanking তথ্য <span class="doc-req doc-req--must">বাধ্যতামূলক</span></div><p style="font-size:0.8rem;color:var(--muted)">পেমেন্ট গ্রহণের জন্য বৈধ ব্যাংক বা মোবাইল ব্যাংকিং অ্যাকাউন্ট।</p></div></div>
+              <div class="doc-item"><div class="doc-icon">📊</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">TIN সার্টিফিকেট <span class="doc-req doc-req--opt">ঐচ্ছিক</span></div><p style="font-size:0.8rem;color:var(--muted)">যাচাইয়ের ব্যাজ ও বিশ্বাসযোগ্যতা বাড়ায়।</p></div></div>
+              <div class="doc-item"><div class="doc-icon">🌐</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">BRC / ERC <span class="doc-req doc-req--opt">রপ্তানিকারকের জন্য</span></div><p style="font-size:0.8rem;color:var(--muted)">বিদেশে পণ্য রপ্তানি করতে হলে রপ্তানি নিবন্ধন সনদ।</p></div></div>
+              <div class="doc-item"><div class="doc-icon">🏭</div><div><div style="font-weight:700;font-size:0.88rem;color:var(--green-deep);margin-bottom:4px">কারখানার ফটো <span class="doc-req doc-req--opt">ঐচ্ছিক</span></div><p style="font-size:0.8rem;color:var(--muted)">ক্রেতার আস্থা বাড়ায়। ৩-৫টি স্পষ্ট ছবি আপলোড করুন।</p></div></div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="step-profile">
+            <div class="guide-section__hd"><div class="guide-section__num">৩</div><h2 class="guide-section__title">প্রোফাইল সেটআপ</h2></div>
+            <div class="guide-card"><div class="guide-card__title">🏪 স্টোর প্রোফাইল সম্পন্ন করুন</div><p>ব্যবসার লোগো, কভার ছবি, বিস্তারিত বিবরণ, যোগাযোগ তথ্য ও কার্যক্রমের এলাকা যুক্ত করুন। একটি সম্পূর্ণ প্রোফাইল অনুসন্ধান ফলাফলে ৩ গুণ বেশি দেখা যায়।</p></div>
+            <div class="guide-card"><div class="guide-card__title">✅ যাচাইয়ের ব্যাজ পান</div><p>সমস্ত ডকুমেন্ট যাচাইয়ের পর প্রোফাইলে "যাচাইকৃত বিক্রেতা" ব্যাজ দেওয়া হবে। এই ব্যাজ ক্রেতার আস্থা উল্লেখযোগ্যভাবে বাড়ায়।</p></div>
+            <div class="tip-box"><div class="tip-box__icon">💡</div><p><strong>টিপস:</strong> প্রোফাইলের বিবরণে আপনার পণ্যের সাথে সম্পর্কিত কীওয়ার্ড ব্যবহার করুন যা ক্রেতারা খুঁজতে পারেন।</p></div>
+          </section>
+
+          <section class="guide-section" id="products">
+            <div class="guide-section__hd"><div class="guide-section__num">৪</div><h2 class="guide-section__title">পণ্য যুক্ত করুন</h2></div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-body"><h3>ড্যাশবোর্ড → পণ্য যুক্ত করুন</h3><p>ড্যাশবোর্ডে লগইন করে "নতুন পণ্য" বাটনে ক্লিক করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>পণ্যের তথ্য পূরণ করুন</h3><p>নাম, ক্যাটাগরি, বিস্তারিত বিবরণ, ন্যূনতম অর্ডার পরিমাণ (MOQ), একক মূল্য, এবং পণ্যের স্পেসিফিকেশন লিখুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>মানসম্পন্ন ছবি আপলোড করুন</h3><p>কমপক্ষে ৩টি ভিন্ন কোণের ছবি আপলোড করুন। সাদা বা নিরপেক্ষ ব্যাকগ্রাউন্ড ব্যবহার করুন।</p></div></div>
+              <div class="step-item"><div class="step-body"><h3>মূল্যের ধাপ নির্ধারণ করুন (ঐচ্ছিক)</h3><p>বেশি পরিমাণে অর্ডারে ছাড়ের শর্ত যুক্ত করুন (যেমন ১০০+ পিস = ৫% ছাড়)।</p></div></div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="photos">
+            <div class="guide-section__hd"><div class="guide-section__num">৫</div><h2 class="guide-section__title">পণ্যের ছবির নির্দেশিকা</h2></div>
+            <div class="guide-card"><div class="guide-card__title">📸 ভালো ছবির শর্ত</div><p>ন্যূনতম ৮০০×৮০০ পিক্সেল রেজোলিউশন। উজ্জ্বল আলো (প্রাকৃতিক আলো সবচেয়ে ভালো)। সাদা বা নিরপেক্ষ ব্যাকগ্রাউন্ড। ছবি ব্লার বা পিক্সেলেটেড হওয়া চলবে না।</p></div>
+            <div class="guide-card"><div class="guide-card__title">🖼️ প্রস্তাবিত ছবির ধরন</div><p>• মূল পণ্যের স্ট্রেইট ফ্রন্ট ভিউ (১টি বাধ্যতামূলক) • পণ্যের কাছ থেকে ডিটেইল ভিউ • প্যাকেজিং ও লেবেলের ছবি • পণ্য ব্যবহারের প্রেক্ষাপটের ছবি • কারখানা বা প্রস্তুতি প্রক্রিয়ার ছবি</p></div>
+          </section>
+
+          <section class="guide-section" id="rfq">
+            <div class="guide-section__hd"><div class="guide-section__num">৬</div><h2 class="guide-section__title">RFQ-তে কীভাবে সাড়া দেবেন</h2></div>
+            <div class="guide-card"><div class="guide-card__title">📋 RFQ নোটিফিকেশন চালু রাখুন</div><p>আপনার পণ্যের ক্যাটাগরিতে নতুন RFQ আসলে ইমেইল ও অ্যাপ নোটিফিকেশন পাবেন। দ্রুত সাড়া দিলে অর্ডার পাওয়ার সম্ভাবনা বেশি।</p></div>
+            <div class="guide-card"><div class="guide-card__title">✉️ কার্যকর প্রস্তাব লিখুন</div><p>ক্রেতার চাহিদা মনোযোগ দিয়ে পড়ুন। নির্দিষ্ট দাম, ডেলিভারি সময় ও পেমেন্ট শর্ত উল্লেখ করুন। প্রতিযোগিতামূলক মূল্য এবং বাড়তি সুবিধা (যেমন নমুনা) অফার করুন।</p></div>
+          </section>
+
+          <section class="guide-section" id="analytics">
+            <div class="guide-section__hd"><div class="guide-section__num">৭</div><h2 class="guide-section__title">পরিসংখ্যান বিশ্লেষণ</h2></div>
+            <div class="guide-card"><div class="guide-card__title">📈 ড্যাশবোর্ডে নজর রাখুন</div><p>পণ্য ভিউ, অনুসন্ধান র্যাংকিং, বার্তা সংখ্যা ও কনভার্সন রেট প্রতিদিন দেখুন। কোন পণ্যে বেশি ক্লিক হচ্ছে তা বুঝে সেদিকে মনোযোগ দিন।</p></div>
+          </section>
+
+          <section class="guide-section" id="shipping">
+            <div class="guide-section__hd"><div class="guide-section__num">৮</div><h2 class="guide-section__title">ডেলিভারি সেটআপ</h2></div>
+            <div class="guide-card"><div class="guide-card__title">🚚 ডেলিভারি তথ্য নির্ধারণ করুন</div><p>পণ্যের পেজে ডেলিভারির সময়কাল, ব্যবহৃত কুরিয়ার সার্ভিস, এবং শিপিং বিধিনিষেধ উল্লেখ করুন। সারা দেশে ডেলিভারি দিলে বিক্রয়ের সুযোগ বাড়ে।</p></div>
+          </section>
+
+          <section class="guide-section" id="export">
+            <div class="guide-section__hd"><div class="guide-section__num">৯</div><h2 class="guide-section__title">রপ্তানি গাইড</h2></div>
+            <div class="guide-card"><div class="guide-card__title">🌐 বিদেশি ক্রেতার কাছে পৌঁছান</div><p>প্রোফাইলে "রপ্তানি করি" ট্যাগ যুক্ত করুন। পণ্যের বিবরণে ইংরেজিতেও তথ্য রাখুন। আন্তর্জাতিক পেমেন্ট পদ্ধতি (SWIFT/PayPal) সক্রিয় রাখুন।</p></div>
+            <div class="tip-box"><div class="tip-box__icon">🌟</div><p><strong>মনে রাখুন:</strong> রপ্তানির জন্য বৈধ BRC (Bond Registration Certificate) থাকা প্রয়োজন। <a href="contact.html" style="color:var(--green-mid)">আমাদের সাথে যোগাযোগ করুন</a> — রপ্তানি প্রক্রিয়ায় আমরা সহায়তা করি।</p></div>
+          </section>
+
+          <section class="guide-section" id="plans">
+            <div class="guide-section__hd"><div class="guide-section__num">১০</div><h2 class="guide-section__title">প্ল্যান ও মূল্য</h2></div>
+            <div class="plan-grid">
+              <div class="plan-card">
+                <div class="plan-name">বিনামূল্যে</div>
+                <div class="plan-price">৳০ <span>/ মাস</span></div>
+                <div class="plan-feature">১০টি পণ্য তালিকাভুক্তি</div>
+                <div class="plan-feature">মেসেজিং সিস্টেম</div>
+                <div class="plan-feature">মাসে ৫টি RFQ সাড়া</div>
+                <div class="plan-feature">বেসিক পরিসংখ্যান</div>
+                <div class="plan-feature">১টি পণ্য ক্যাটাগরি</div>
+                <br>
+                <a href="auth.html?type=seller" class="btn btn--outline" style="width:100%;justify-content:center;display:flex">বিনামূল্যে শুরু করুন</a>
+              </div>
+              <div class="plan-card plan-card--premium">
+                <span class="plan-badge">সবচেয়ে জনপ্রিয়</span>
+                <div class="plan-name">প্রিমিয়াম</div>
+                <div class="plan-price">৳৫০০ <span>/ মাস</span></div>
+                <div class="plan-feature">৫০০টি পণ্য তালিকাভুক্তি</div>
+                <div class="plan-feature">অগ্রাধিকার মেসেজিং</div>
+                <div class="plan-feature">সীমাহীন RFQ সাড়া</div>
+                <div class="plan-feature">বিস্তারিত পরিসংখ্যান</div>
+                <div class="plan-feature">৫টি পণ্য ক্যাটাগরি</div>
+                <div class="plan-feature">যাচাইয়ের ব্যাজ (অগ্রাধিকার)</div>
+                <div class="plan-feature">রপ্তানি সহায়তা</div>
+                <br>
+                <a href="auth.html?type=seller&plan=premium" class="btn btn--gold" style="width:100%;justify-content:center;display:flex">প্রিমিয়াম শুরু করুন →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><div class="footer__brand-name">বাংলাবাজার</div><p class="footer__brand-desc">বাংলাদেশের ব্যবসায়ীদের জন্য নির্মিত দেশের প্রথম সম্পূর্ণ বাংলা ভাষার B2B মার্কেটপ্লেস।</p></div>
+        <div><div class="footer__col-title">ক্রেতাদের জন্য</div><a href="search.html" class="footer__link">পণ্য খুঁজুন</a><a href="search.html?type=sellers" class="footer__link">বিক্রেতা খুঁজুন</a><a href="auth.html" class="footer__link">নিবন্ধন করুন</a></div>
+        <div><div class="footer__col-title">বিক্রেতাদের জন্য</div><a href="auth.html?type=seller" class="footer__link">বিক্রেতা হন</a><a href="seller-guide.html" class="footer__link">বিক্রেতা গাইড</a><a href="success-stories.html" class="footer__link">সফলতার গল্প</a><a href="help.html" class="footer__link">সাহায্য কেন্দ্র</a></div>
+        <div><div class="footer__col-title">প্রতিষ্ঠান</div><a href="about.html" class="footer__link">আমাদের সম্পর্কে</a><a href="contact.html" class="footer__link">যোগাযোগ করুন</a><a href="privacy.html" class="footer__link">গোপনীয়তা নীতি</a><a href="terms.html" class="footer__link">সেবার শর্তাবলী</a></div>
+      </div>
+      <div class="footer__bottom"><div class="footer__copy">© ২০২৬ বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।</div></div>
+    </div>
+  </footer>
+
+<script>
+// Highlight active nav link on scroll
+const links = document.querySelectorAll('.guide-nav__link');
+const sections = document.querySelectorAll('.guide-section');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const active = document.querySelector(`.guide-nav__link[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>

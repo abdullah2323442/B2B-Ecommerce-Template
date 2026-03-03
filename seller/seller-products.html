@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পণ্য তালিকা — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body { background: var(--parchment); }
+    .dash-wrap { display: block; min-height: 100vh; }
+    /* sidebar */
+    .sb { background: var(--green-deep); position: fixed; inset: 0 auto 0 0; width: 260px; display: flex; flex-direction: column; overflow-y: auto; z-index: 200; box-shadow: 2px 0 24px rgba(0,0,0,0.2); }
+    .sb__brand { padding: 22px var(--s-6); border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+    .sb__brand a { text-decoration: none; }
+    .sb__brand-name { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 800; color: var(--gold); display: block; }
+    .sb__brand-sub { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .sb__user { padding: var(--s-4) var(--s-5); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: var(--s-3); flex-shrink: 0; }
+    .sb__avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(200,151,43,0.18); border: 1.5px solid rgba(200,151,43,0.35); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .sb__username { font-size: 0.875rem; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .sb__userrole { font-size: 0.65rem; color: #4ade80; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+    .sb__nav { flex: 1; padding: var(--s-3) 0; }
+    .sb__label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.2); padding: var(--s-4) var(--s-6) var(--s-1); }
+    .sb__item { display: flex; align-items: center; gap: var(--s-3); padding: 9px var(--s-6); font-size: 0.875rem; color: rgba(255,255,255,0.58); transition: all 0.14s; border-left: 3px solid transparent; text-decoration: none; }
+    .sb__item:hover { color: var(--white); background: rgba(255,255,255,0.05); border-left-color: rgba(200,151,43,0.35); }
+    .sb__item.active { color: var(--white); background: rgba(200,151,43,0.1); border-left-color: var(--gold); font-weight: 600; }
+    .sb__item .ico { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+    .sb__badge { margin-left: auto; background: #dc2626; color: var(--white); font-size: 0.6rem; font-weight: 800; padding: 2px 6px; border-radius: var(--r-full); min-width: 20px; text-align: center; }
+    .sb__badge--gold { background: var(--gold); color: var(--green-deep); }
+    .sb__footer { padding: var(--s-3) var(--s-5) var(--s-4); border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+    .sb__footer-link { display: flex; align-items: center; gap: var(--s-2); font-size: 0.78rem; color: rgba(255,255,255,0.32); padding: 5px 0; text-decoration: none; transition: color 0.14s; }
+    .sb__footer-link:hover { color: rgba(255,255,255,0.7); }
+    /* main */
+    .dash-main { margin-left: 260px; min-height: 100vh; padding: var(--s-6) var(--s-8); background: var(--parchment); }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s-6); flex-wrap: wrap; gap: var(--s-4); }
+    .dash-topbar h1 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 800; color: var(--green-deep); }
+    .dash-topbar p { font-size: 0.78rem; color: var(--ink-60); margin-top: 2px; }
+    /* filter bar */
+    .filter-bar { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+    .filter-bar input[type=search] { padding: 8px 14px; border: 1.5px solid var(--border); border-radius: var(--r-md); font-size: 0.8rem; color: var(--ink-80); background: var(--white); outline: none; width: 220px; font-family: var(--font-sans); }
+    .filter-bar input:focus { border-color: var(--green-mid); }
+    .fsel { padding: 7px 10px; border: 1.5px solid var(--border); border-radius: var(--r-md); font-size: 0.78rem; color: var(--ink-70); background: var(--white); cursor: pointer; font-family: var(--font-sans); }
+    .fsel:focus { outline: none; border-color: var(--green-mid); }
+    .ml-auto { margin-left: auto; }
+    /* stat strip */
+    .prod-strip { display: flex; gap: var(--s-3); margin-bottom: var(--s-5); flex-wrap: wrap; }
+    .ps-pill { padding: 5px 14px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.14s; text-decoration: none; border: 1.5px solid transparent; }
+    .ps-pill--all      { background: var(--green-deep); color: var(--white); }
+    .ps-pill--active   { background: rgba(39,174,96,0.1); color: #1a7a45; border-color: rgba(39,174,96,0.25); }
+    .ps-pill--pending  { background: rgba(200,151,43,0.1); color: #8a6218; border-color: rgba(200,151,43,0.25); }
+    .ps-pill--rejected { background: rgba(220,38,38,0.08); color: #b91c1c; border-color: rgba(220,38,38,0.2); }
+    .ps-pill--inactive { background: var(--ink-05); color: var(--ink-50); border-color: var(--border); }
+    /* table card */
+    .tcard { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+    .tcard__hd { padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--s-3); }
+    .tcard__title { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--green-deep); }
+    table.pt { width: 100%; border-collapse: collapse; }
+    table.pt th { padding: 10px var(--s-4); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-40); background: var(--ink-02); border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+    table.pt td { padding: 10px var(--s-4); font-size: 0.8rem; color: var(--ink-70); border-bottom: 1px solid var(--border); vertical-align: middle; }
+    table.pt tbody tr { transition: background 0.1s; }
+    table.pt tbody tr:hover { background: var(--ink-02); }
+    table.pt tbody tr:last-child td { border-bottom: none; }
+    table.pt tbody tr.row--rejected { background: rgba(220,38,38,0.03); }
+    .wt { color: var(--ink-90); font-weight: 600; }
+    .gt { color: var(--ink-40); font-size: 0.72rem; }
+    .row-aa { display: flex; gap: 4px; flex-wrap: wrap; }
+    .aab { padding: 4px 10px; font-size: 0.72rem; font-weight: 600; border-radius: var(--r-md); cursor: pointer; transition: all 0.14s; border: 1px solid; white-space: nowrap; background: transparent; }
+    .aab--edit    { color: var(--green-mid); border-color: rgba(27,67,50,0.25); }
+    .aab--edit:hover { background: rgba(27,67,50,0.06); }
+    .aab--fix     { color: #b45309; border-color: rgba(180,83,9,0.25); }
+    .aab--fix:hover { background: rgba(180,83,9,0.06); }
+    .aab--del     { color: #b91c1c; border-color: rgba(185,28,28,0.2); }
+    .aab--del:hover { background: rgba(185,28,28,0.06); }
+    .aab--activate{ color: #1a7a45; border-color: rgba(26,122,69,0.25); }
+    .aab--activate:hover { background: rgba(26,122,69,0.06); }
+    .rejection-note { font-size: 0.7rem; color: #b91c1c; background: rgba(220,38,38,0.06); padding: 3px 8px; border-radius: var(--r-sm); margin-top: 4px; }
+    /* responsive */
+    @media (max-width: 900px) { .dash-main { margin-left: 0; padding: var(--s-5); } .sb { display: none; } }
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+
+  <aside class="sb">
+    <div class="sb__brand"><a href="../index.html"><span class="sb__brand-name">বাংলাবাজার</span><span class="sb__brand-sub">বিক্রেতা প্যানেল</span></a></div>
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div>
+        <div class="sb__username">রহিম টেক্সটাইলস</div>
+        <div class="sb__userrole"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>যাচাইকৃত বিক্রেতা</div>
+      </div>
+    </div>
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="seller-products.html"  class="sb__item active"><span class="ico">📦</span> পণ্য তালিকা <span class="sb__badge sb__badge--gold">১৫৩</span></a>
+      <a href="seller-enquiries.html" class="sb__item"><span class="ico">💬</span> জিজ্ঞাসাসমূহ <span class="sb__badge">৮</span></a>
+      <a href="seller-messages.html"  class="sb__item"><span class="ico">✉️</span> বার্তা <span class="sb__badge">৩</span></a>
+      <a href="seller-reviews.html"   class="sb__item"><span class="ico">⭐</span> পর্যালোচনা</a>
+      <a href="seller-rfq.html"       class="sb__item"><span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)</a>
+      <a href="seller-analytics.html" class="sb__item"><span class="ico">📈</span> পরিসংখ্যান</a>
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html"       class="sb__item"><span class="ico">🏪</span> প্রোফাইল সম্পাদনা</a>
+      <a href="seller-settings.html"      class="sb__item"><span class="ico">⚙️</span> সেটিংস</a>
+      <a href="seller-notifications.html" class="sb__item"><span class="ico">🔔</span> নোটিফিকেশন সেটিং</a>
+    </nav>
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>পাবলিক প্রোফাইল দেখুন</a>
+      <a href="../index.html"  class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>মার্কেটপ্লেসে ফিরুন</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div><h1>পণ্য তালিকা</h1><p id="pg-date">সব পণ্য পরিচালনা করুন</p></div>
+      <a href="#" class="btn btn--primary" onclick="BB.showToast('নতুন পণ্য যোগ ফর্ম খুলছে...')">+ নতুন পণ্য যোগ করুন</a>
+    </div>
+
+    <div class="prod-strip">
+      <span class="ps-pill ps-pill--all">সব — ১৫৩</span>
+      <span class="ps-pill ps-pill--active">সক্রিয় — ১৩৮</span>
+      <span class="ps-pill ps-pill--pending">অনুমোদন বাকি — ৫</span>
+      <span class="ps-pill ps-pill--rejected">প্রত্যাখ্যাত — ২</span>
+      <span class="ps-pill ps-pill--inactive">নিষ্ক্রিয় — ৮</span>
+    </div>
+
+    <div class="filter-bar">
+      <input type="search" placeholder="পণ্যের নাম বা কোড খুঁজুন..." />
+      <select class="fsel"><option>সব ক্যাটাগরি</option><option>টেক্সটাইল</option><option>পাটজাত পণ্য</option><option>চামড়াজাত পণ্য</option></select>
+      <select class="fsel"><option>সব অবস্থা</option><option>সক্রিয়</option><option>অনুমোদন বাকি</option><option>প্রত্যাখ্যাত</option><option>নিষ্ক্রিয়</option></select>
+      <select class="fsel ml-auto"><option>সর্বশেষ যোগ</option><option>সর্বাধিক দেখা</option><option>সর্বাধিক জিজ্ঞাসা</option></select>
+    </div>
+
+    <div class="tcard">
+      <div class="tcard__hd">
+        <span class="tcard__title">সকল পণ্য</span>
+        <span style="font-size:0.75rem;color:var(--ink-50);">১৫৩টির মধ্যে ১–১০ দেখাচ্ছে</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="pt">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>পণ্যের নাম</th>
+              <th>ক্যাটাগরি</th>
+              <th>মূল্য পরিসীমা</th>
+              <th>MOQ</th>
+              <th>অবস্থা</th>
+              <th>ভিউ</th>
+              <th>জিজ্ঞাসা</th>
+              <th>কার্যক্রম</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="gt">০০১</td>
+              <td><span class="wt">সুতাবালিশ কভার (২০×২০ ইঞ্চি)</span><div class="gt">SKU: TXT-001</div></td>
+              <td class="gt">টেক্সটাইল</td>
+              <td>৳১২০–১৮০/পিস</td>
+              <td>৫০০ পিস</td>
+              <td><span class="status status--active">সক্রিয়</span></td>
+              <td style="color:var(--green-mid);font-weight:600;">৮৪২</td>
+              <td style="color:var(--ink-70);font-weight:600;">২৩</td>
+              <td><div class="row-aa"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--del" onclick="BB.showToast('পণ্য মুছে ফেলা হয়েছে','error')">মুছুন</button></div></td>
+            </tr>
+            <tr>
+              <td class="gt">০০২</td>
+              <td><span class="wt">জুট শপিং ব্যাগ নান্দনিক প্রিন্ট</span><div class="gt">SKU: JUT-042</div></td>
+              <td class="gt">পাটজাত পণ্য</td>
+              <td>৳৬৫–৯৫/পিস</td>
+              <td>১,০০০ পিস</td>
+              <td><span class="status status--active">সক্রিয়</span></td>
+              <td style="color:var(--green-mid);font-weight:600;">৬১৫</td>
+              <td style="color:var(--ink-70);font-weight:600;">৩৭</td>
+              <td><div class="row-aa"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--del" onclick="BB.showToast('পণ্য মুছে ফেলা হয়েছে','error')">মুছুন</button></div></td>
+            </tr>
+            <tr>
+              <td class="gt">০০৩</td>
+              <td><span class="wt">হস্তনির্মিত চামড়ার মানিব্যাগ</span><div class="gt">SKU: LTH-018</div></td>
+              <td class="gt">চামড়াজাত পণ্য</td>
+              <td>৳৩৮০–৫৫০/পিস</td>
+              <td>২০০ পিস</td>
+              <td><span class="status status--pending">অনুমোদন বাকি</span></td>
+              <td style="color:var(--ink-40);font-weight:600;">—</td>
+              <td style="color:var(--ink-40);">—</td>
+              <td><div class="row-aa"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button></div></td>
+            </tr>
+            <tr class="row--rejected">
+              <td class="gt">০০৪</td>
+              <td>
+                <span class="wt" style="color:#b91c1c;">সয়াবিন তেল (আনব্র্যান্ডেড)</span>
+                <div class="gt">SKU: OIL-007</div>
+                <div class="rejection-note">প্রত্যাখ্যানের কারণ: পণ্যের ছবি স্পষ্ট নয়। BSTI সার্টিফিকেট নেই।</div>
+              </td>
+              <td class="gt">খাদ্যপণ্য</td>
+              <td>৳১৫০–২০০/লিটার</td>
+              <td>৫০ লিটার</td>
+              <td><span class="status status--danger">প্রত্যাখ্যাত</span></td>
+              <td style="color:var(--ink-40);">—</td>
+              <td style="color:var(--ink-40);">—</td>
+              <td><div class="row-aa"><button class="aab aab--fix" onclick="BB.showToast('পণ্য সম্পাদনা খুলছে...')">ঠিক করুন</button><button class="aab aab--del" onclick="BB.showToast('পণ্য মুছে ফেলা হয়েছে','error')">মুছুন</button></div></td>
+            </tr>
+            <tr>
+              <td class="gt">০০৫</td>
+              <td><span class="wt">কটন থ্রেড (৫০০ গ্রাম বোবিন)</span><div class="gt">SKU: TXT-088</div></td>
+              <td class="gt">টেক্সটাইল</td>
+              <td>৳২২০–৩০০/পিস</td>
+              <td>৩০০ পিস</td>
+              <td><span class="status status--inactive">নিষ্ক্রিয়</span></td>
+              <td style="color:var(--green-mid);font-weight:600;">৪১২</td>
+              <td style="color:var(--ink-70);font-weight:600;">৯</td>
+              <td><div class="row-aa"><button class="aab aab--activate" onclick="BB.showToast('পণ্য সক্রিয় করা হয়েছে ✓')">সক্রিয় করুন</button><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button></div></td>
+            </tr>
+            <tr>
+              <td class="gt">০০৬</td>
+              <td><span class="wt">পলিস্টার ফ্যাব্রিক (৬০" প্রস্থ)</span><div class="gt">SKU: TXT-112</div></td>
+              <td class="gt">টেক্সটাইল</td>
+              <td>৳৮৫–১৩০/মিটার</td>
+              <td>৫০০ মিটার</td>
+              <td><span class="status status--active">সক্রিয়</span></td>
+              <td style="color:var(--green-mid);font-weight:600;">৩২৮</td>
+              <td style="color:var(--ink-70);font-weight:600;">১৫</td>
+              <td><div class="row-aa"><button class="aab aab--edit" onclick="BB.showToast('সম্পাদনা মোড')">সম্পাদনা</button><button class="aab aab--del" onclick="BB.showToast('পণ্য মুছে ফেলা হয়েছে','error')">মুছুন</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:var(--s-3) var(--s-5);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:0.74rem;color:var(--ink-50);">১৫৩টির মধ্যে ১–৬ দেখাচ্ছে</span>
+        <div style="display:flex;gap:4px;">
+          <button class="page-btn" disabled>←</button>
+          <button class="page-btn page-btn--active">১</button>
+          <button class="page-btn">২</button>
+          <button class="page-btn">৩</button>
+          <button class="page-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+  (function(){const d=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'],m=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'],b=n=>String(n).replace(/\d/g,c=>'০১২৩৪৫৬৭৮৯'[c]),now=new Date(),el=document.getElementById('pg-date');if(el)el.textContent=`${d[now.getDay()]}, ${b(now.getDate())} ${m[now.getMonth()]} ${b(now.getFullYear())}`;})();
+</script>
+</body>
+</html>

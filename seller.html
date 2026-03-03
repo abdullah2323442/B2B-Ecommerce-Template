@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>রহিম টেক্সটাইলস — বাংলাবাজার</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .seller-cover {
+      height: 240px;
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 50%, #1f5c3e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seller-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 2L38 20L20 38L2 20Z' stroke='rgba(200,151,43,0.15)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    .seller-profile-card {
+      position: relative;
+      margin-top: -80px;
+      padding: 0 var(--s-8) var(--s-8);
+    }
+
+    .seller-profile-inner {
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-xl);
+      padding: var(--s-6) var(--s-8);
+      display: flex;
+      align-items: flex-end;
+      gap: var(--s-6);
+      flex-wrap: wrap;
+    }
+
+    .seller-profile__avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--r-lg);
+      background: var(--green-mid);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      border: 4px solid var(--white);
+      box-shadow: var(--shadow-md);
+      margin-top: -50px;
+    }
+
+    .seller-profile__info {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .seller-profile__info h1 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: var(--s-1);
+    }
+
+    .seller-meta-row {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      flex-wrap: wrap;
+      margin-top: var(--s-2);
+      font-size: 0.8rem;
+      color: var(--ink-60);
+    }
+
+    .seller-profile__actions {
+      display: flex;
+      gap: var(--s-3);
+      flex-shrink: 0;
+    }
+
+    .seller-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-4);
+      margin-bottom: var(--s-8);
+    }
+
+    .seller-stat-box {
+      background: var(--parchment);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-5);
+      text-align: center;
+    }
+
+    .seller-stat-box .value {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--green-mid);
+      line-height: 1;
+      margin-bottom: var(--s-1);
+    }
+
+    .seller-stat-box .label {
+      font-size: 0.75rem;
+      color: var(--ink-60);
+    }
+
+    .seller-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: var(--s-8);
+      align-items: start;
+    }
+
+    .contact-gated {
+      background: var(--parchment);
+      border: 1.5px dashed var(--ink-20);
+      border-radius: var(--r-lg);
+      padding: var(--s-6);
+      text-align: center;
+    }
+
+    .contact-gated p {
+      font-size: 0.875rem;
+      color: var(--ink-60);
+      margin-bottom: var(--s-4);
+    }
+
+    @media (max-width: 768px) {
+      .seller-stats-row { grid-template-columns: repeat(2, 1fr); }
+      .seller-content-grid { grid-template-columns: 1fr; }
+      .seller-profile-inner { padding: var(--s-5); }
+      .seller-profile-card { padding: 0 var(--s-4) var(--s-6); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="announce-bar">
+    🆕 প্রতিদিন নতুন পণ্য যোগ হচ্ছে — এই সপ্তাহে ৩৪০টি নতুন তালিকা!
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo">
+          <span class="navbar__logo-name">বাংলাবাজার</span>
+          <span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span>
+        </a>
+        <div class="navbar__search">
+          <input class="navbar__search-input" type="search" placeholder="পণ্য, ক্যাটাগরি বা বিক্রেতা খুঁজুন..." />
+          <button class="navbar__search-btn" type="button">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+          </button>
+        </div>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="auth.html" class="btn btn--gold btn--sm">প্রবেশ করুন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Category Bar -->
+  <nav class="cat-bar">
+    <div class="container">
+      <div class="cat-bar__inner">
+        <a href="search.html" class="cat-bar__item">সব পণ্য</a>
+        <a href="search.html?cat=textile" class="cat-bar__item">🧵 কাপড় ও সুতা</a>
+        <a href="search.html?cat=food" class="cat-bar__item">🌾 খাদ্যপণ্য</a>
+        <a href="search.html?cat=agri" class="cat-bar__item">🌱 কৃষি ও মৎস্য</a>
+        <a href="search.html?cat=electronics" class="cat-bar__item">⚡ ইলেকট্রনিক্স</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Seller Cover -->
+  <div class="seller-cover"></div>
+
+  <!-- Seller Profile Card -->
+  <div class="seller-profile-card">
+    <div class="seller-profile-inner">
+      <div class="seller-profile__avatar">র</div>
+      <div class="seller-profile__info">
+        <h1>রহিম টেক্সটাইলস লিমিটেড</h1>
+        <div class="seller-meta-row">
+          <span class="badge badge--success">✓ যাচাইকৃত বিক্রেতা</span>
+          <span>📍 নরসিংদী, ঢাকা বিভাগ</span>
+          <span>🕐 ২০২১ সাল থেকে সদস্য</span>
+          <span>★ ৪.৭ (৩৮০টি রিভিউ)</span>
+        </div>
+        <p style="font-size:0.875rem; color:var(--ink-60); margin-top:var(--s-3); max-width:500px; line-height:1.7;">
+          বাংলাদেশের শীর্ষস্থানীয় কটন ও পলিয়েস্টার ফেব্রিক উৎপাদনকারী। আমরা ১৫ বছর ধরে দেশীয় ও আন্তর্জাতিক বাজারে উচ্চমানের টেক্সটাইল সরবরাহ করে আসছি।
+        </p>
+      </div>
+      <div class="seller-profile__actions">
+        <button class="btn btn--outline" onclick="BB.openModal('contact-modal')">যোগাযোগ করুন</button>
+        <button class="btn btn--primary" data-save data-saved="false">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          সংরক্ষণ করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" style="padding-bottom:var(--s-16);">
+
+    <!-- Stats Row -->
+    <div class="seller-stats-row reveal">
+      <div class="seller-stat-box">
+        <div class="value" data-count="145" data-suffix="টি">০</div>
+        <div class="label">মোট পণ্য</div>
+      </div>
+      <div class="seller-stat-box">
+        <div class="value" data-count="1240" data-suffix="+">০</div>
+        <div class="label">সম্পন্ন অর্ডার</div>
+      </div>
+      <div class="seller-stat-box">
+        <div class="value" data-count="380" data-suffix="টি">০</div>
+        <div class="label">ক্রেতার রিভিউ</div>
+      </div>
+      <div class="seller-stat-box">
+        <div class="value">৪.৭★</div>
+        <div class="label">গড় রেটিং</div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="seller-content-grid">
+
+      <!-- ── Tabs: Products / Reviews ── -->
+      <div data-tabs>
+        <div style="display:flex; border-bottom:2px solid var(--ink-10); margin-bottom:var(--s-6);">
+          <button data-tab data-target="panel-products" class="tab-btn">পণ্য তালিকা (১৪৫)</button>
+          <button data-tab data-target="panel-reviews" class="tab-btn">পর্যালোচনা (৩৮০)</button>
+        </div>
+
+        <!-- Products panel -->
+        <div id="panel-products" data-panel>
+          <div class="product-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <article class="product-card fade-up fade-up--1">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">🧵</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">কটন ফেব্রিক</div>
+                <a href="product.html" class="product-card__name">কমব কটন পপলিন ৬০×৬০</a>
+                <div class="product-card__price">৳৮৫ – ৳১১০</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="কমব কটন পপলিন">জিজ্ঞাসা</button></div>
+            </article>
+            <article class="product-card fade-up fade-up--2">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">🎨</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">প্রিন্টেড</div>
+                <a href="product.html" class="product-card__name">রিঅ্যাক্টিভ প্রিন্ট কাপড়</a>
+                <div class="product-card__price">৳৯৫ – ৳১২৫</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="রিঅ্যাক্টিভ প্রিন্ট">জিজ্ঞাসা</button></div>
+            </article>
+            <article class="product-card fade-up fade-up--3">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">🟩</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">ট্যাফেটা</div>
+                <a href="product.html" class="product-card__name">পলিয়েস্টার ট্যাফেটা ৫৭gsm</a>
+                <div class="product-card__price">৳৬০ – ৳৮০</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="পলিয়েস্টার ট্যাফেটা">জিজ্ঞাসা</button></div>
+            </article>
+            <article class="product-card fade-up fade-up--4">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">🌸</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">শাটিং</div>
+                <a href="product.html" class="product-card__name">টিসি শাটিং কাপড় ৮০/২০</a>
+                <div class="product-card__price">৳৭৫ – ৳৯৫</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="টিসি শাটিং">জিজ্ঞাসা</button></div>
+            </article>
+            <article class="product-card fade-up fade-up--5">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">🟣</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">সাটিন</div>
+                <a href="product.html" class="product-card__name">পলিয়েস্টার সাটিন সিল্ক</a>
+                <div class="product-card__price">৳১২০ – ৳১৫০</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="পলিয়েস্টার সাটিন">জিজ্ঞাসা</button></div>
+            </article>
+            <article class="product-card fade-up fade-up--5">
+              <div class="product-card__img-placeholder img-mock" style="height:150px;">⬛</div>
+              <div class="product-card__body">
+                <div class="product-card__cat">ওভেন</div>
+                <a href="product.html" class="product-card__name">চেক ও স্ট্রাইপ কটন শার্টিং</a>
+                <div class="product-card__price">৳১০০ – ৳১৩৫</div>
+              </div>
+              <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="চেক কটন শার্টিং">জিজ্ঞাসা</button></div>
+            </article>
+          </div>
+          <div style="margin-top:var(--s-6); text-align:center;">
+            <button class="btn btn--outline">আরও পণ্য দেখুন (১৩৯টি) →</button>
+          </div>
+        </div>
+
+        <!-- Reviews panel -->
+        <div id="panel-reviews" data-panel style="display:none;">
+          <!-- Rating summary card -->
+          <div style="background:var(--parchment); border-radius:var(--r-lg); padding:var(--s-6); margin-bottom:var(--s-6); display:grid; grid-template-columns:140px 1fr; gap:var(--s-8); align-items:center;">
+            <div style="text-align:center;">
+              <div style="font-family:var(--font-serif); font-size:4rem; font-weight:800; color:var(--gold); line-height:1;">৪.৭</div>
+              <div style="color:var(--gold); font-size:1.2rem; margin:4px 0;">★★★★★</div>
+              <div style="font-size:0.72rem; color:var(--ink-30);">৩৮০টি রিভিউ</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.78rem;"><span style="width:24px;text-align:right;">৫★</span><div style="flex:1;height:7px;background:var(--ink-10);border-radius:9999px;"><div style="width:72%;height:100%;background:var(--gold);border-radius:9999px;"></div></div><span style="width:28px;color:var(--ink-60);">২৭৫</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.78rem;"><span style="width:24px;text-align:right;">৪★</span><div style="flex:1;height:7px;background:var(--ink-10);border-radius:9999px;"><div style="width:20%;height:100%;background:var(--gold);border-radius:9999px;"></div></div><span style="width:28px;color:var(--ink-60);">৭৬</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.78rem;"><span style="width:24px;text-align:right;">৩★</span><div style="flex:1;height:7px;background:var(--ink-10);border-radius:9999px;"><div style="width:6%;height:100%;background:var(--gold);border-radius:9999px;"></div></div><span style="width:28px;color:var(--ink-60);">২২</span></div>
+            </div>
+          </div>
+
+          <!-- Review items -->
+          <div style="display:flex; flex-direction:column;">
+            <div class="review-card" style="padding:var(--s-5) 0; border-bottom:1px solid var(--ink-10);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-2);">
+                <div style="display:flex;align-items:center;gap:var(--s-3);">
+                  <div style="width:40px;height:40px;border-radius:50%;background:var(--green-mid);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;">স</div>
+                  <div><div style="font-weight:700;font-size:0.875rem;">সাকিব আহমেদ</div><div style="font-size:0.72rem;color:var(--ink-30);">১৫ জানুয়ারি ২০২৫</div></div>
+                </div>
+                <span style="color:var(--gold);">★★★★★</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--ink-60);line-height:1.7;margin-bottom:var(--s-2);">চমৎকার সেবা এবং পণ্যের মান অসাধারণ। সময়মতো ডেলিভারি পেয়েছি। ব্যবসায়িক সম্পর্ক জারি থাকবে।</p>
+              <!-- Seller reply -->
+              <div style="padding:var(--s-3) var(--s-4);background:var(--green-pale);border-radius:var(--r-md);border-left:3px solid var(--green-mid);font-size:0.8rem;">
+                <strong style="color:var(--green-mid);display:block;margin-bottom:2px;">বিক্রেতার জবাব:</strong>
+                <span style="color:var(--ink-60);">আপনার সুন্দর রিভিউয়ের জন্য ধন্যবাদ। আমরা সবসময় আপনার সেবায় নিয়োজিত।</span>
+              </div>
+            </div>
+
+            <div class="review-card" style="padding:var(--s-5) 0; border-bottom:1px solid var(--ink-10);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-2);">
+                <div style="display:flex;align-items:center;gap:var(--s-3);">
+                  <div style="width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;">ফ</div>
+                  <div><div style="font-weight:700;font-size:0.875rem;">ফারহান ইসলাম</div><div style="font-size:0.72rem;color:var(--ink-30);">৩ ডিসেম্বর ২০২৪</div></div>
+                </div>
+                <span style="color:var(--gold);">★★★★☆</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--ink-60);line-height:1.7;">ভালো মানের পণ্য। পরবর্তীতে আরও বড় অর্ডার দেওয়ার পরিকল্পনা আছে।</p>
+            </div>
+
+            <div class="review-card" style="padding:var(--s-5) 0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-2);">
+                <div style="display:flex;align-items:center;gap:var(--s-3);">
+                  <div style="width:40px;height:40px;border-radius:50%;background:#b45309;color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;">ম</div>
+                  <div><div style="font-weight:700;font-size:0.875rem;">মাহবুব করিম</div><div style="font-size:0.72rem;color:var(--ink-30);">২২ নভেম্বর ২০২৪</div></div>
+                </div>
+                <span style="color:var(--gold);">★★★★★</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--ink-60);line-height:1.7;">পাঁচ বছর ধরে এই সাপ্লায়ারের সাথে কাজ করছি। বিশ্বস্ত এবং মানসম্পন্ন। সুপারিশ করব।</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Sidebar ── -->
+      <aside>
+        <!-- Contact card -->
+        <div style="background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);margin-bottom:var(--s-4);">
+          <h3 style="font-family:var(--font-serif);font-size:1rem;font-weight:700;margin-bottom:var(--s-4);color:var(--ink);">যোগাযোগের তথ্য</h3>
+          <div class="contact-gated">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="margin:0 auto var(--s-3);color:var(--ink-30);display:block;"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+            <p>যোগাযোগের তথ্য দেখতে অ্যাকাউন্টে প্রবেশ করুন</p>
+            <a href="auth.html" class="btn btn--primary btn--sm" style="width:100%;">লগইন করুন</a>
+          </div>
+        </div>
+
+        <!-- Company info -->
+        <div style="background:var(--parchment);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-5);">
+          <h3 style="font-family:var(--font-serif);font-size:0.95rem;font-weight:700;margin-bottom:var(--s-4);color:var(--ink);">কোম্পানির তথ্য</h3>
+          <div style="display:flex;flex-direction:column;gap:var(--s-2);font-size:0.8rem;">
+            <div style="display:flex;justify-content:space-between;padding:var(--s-2) 0;border-bottom:1px solid var(--ink-10);color:var(--ink-60);"><span>ব্যবসার ধরন</span><span style="font-weight:600;color:var(--ink);">প্রস্তুতকারক</span></div>
+            <div style="display:flex;justify-content:space-between;padding:var(--s-2) 0;border-bottom:1px solid var(--ink-10);color:var(--ink-60);"><span>প্রতিষ্ঠার সাল</span><span style="font-weight:600;color:var(--ink);">২০০৮</span></div>
+            <div style="display:flex;justify-content:space-between;padding:var(--s-2) 0;border-bottom:1px solid var(--ink-10);color:var(--ink-60);"><span>কর্মী সংখ্যা</span><span style="font-weight:600;color:var(--ink);">৫০০–৯৯৯ জন</span></div>
+            <div style="display:flex;justify-content:space-between;padding:var(--s-2) 0;border-bottom:1px solid var(--ink-10);color:var(--ink-60);"><span>বার্ষিক লেনদেন</span><span style="font-weight:600;color:var(--ink);">৳২০–৫০ কোটি</span></div>
+            <div style="display:flex;justify-content:space-between;padding:var(--s-2) 0;color:var(--ink-60);"><span>প্রতিক্রিয়ার হার</span><span style="font-weight:600;color:var(--green-mid);">৯৮%</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal-overlay" style="display:none;" role="dialog">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title">রহিম টেক্সটাইলসের সাথে যোগাযোগ</h2>
+        <button data-modal-close class="btn btn--ghost btn--icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      <form style="display:flex;flex-direction:column;gap:var(--s-4);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);">
+          <div class="form-group"><label class="form-label">আপনার নাম</label><input class="form-input" type="text" placeholder="পুরো নাম" /></div>
+          <div class="form-group"><label class="form-label">ফোন নম্বর</label><input class="form-input" type="tel" placeholder="০১৭XXXXXXXXX" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">বিষয়</label><input class="form-input" type="text" placeholder="যেমন: বাল্ক অর্ডার প্রশ্ন" /></div>
+        <div class="form-group"><label class="form-label">বার্তা</label><textarea class="form-textarea" placeholder="আপনার বার্তা লিখুন..."></textarea></div>
+        <button type="submit" class="btn btn--primary btn--lg">বার্তা পাঠান →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Enquiry Modal -->
+  <div id="enquiry-modal" class="modal-overlay" style="display:none;" role="dialog">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title">জিজ্ঞাসা পাঠান</h2>
+        <button data-modal-close class="btn btn--ghost btn--icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      <p style="font-size:0.875rem;color:var(--ink-60);margin-bottom:var(--s-5);">পণ্য: <strong data-product-name>—</strong></p>
+      <form style="display:flex;flex-direction:column;gap:var(--s-4);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);">
+          <div class="form-group"><label class="form-label">আপনার নাম</label><input class="form-input" type="text" placeholder="পুরো নাম" /></div>
+          <div class="form-group"><label class="form-label">ফোন নম্বর</label><input class="form-input" type="tel" placeholder="০১৭XXXXXXXXX" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">পরিমাণ</label><input class="form-input" type="text" placeholder="যেমন: ৫০০ গজ" /></div>
+        <div class="form-group"><label class="form-label">বার্তা</label><textarea class="form-textarea" placeholder="আপনার চাহিদা লিখুন..."></textarea></div>
+        <button type="submit" class="btn btn--primary btn--lg">পাঠান →</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

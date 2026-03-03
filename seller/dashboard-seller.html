@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সেলার ড্যাশবোর্ড — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    /* ── Layout ─────────────────────────────────────────── */
+    body { background: var(--parchment); }
+
+    .dash-wrap {
+      display: block;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────── */
+    .sb {
+      background: var(--green-deep);
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 200;
+      box-shadow: 2px 0 24px rgba(0,0,0,0.2);
+    }
+
+    .sb__brand {
+      padding: 22px var(--s-6);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .sb__brand a { text-decoration: none; }
+    .sb__brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+      letter-spacing: -0.01em;
+    }
+    .sb__brand-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .sb__user {
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      flex-shrink: 0;
+    }
+    .sb__avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(200,151,43,0.18);
+      border: 1.5px solid rgba(200,151,43,0.35);
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    }
+    .sb__username { font-size: 0.875rem; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .sb__userrole { font-size: 0.65rem; color: #4ade80; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+    .sb__nav { flex: 1; padding: var(--s-3) 0; }
+
+    .sb__label {
+      font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.2);
+      padding: var(--s-4) var(--s-6) var(--s-1);
+    }
+
+    .sb__item {
+      display: flex; align-items: center; gap: var(--s-3);
+      padding: 9px var(--s-6);
+      font-size: 0.875rem; color: rgba(255,255,255,0.58);
+      transition: all 0.14s;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+    }
+    .sb__item:hover { color: var(--white); background: rgba(255,255,255,0.05); border-left-color: rgba(200,151,43,0.35); }
+    .sb__item.active { color: var(--white); background: rgba(200,151,43,0.1); border-left-color: var(--gold); font-weight: 600; }
+    .sb__item .ico { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+    .sb__badge {
+      margin-left: auto;
+      background: #dc2626; color: var(--white);
+      font-size: 0.6rem; font-weight: 800;
+      padding: 2px 6px; border-radius: var(--r-full);
+      min-width: 20px; text-align: center;
+    }
+    .sb__badge--gold { background: var(--gold); color: var(--green-deep); }
+
+    .sb__footer {
+      padding: var(--s-3) var(--s-6) var(--s-4);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .sb__footer-link {
+      display: flex; align-items: center; gap: var(--s-2);
+      font-size: 0.78rem; color: rgba(255,255,255,0.32);
+      text-decoration: none; padding: 5px 0;
+      transition: color 0.14s;
+    }
+    .sb__footer-link:hover { color: rgba(255,255,255,0.65); }
+
+    /* ── Main Content ────────────────────────────────────── */
+    .dash-main {
+      margin-left: 260px;
+      padding: var(--s-6) var(--s-8);
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ──────────────────────────────────────────── */
+    .topbar {
+      display: flex; align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: var(--s-5);
+      gap: var(--s-4); flex-wrap: wrap;
+    }
+    .topbar__greet h1 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem; font-weight: 800; color: var(--ink); line-height: 1.2;
+    }
+    .topbar__greet p { font-size: 0.82rem; color: var(--ink-60); margin-top: 4px; }
+    .topbar__actions { display: flex; gap: var(--s-3); align-items: center; flex-shrink: 0; }
+
+    .notif-btn {
+      position: relative; width: 40px; height: 40px;
+      border-radius: var(--r-md);
+      background: var(--white); border: 1.5px solid var(--cream-dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--ink-60); transition: all 0.15s;
+    }
+    .notif-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .notif-dot {
+      position: absolute; top: 7px; right: 7px;
+      width: 8px; height: 8px;
+      background: #dc2626; border-radius: 50%;
+      border: 1.5px solid var(--white);
+    }
+
+    /* ── Profile completeness bar ────────────────────────── */
+    .profile-bar {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-4) var(--s-5);
+      margin-bottom: var(--s-5);
+      display: flex; align-items: center; gap: var(--s-4);
+      flex-wrap: wrap;
+    }
+    .profile-bar__label { font-size: 0.82rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
+    .profile-bar__track { flex: 1; min-width: 120px; height: 7px; background: var(--cream-dark); border-radius: var(--r-full); overflow: hidden; }
+    .profile-bar__fill { height: 100%; width: 72%; background: linear-gradient(90deg, var(--green-soft), var(--gold)); border-radius: var(--r-full); transition: width 1.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .profile-bar__pct { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 800; color: var(--green-mid); white-space: nowrap; }
+    .profile-bar__steps { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+    .pb-step {
+      font-size: 0.7rem; padding: 3px 9px; border-radius: var(--r-full);
+      font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+      text-decoration: none; white-space: nowrap;
+    }
+    .pb-step--done { background: var(--green-pale); color: var(--green-mid); }
+    .pb-step--todo { background: var(--gold-pale); color: var(--gold-muted); }
+
+    /* ── Stat cards ──────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-4);
+      margin-bottom: var(--s-5);
+    }
+    .sc {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-5); position: relative; overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .sc:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .sc::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .sc--green::before { background: var(--green-mid); }
+    .sc--gold::before  { background: var(--gold); }
+    .sc--blue::before  { background: #1A6B9A; }
+    .sc--red::before   { background: var(--danger); }
+    .sc__icon  { font-size: 1.5rem; margin-bottom: var(--s-2); display: block; }
+    .sc__label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-60); margin-bottom: var(--s-2); }
+    .sc__value { font-family: var(--font-serif); font-size: 2rem; font-weight: 800; color: var(--ink); line-height: 1; margin-bottom: var(--s-1); }
+    .sc__sub   { font-size: 0.72rem; color: var(--ink-60); line-height: 1.6; }
+    .sc__up    { color: #16a34a; font-weight: 600; }
+    .sc__down  { color: var(--danger); font-weight: 600; }
+    .sc__new   { color: #1A6B9A; font-weight: 700; }
+
+    /* ── Product status strip ────────────────────────────── */
+    .prod-strip {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-4) var(--s-5);
+      margin-bottom: var(--s-5);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: var(--s-4);
+    }
+    .prod-strip__left  { flex: 1; min-width: 280px; }
+    .prod-strip__title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-60); margin-bottom: var(--s-3); }
+    .prod-strip__pills { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+    .ps-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: var(--r-full);
+      font-size: 0.78rem; font-weight: 600; border: 1px solid;
+    }
+    .ps-pill--active   { background: rgba(39,174,96,0.08);  border-color: rgba(39,174,96,0.25);  color: #15803d; }
+    .ps-pill--pending  { background: rgba(243,156,18,0.08); border-color: rgba(243,156,18,0.3);  color: #b45309; }
+    .ps-pill--rejected { background: rgba(192,57,43,0.08);  border-color: rgba(192,57,43,0.25);  color: var(--danger); }
+    .ps-pill--inactive { background: var(--ink-10);          border-color: rgba(21,15,5,0.12);    color: var(--ink-60); }
+    .ps-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .ps-pill .num { font-weight: 800; }
+    .prod-strip__right { text-align: right; }
+    .prod-strip__total-label { font-size: 0.68rem; color: var(--ink-60); }
+    .prod-strip__total-num { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 800; color: var(--ink); }
+
+    /* ── Two-col grid ────────────────────────────────────── */
+    .panels-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-5);
+      margin-bottom: var(--s-5);
+    }
+
+    /* ── Generic panel card ──────────────────────────────── */
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .panel__hd {
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid var(--ink-10);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .panel__title { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .panel__link  { font-size: 0.75rem; color: var(--green-mid); font-weight: 700; text-decoration: none; }
+    .panel__link:hover { text-decoration: underline; }
+    .panel__legend {
+      display: flex; gap: var(--s-4);
+      padding: 8px var(--s-5); background: var(--parchment);
+      border-bottom: 1px solid var(--ink-10); flex-shrink: 0;
+    }
+    .panel__legend span { font-size: 0.68rem; color: var(--ink-60); display: flex; align-items: center; gap: 5px; }
+    .ldot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+    /* Enquiry list */
+    .enq-list { flex: 1; }
+    .enq-item {
+      display: grid;
+      grid-template-columns: 3px 1fr auto;
+      gap: 0 var(--s-3);
+      padding: var(--s-3) var(--s-5);
+      border-bottom: 1px solid var(--ink-10);
+      align-items: start;
+      transition: background 0.12s;
+    }
+    .enq-item:last-child { border-bottom: none; }
+    .enq-item:hover { background: var(--parchment); }
+
+    .enq-stripe { border-radius: 2px; align-self: stretch; min-height: 42px; width: 3px; }
+    .es--new       { background: #dc2626; }
+    .es--contacted { background: var(--gold); }
+    .es--closed    { background: #9ca3af; }
+
+    .enq-body { min-width: 0; }
+    .enq-buyer   { font-size: 0.875rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .enq-product { font-size: 0.75rem; color: var(--ink-60); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .enq-time    { font-size: 0.67rem; color: var(--ink-30); margin-top: 2px; }
+
+    .enq-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .enq-sbadge {
+      font-size: 0.62rem; font-weight: 700; padding: 2px 7px;
+      border-radius: var(--r-full); white-space: nowrap;
+    }
+    .esb--new       { background: rgba(220,38,38,0.1);   color: #dc2626; }
+    .esb--contacted { background: rgba(200,151,43,0.12); color: var(--gold-muted); }
+    .esb--closed    { background: var(--ink-10);          color: var(--ink-60); }
+
+    .enq-btn {
+      font-size: 0.72rem; font-weight: 600; padding: 3px 9px;
+      border-radius: var(--r-sm); cursor: pointer;
+      transition: all 0.13s; border: 1px solid;
+    }
+    .eb--reply { background: var(--green-pale); color: var(--green-mid); border-color: rgba(82,183,136,0.35); }
+    .eb--reply:hover { background: var(--green-mid); color: var(--white); border-color: var(--green-mid); }
+    .eb--view  { background: var(--parchment); color: var(--ink-60); border-color: var(--cream-dark); }
+    .eb--view:hover  { background: var(--cream-dark); }
+
+    /* Quick-add form */
+    .qform { padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-3); flex: 1; }
+    .qform__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+    .qf-label { font-size: 0.73rem; font-weight: 600; color: var(--ink-60); display: block; margin-bottom: 4px; }
+    .qf-input {
+      width: 100%; padding: 8px 11px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md);
+      font-family: var(--font-sans); font-size: 0.875rem;
+      background: var(--white); color: var(--ink);
+      outline: none; transition: border-color 0.15s;
+    }
+    .qf-input:focus   { border-color: var(--green-mid); }
+    .qf-input::placeholder { color: var(--ink-30); }
+    .qf-select {
+      width: 100%; padding: 8px 11px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md); font-family: var(--font-sans);
+      font-size: 0.875rem; background: var(--white); color: var(--ink);
+      outline: none; cursor: pointer;
+    }
+    .qf-hint { font-size: 0.68rem; color: var(--ink-30); margin-top: 3px; }
+
+    /* ── Products table ──────────────────────────────────── */
+    .prod-table-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: var(--s-5);
+    }
+    .ptc__hd {
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid var(--ink-10);
+      display: flex; align-items: center;
+      justify-content: space-between; gap: var(--s-3);
+      flex-wrap: wrap;
+    }
+    .ptc__title { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .ptc__controls { display: flex; gap: var(--s-3); align-items: center; flex-wrap: wrap; }
+
+    .search-sm {
+      padding: 7px 12px; border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md); font-family: var(--font-sans);
+      font-size: 0.78rem; width: 180px; outline: none;
+      background: var(--parchment); color: var(--ink);
+      transition: border-color 0.15s;
+    }
+    .search-sm:focus { border-color: var(--green-mid); background: var(--white); }
+
+    .filter-sm {
+      padding: 7px 10px; border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md); font-family: var(--font-sans);
+      font-size: 0.78rem; background: var(--parchment); color: var(--ink);
+      outline: none; cursor: pointer;
+    }
+
+    .dt { width: 100%; border-collapse: collapse; }
+    .dt th {
+      padding: var(--s-3) var(--s-4);
+      font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--ink-60);
+      text-align: left; background: var(--parchment);
+      border-bottom: 1px solid var(--cream-dark); white-space: nowrap;
+    }
+    .dt td {
+      padding: var(--s-3) var(--s-4);
+      font-size: 0.82rem; color: var(--ink);
+      border-bottom: 1px solid var(--ink-10); vertical-align: middle;
+    }
+    .dt tbody tr { transition: background 0.1s; }
+    .dt tbody tr:hover { background: var(--parchment); }
+    .dt tbody tr:last-child td { border-bottom: none; }
+
+    .prod-link { font-weight: 600; color: var(--green-mid); text-decoration: none; font-size: 0.875rem; }
+    .prod-link:hover { text-decoration: underline; }
+    .prod-link--rejected { color: var(--danger); }
+    .prod-sub { font-size: 0.7rem; color: var(--ink-30); margin-top: 2px; }
+    .prod-sub--warn { color: var(--danger); font-weight: 500; }
+
+    .num-views { color: #1A6B9A; font-weight: 600; }
+    .num-enq   { color: var(--green-mid); font-weight: 700; }
+
+    .ra { display: flex; gap: 4px; }
+    .rb {
+      padding: 3px 8px; font-size: 0.7rem; font-weight: 600;
+      border-radius: var(--r-sm); cursor: pointer;
+      transition: all 0.13s; border: 1px solid;
+      white-space: nowrap;
+    }
+    .rb--edit  { background: var(--parchment); color: var(--ink-60); border-color: var(--cream-dark); }
+    .rb--edit:hover  { background: var(--cream-dark); color: var(--ink); }
+    .rb--del   { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+    .rb--del:hover   { background: #dc2626; color: var(--white); border-color: #dc2626; }
+    .rb--fix   { background: var(--gold-pale); color: var(--gold-muted); border-color: rgba(200,151,43,0.25); }
+    .rb--fix:hover   { background: var(--gold); color: var(--white); border-color: var(--gold); }
+    .rb--on    { background: var(--green-pale); color: var(--green-mid); border-color: rgba(82,183,136,0.35); }
+    .rb--on:hover    { background: var(--green-mid); color: var(--white); }
+
+    .pager {
+      padding: var(--s-3) var(--s-5);
+      border-top: 1px solid var(--ink-10);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .pager span { font-size: 0.75rem; color: var(--ink-60); }
+    .pg-btns { display: flex; gap: 4px; }
+    .pg-btn {
+      padding: 4px 10px;
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-md);
+      background: var(--white); font-size: 0.75rem; font-weight: 600;
+      color: var(--ink-60); cursor: pointer; transition: all 0.12s;
+    }
+    .pg-btn:hover { background: var(--cream-dark); }
+    .pg-btn:disabled { opacity: 0.4; cursor: default; }
+    .pg-btn--active { background: var(--green-mid); color: var(--white); border-color: var(--green-mid); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1300px) {
+      .dash-main { padding: var(--s-5) var(--s-6); }
+    }
+    @media (max-width: 1200px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .panels-2   { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .dash-wrap  { grid-template-columns: 1fr; }
+      .sb         { display: none; }
+      .dash-main  { margin-left: 0; padding: var(--s-5); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .stats-grid  { grid-template-columns: 1fr; }
+      .qform__row  { grid-template-columns: 1fr; }
+      .ptc__controls { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+
+  <!-- ══ Sidebar ════════════════════════════════════════════ -->
+  <aside class="sb">
+    <div class="sb__brand">
+      <a href="../index.html">
+        <span class="sb__brand-name">বাংলাবাজার</span>
+        <span class="sb__brand-sub">সেলার প্যানেল</span>
+      </a>
+    </div>
+
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div>
+        <div class="sb__username">রহিম টেক্সটাইলস</div>
+        <div class="sb__userrole">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          যাচাইকৃত বিক্রেতা
+        </div>
+      </div>
+    </div>
+
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item active">
+        <span class="ico">📊</span> ড্যাশবোর্ড
+      </a>
+      <a href="seller-products.html" class="sb__item">
+        <span class="ico">📦</span> পণ্য তালিকা
+        <span class="sb__badge sb__badge--gold">১৫৩</span>
+      </a>
+      <a href="seller-enquiries.html" class="sb__item">
+        <span class="ico">💬</span> জিজ্ঞাসাসমূহ
+        <span class="sb__badge">৮</span>
+      </a>
+      <a href="seller-messages.html" class="sb__item">
+        <span class="ico">✉️</span> বার্তা
+        <span class="sb__badge">৩</span>
+      </a>
+      <a href="seller-reviews.html" class="sb__item">
+        <span class="ico">⭐</span> পর্যালোচনা
+      </a>
+      <a href="seller-rfq.html" class="sb__item">
+        <span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)
+      </a>
+      <a href="seller-analytics.html" class="sb__item">
+        <span class="ico">📈</span> পরিসংখ্যান
+      </a>
+
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html" class="sb__item">
+        <span class="ico">🏪</span> প্রোফাইল সম্পাদনা
+      </a>
+      <a href="seller-settings.html" class="sb__item">
+        <span class="ico">⚙️</span> সেটিংস
+      </a>
+      <a href="seller-notifications.html" class="sb__item">
+        <span class="ico">🔔</span> নোটিফিকেশন সেটিং
+      </a>
+    </nav>
+
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        পাবলিক প্রোফাইল দেখুন
+      </a>
+      <a href="../index.html" class="sb__footer-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        মার্কেটপ্লেসে ফিরুন
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══ Main Content ════════════════════════════════════════ -->
+  <main class="dash-main">
+
+    <!-- Topbar ─────────────────────────────────────────────── -->
+    <div class="topbar">
+      <div class="topbar__greet">
+        <h1>সুপ্রভাত, রহিম ভাই! 👋</h1>
+        <p id="dash-date">লোড হচ্ছে...</p>
+      </div>
+      <div class="topbar__actions">
+        <button class="notif-btn" title="নোটিফিকেশন" onclick="BB.showToast('৮টি নতুন জিজ্ঞাসা আছে', 'info')">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <a href="../product.html" class="btn btn--outline btn--sm">+ নতুন পণ্য</a>
+        <a href="../seller.html"  class="btn btn--gold btn--sm">প্রোফাইল দেখুন</a>
+      </div>
+    </div>
+
+    <!-- Profile completeness ────────────────────────────────── -->
+    <div class="profile-bar reveal">
+      <div class="profile-bar__label">প্রোফাইল সম্পন্নতা</div>
+      <div class="profile-bar__track"><div class="profile-bar__fill"></div></div>
+      <div class="profile-bar__pct">৭২%</div>
+      <div class="profile-bar__steps">
+        <span class="pb-step pb-step--done">✓ লোগো</span>
+        <span class="pb-step pb-step--done">✓ বিবরণ</span>
+        <span class="pb-step pb-step--done">✓ ক্যাটাগরি</span>
+        <a href="#profile" class="pb-step pb-step--todo">+ ব্যানার যোগ করুন</a>
+        <a href="#profile" class="pb-step pb-step--todo">+ ট্রেড লাইসেন্স</a>
+      </div>
+    </div>
+
+    <!-- Stats grid ──────────────────────────────────────────── -->
+    <div class="stats-grid">
+
+      <div class="sc sc--green reveal">
+        <span class="sc__icon">💬</span>
+        <div class="sc__label">মোট জিজ্ঞাসা</div>
+        <div class="sc__value" data-count="284">০</div>
+        <div class="sc__sub">
+          <span class="sc__new">৮টি নতুন</span> · <span class="sc__up">↑ ১২%</span> গত মাসের তুলনায়
+        </div>
+      </div>
+
+      <div class="sc sc--gold reveal">
+        <span class="sc__icon">📦</span>
+        <div class="sc__label">মোট পণ্য</div>
+        <div class="sc__value" data-count="153">০</div>
+        <div class="sc__sub">
+          <span class="sc__up">১৩৮ সক্রিয়</span> ·
+          <span class="sc__down">৫ পর্যালোচনাধীন</span>
+        </div>
+      </div>
+
+      <div class="sc sc--blue reveal">
+        <span class="sc__icon">👁️</span>
+        <div class="sc__label">প্রোফাইল দর্শন</div>
+        <div class="sc__value" data-count="4280">০</div>
+        <div class="sc__sub">
+          <span class="sc__up">↑ ২৩%</span> এই মাসে · ৩৪০ এই সপ্তাহে
+        </div>
+      </div>
+
+      <div class="sc sc--red reveal">
+        <span class="sc__icon">⭐</span>
+        <div class="sc__label">গড় রেটিং</div>
+        <div class="sc__value">৪.৭</div>
+        <div class="sc__sub">
+          ৩৮০টি রিভিউ ·
+          <a href="#reviews" style="color:var(--green-mid);font-weight:600;text-decoration:none;">দেখুন →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Product status breakdown ────────────────────────────── -->
+    <div class="prod-strip reveal">
+      <div class="prod-strip__left">
+        <div class="prod-strip__title">পণ্যের অবস্থা বিভাজন</div>
+        <div class="prod-strip__pills">
+          <div class="ps-pill ps-pill--active">
+            <span class="dot"></span>সক্রিয় <strong class="num">১৩৮</strong>
+          </div>
+          <div class="ps-pill ps-pill--pending">
+            <span class="dot"></span>পর্যালোচনাধীন <strong class="num">৫</strong>
+          </div>
+          <div class="ps-pill ps-pill--rejected">
+            <span class="dot"></span>প্রত্যাখ্যাত <strong class="num">২</strong>
+          </div>
+          <div class="ps-pill ps-pill--inactive">
+            <span class="dot"></span>নিষ্ক্রিয় <strong class="num">৮</strong>
+          </div>
+        </div>
+      </div>
+      <div class="prod-strip__right">
+        <div class="prod-strip__total-label">মোট পণ্য</div>
+        <div class="prod-strip__total-num">১৫৩</div>
+      </div>
+    </div>
+
+    <!-- Enquiries + Quick Add ──────────────────────────────── -->
+    <div class="panels-2">
+
+      <!-- Recent enquiries -->
+      <div class="panel reveal">
+        <div class="panel__hd">
+          <span class="panel__title">সাম্প্রতিক জিজ্ঞাসা</span>
+          <a href="#enquiries" class="panel__link">সব দেখুন →</a>
+        </div>
+        <div class="panel__legend">
+          <span><span class="ldot" style="background:#dc2626;"></span>নতুন</span>
+          <span><span class="ldot" style="background:var(--gold);"></span>যোগাযোগ করা হয়েছে</span>
+          <span><span class="ldot" style="background:#9ca3af;"></span>বন্ধ</span>
+        </div>
+        <div class="enq-list">
+
+          <div class="enq-item">
+            <div class="enq-stripe es--new"></div>
+            <div class="enq-body">
+              <div class="enq-buyer">সাকিব আহমেদ</div>
+              <div class="enq-product">কমব কটন পপলিন ৬০×৬০ — ৫০০ গজ দরকার</div>
+              <div class="enq-time">আজ, সকাল ১০:৩৫</div>
+            </div>
+            <div class="enq-meta">
+              <span class="enq-sbadge esb--new">নতুন</span>
+              <button class="enq-btn eb--reply" onclick="BB.showToast('উত্তর প্যানেল খুলছে...')">উত্তর দিন</button>
+            </div>
+          </div>
+
+          <div class="enq-item">
+            <div class="enq-stripe es--new"></div>
+            <div class="enq-body">
+              <div class="enq-buyer">ফরিদ হোসেন</div>
+              <div class="enq-product">সাটিন ফেব্রিক ৫৭ ইঞ্চি — দাম জানতে চান</div>
+              <div class="enq-time">আজ, সকাল ৯:১২</div>
+            </div>
+            <div class="enq-meta">
+              <span class="enq-sbadge esb--new">নতুন</span>
+              <button class="enq-btn eb--reply" onclick="BB.showToast('উত্তর প্যানেল খুলছে...')">উত্তর দিন</button>
+            </div>
+          </div>
+
+          <div class="enq-item">
+            <div class="enq-stripe es--new"></div>
+            <div class="enq-body">
+              <div class="enq-buyer">মাহমুদুল হাসান</div>
+              <div class="enq-product">কমব কটন পপলিন ৬০×৬০ — নমুনা চান</div>
+              <div class="enq-time">গতকাল, বিকাল ৪:৫০</div>
+            </div>
+            <div class="enq-meta">
+              <span class="enq-sbadge esb--new">নতুন</span>
+              <button class="enq-btn eb--reply" onclick="BB.showToast('উত্তর প্যানেল খুলছে...')">উত্তর দিন</button>
+            </div>
+          </div>
+
+          <div class="enq-item">
+            <div class="enq-stripe es--contacted"></div>
+            <div class="enq-body">
+              <div class="enq-buyer">নাসরিন বেগম</div>
+              <div class="enq-product">প্রিন্টেড ফেব্রিক — ২০০ গজ</div>
+              <div class="enq-time">গতকাল, সকাল ১১:০০</div>
+            </div>
+            <div class="enq-meta">
+              <span class="enq-sbadge esb--contacted">যোগাযোগ করা হয়েছে</span>
+              <button class="enq-btn eb--view">দেখুন</button>
+            </div>
+          </div>
+
+          <div class="enq-item">
+            <div class="enq-stripe es--closed"></div>
+            <div class="enq-body">
+              <div class="enq-buyer">কাউসার মিয়া</div>
+              <div class="enq-product">ট্যাফেটা কাপড় — ১,০০০ গজ</div>
+              <div class="enq-time">২৬ জানুয়ারি</div>
+            </div>
+            <div class="enq-meta">
+              <span class="enq-sbadge esb--closed">বন্ধ</span>
+              <button class="enq-btn eb--view">দেখুন</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick add product -->
+      <div class="panel reveal">
+        <div class="panel__hd">
+          <span class="panel__title">দ্রুত পণ্য যোগ করুন</span>
+          <a href="../product.html" class="panel__link">সম্পূর্ণ ফর্ম →</a>
+        </div>
+        <div class="qform">
+          <div>
+            <label class="qf-label">পণ্যের নাম *</label>
+            <input class="qf-input" type="text" placeholder="পণ্যের নাম বাংলায় লিখুন" />
+          </div>
+          <div class="qform__row">
+            <div>
+              <label class="qf-label">ক্যাটাগরি *</label>
+              <select class="qf-select">
+                <option value="">বেছে নিন...</option>
+                <option>কাপড় ও সুতা</option>
+                <option>খাদ্যপণ্য</option>
+                <option>কৃষিপণ্য</option>
+                <option>ইলেকট্রনিক্স</option>
+                <option>নির্মাণ সামগ্রী</option>
+                <option>মেশিনারি</option>
+                <option>প্লাস্টিক ও রাবার</option>
+              </select>
+            </div>
+            <div>
+              <label class="qf-label">MOQ *</label>
+              <input class="qf-input" type="text" placeholder="যেমন: ১০০ কেজি" />
+            </div>
+          </div>
+          <div class="qform__row">
+            <div>
+              <label class="qf-label">সর্বনিম্ন মূল্য (৳)</label>
+              <input class="qf-input" type="number" placeholder="০" />
+            </div>
+            <div>
+              <label class="qf-label">সর্বোচ্চ মূল্য (৳)</label>
+              <input class="qf-input" type="number" placeholder="০" />
+            </div>
+          </div>
+          <div>
+            <label class="qf-label">সংক্ষিপ্ত বিবরণ</label>
+            <textarea class="qf-input" rows="3" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ লিখুন..." style="resize:vertical;"></textarea>
+            <div class="qf-hint">* অ্যাডমিন পর্যালোচনার পর ২৪ ঘণ্টার মধ্যে পণ্য সক্রিয় হবে।</div>
+          </div>
+          <button class="btn btn--primary" style="width:100%;margin-top:auto;"
+            onclick="BB.showToast('পণ্যটি পর্যালোচনার জন্য জমা দেওয়া হয়েছে ✓')">
+            পণ্য জমা দিন →
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /panels-2 -->
+
+    <!-- Products table ──────────────────────────────────────── -->
+    <div class="prod-table-card reveal">
+      <div class="ptc__hd">
+        <div class="ptc__title">পণ্য তালিকা</div>
+        <div class="ptc__controls">
+          <input type="search" class="search-sm" placeholder="পণ্য খুঁজুন..." />
+          <select class="filter-sm">
+            <option>সব অবস্থা</option>
+            <option>সক্রিয়</option>
+            <option>পর্যালোচনাধীন</option>
+            <option>প্রত্যাখ্যাত</option>
+            <option>নিষ্ক্রিয়</option>
+          </select>
+          <a href="../product.html" class="btn btn--gold btn--sm">+ নতুন পণ্য</a>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="dt">
+          <thead>
+            <tr>
+              <th>পণ্যের নাম</th>
+              <th>ক্যাটাগরি</th>
+              <th>মূল্য পরিসীমা</th>
+              <th>MOQ</th>
+              <th>অবস্থা</th>
+              <th style="text-align:center;">দর্শন</th>
+              <th style="text-align:center;">জিজ্ঞাসা</th>
+              <th>কার্যক্রম</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>
+                <a href="../product.html" class="prod-link">কমব কটন পপলিন ৬০×৬০</a>
+                <div class="prod-sub">শেষ আপডেট: ২ দিন আগে</div>
+              </td>
+              <td style="color:var(--ink-60);font-size:0.8rem;">কাপড় ও সুতা</td>
+              <td style="font-weight:600;">৳৮৫–১১০ <small style="font-weight:400;color:var(--ink-60);">/গজ</small></td>
+              <td style="font-size:0.82rem;">৫০০ গজ</td>
+              <td><span class="status status--active">সক্রিয়</span></td>
+              <td style="text-align:center;"><span class="num-views">১,২৪৫</span></td>
+              <td style="text-align:center;"><span class="num-enq">১২৩</span></td>
+              <td>
+                <div class="ra">
+                  <button class="rb rb--edit">সম্পাদনা</button>
+                  <button class="rb rb--del" onclick="BB.showToast('মুছে ফেলা হয়েছে','error')">মুছুন</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <a href="../product.html" class="prod-link">রিঅ্যাক্টিভ প্রিন্ট কাপড়</a>
+                <div class="prod-sub">শেষ আপডেট: ৪ দিন আগে</div>
+              </td>
+              <td style="color:var(--ink-60);font-size:0.8rem;">কাপড় ও সুতা</td>
+              <td style="font-weight:600;">৳৯৫–১২৫ <small style="font-weight:400;color:var(--ink-60);">/গজ</small></td>
+              <td style="font-size:0.82rem;">২০০ গজ</td>
+              <td><span class="status status--active">সক্রিয়</span></td>
+              <td style="text-align:center;"><span class="num-views">৮৭৩</span></td>
+              <td style="text-align:center;"><span class="num-enq">৮৭</span></td>
+              <td>
+                <div class="ra">
+                  <button class="rb rb--edit">সম্পাদনা</button>
+                  <button class="rb rb--del" onclick="BB.showToast('মুছে ফেলা হয়েছে','error')">মুছুন</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <a href="../product.html" class="prod-link">পলিয়েস্টার ট্যাফেটা ৫৭ GSM</a>
+                <div class="prod-sub">জমা দেওয়া হয়েছে: ১ দিন আগে</div>
+              </td>
+              <td style="color:var(--ink-60);font-size:0.8rem;">সিন্থেটিক কাপড়</td>
+              <td style="font-weight:600;">৳৬০–৮০ <small style="font-weight:400;color:var(--ink-60);">/গজ</small></td>
+              <td style="font-size:0.82rem;">১,০০০ গজ</td>
+              <td><span class="status status--pending">পর্যালোচনাধীন</span></td>
+              <td style="text-align:center;color:var(--ink-30);">—</td>
+              <td style="text-align:center;color:var(--ink-30);">—</td>
+              <td>
+                <div class="ra">
+                  <button class="rb rb--edit">সম্পাদনা</button>
+                  <button class="rb rb--del" onclick="BB.showToast('মুছে ফেলা হয়েছে','error')">মুছুন</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr style="background:rgba(220,38,38,0.025);">
+              <td>
+                <a href="../product.html" class="prod-link prod-link--rejected">টিসি শাটিং ৮০/২০</a>
+                <div class="prod-sub prod-sub--warn">⚠ প্রত্যাখ্যানের কারণ: ছবি স্পষ্ট না</div>
+              </td>
+              <td style="color:var(--ink-60);font-size:0.8rem;">মিশ্র কাপড়</td>
+              <td style="font-weight:600;">৳৭৫–৯৫ <small style="font-weight:400;color:var(--ink-60);">/গজ</small></td>
+              <td style="font-size:0.82rem;">৫০০ গজ</td>
+              <td><span class="status status--rejected">প্রত্যাখ্যাত</span></td>
+              <td style="text-align:center;color:var(--ink-30);">—</td>
+              <td style="text-align:center;color:var(--ink-30);">—</td>
+              <td>
+                <div class="ra">
+                  <button class="rb rb--fix" onclick="BB.showToast('পণ্য ঠিক করুন ও পুনরায় জমা দিন','info')">ঠিক করুন</button>
+                  <button class="rb rb--del" onclick="BB.showToast('মুছে ফেলা হয়েছে','error')">মুছুন</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <a href="../product.html" class="prod-link">ডেনিম ফেব্রিক ৮ oz</a>
+                <div class="prod-sub">শেষ আপডেট: ১০ দিন আগে</div>
+              </td>
+              <td style="color:var(--ink-60);font-size:0.8rem;">কাপড় ও সুতা</td>
+              <td style="font-weight:600;">৳১২০–১৫০ <small style="font-weight:400;color:var(--ink-60);">/গজ</small></td>
+              <td style="font-size:0.82rem;">৩০০ গজ</td>
+              <td><span class="status status--inactive">নিষ্ক্রিয়</span></td>
+              <td style="text-align:center;"><span class="num-views">৩২১</span></td>
+              <td style="text-align:center;"><span class="num-enq">৩২</span></td>
+              <td>
+                <div class="ra">
+                  <button class="rb rb--on" onclick="BB.showToast('পণ্যটি সক্রিয় করা হয়েছে ✓')">সক্রিয় করুন</button>
+                  <button class="rb rb--del" onclick="BB.showToast('মুছে ফেলা হয়েছে','error')">মুছুন</button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pager">
+        <span>১৫৩টির মধ্যে ১–৫ দেখাচ্ছে</span>
+        <div class="pg-btns">
+          <button class="pg-btn" disabled>←</button>
+          <button class="pg-btn pg-btn--active">১</button>
+          <button class="pg-btn">২</button>
+          <button class="pg-btn">৩</button>
+          <span style="padding:4px 2px;color:var(--ink-30);font-size:0.8rem;">...</span>
+          <button class="pg-btn">৩১</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  // Dynamic Bengali date
+  (function () {
+    const days   = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+    const months = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+    const toBn   = n => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+    const now    = new Date();
+    const el     = document.getElementById('dash-date');
+    if (el) el.textContent = `${days[now.getDay()]}, ${toBn(now.getDate())} ${months[now.getMonth()]} ${toBn(now.getFullYear())} — আপনার আজকের কার্যক্রম`;
+  })();
+</script>
+</body>
+</html>

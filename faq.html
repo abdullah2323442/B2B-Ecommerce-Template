@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সচরাচর জিজ্ঞাসা (FAQ) — বাংলাবাজার</title>
+  <meta name="description" content="বাংলাবাজার সম্পর্কে সচরাচর জিজ্ঞাসা ও উত্তর। ক্রেতা ও বিক্রেতা উভয়ের প্রশ্নের জবাব।" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .cms-hero{background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-mid) 100%);padding:72px 0 56px;text-align:center}
+    .cms-hero__eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s-3)}
+    .cms-hero__title{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:var(--s-4)}
+    .cms-hero__sub{font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto var(--s-5)}
+    .hero-search{display:flex;gap:0;max-width:440px;margin:0 auto;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+    .hero-search input{flex:1;padding:13px 18px;border:none;font-family:var(--font-sans);font-size:0.9rem;outline:none}
+    .hero-search button{padding:13px 20px;background:var(--gold);border:none;cursor:pointer;font-weight:700;font-size:0.85rem;color:var(--green-deep)}
+    .cms-body{padding:72px 0 80px}
+    .faq-layout{display:grid;grid-template-columns:220px 1fr;gap:var(--s-8);align-items:start}
+    .faq-nav{background:var(--cream);border:1px solid var(--cream-dark);border-radius:var(--r-lg);padding:var(--s-4);position:sticky;top:80px}
+    .faq-nav__title{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:var(--s-3)}
+    .faq-nav__link{display:flex;align-items:center;gap:var(--s-2);font-size:0.82rem;color:var(--green-mid);text-decoration:none;padding:7px 0;border-bottom:1px solid var(--cream-dark);transition:color 0.14s}.faq-nav__link:last-child{border:none}.faq-nav__link:hover{color:var(--gold)}.faq-nav__link.active{color:var(--gold);font-weight:700}
+    .faq-section{margin-bottom:var(--s-10)}
+    .faq-section__title{font-family:var(--font-serif);font-size:1.4rem;font-weight:800;color:var(--green-deep);margin-bottom:var(--s-5);padding-bottom:var(--s-3);border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:var(--s-3)}
+    .faq-item{background:var(--white);border:1px solid var(--cream-dark);border-radius:var(--r-lg);margin-bottom:var(--s-3);overflow:hidden}
+    .faq-q{display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) var(--s-5);cursor:pointer;user-select:none;gap:var(--s-4)}
+    .faq-q:hover{background:var(--cream)}
+    .faq-q__text{font-weight:700;font-size:0.92rem;color:var(--green-deep);flex:1}
+    .faq-q__chevron{width:20px;height:20px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--green-mid);transition:transform 0.2s;flex-shrink:0}
+    .faq-item.open .faq-q__chevron{transform:rotate(180deg);background:var(--gold);color:var(--green-deep)}
+    .faq-item.open .faq-q{background:rgba(200,151,43,0.05)}
+    .faq-a{display:none;padding:0 var(--s-5) var(--s-4);font-size:0.88rem;line-height:1.8;color:var(--body-color)}
+    .faq-item.open .faq-a{display:block}
+    .faq-a a{color:var(--green-mid);text-decoration:underline}
+    .faq-a ul{padding-left:var(--s-4);margin-top:var(--s-2)}
+    .faq-a li{margin-bottom:var(--s-1)}
+    .still-need{background:var(--green-deep);border-radius:var(--r-xl);padding:var(--s-8);text-align:center;margin-top:var(--s-8)}
+    .still-need h3{font-family:var(--font-serif);font-size:1.4rem;font-weight:800;color:var(--white);margin-bottom:var(--s-2)}
+    .still-need p{font-size:0.88rem;color:rgba(255,255,255,0.6);margin-bottom:var(--s-5)}
+    .still-need__btns{display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap}
+    @media(max-width:900px){.faq-layout{grid-template-columns:1fr}.faq-nav{position:static}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-name">বাংলাবাজার</span><span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span></a>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="seller/dashboard-seller.html" class="navbar__link">ড্যাশবোর্ড</a>
+          <a href="auth.html" class="btn btn--gold btn--sm">লগইন / নিবন্ধন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="cms-hero">
+    <div class="container">
+      <div class="cms-hero__eyebrow">সহায়তা কেন্দ্র</div>
+      <h1 class="cms-hero__title">সচরাচর জিজ্ঞাসা</h1>
+      <p class="cms-hero__sub">আপনার প্রশ্নের উত্তর খুঁজছেন? এখানে সবচেয়ে বেশি জিজ্ঞেস করা প্রশ্নগুলোর উত্তর দেওয়া আছে।</p>
+      <div class="hero-search">
+        <input type="search" placeholder="প্রশ্ন খুঁজুন…" oninput="filterFAQ(this.value)" />
+        <button>খুঁজুন</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cms-body">
+    <div class="container">
+      <div class="faq-layout">
+        <nav class="faq-nav">
+          <div class="faq-nav__title">বিভাগ</div>
+          <a href="#general" class="faq-nav__link active">🌐 সাধারণ</a>
+          <a href="#buyer" class="faq-nav__link">🛒 ক্রেতার জন্য</a>
+          <a href="#seller" class="faq-nav__link">🏪 বিক্রেতার জন্য</a>
+          <a href="#payment" class="faq-nav__link">💳 পেমেন্ট</a>
+          <a href="#account" class="faq-nav__link">👤 অ্যাকাউন্ট</a>
+          <a href="#rfq" class="faq-nav__link">📋 RFQ সিস্টেম</a>
+        </nav>
+
+        <div id="faq-container">
+
+          <section class="faq-section" id="general">
+            <h2 class="faq-section__title">🌐 সাধারণ প্রশ্ন</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বাংলাবাজার কী?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">বাংলাবাজার বাংলাদেশের প্রথম সম্পূর্ণ বাংলা ভাষায় পরিচালিত B2B (Business-to-Business) ডিজিটাল মার্কেটপ্লেস। এখানে দেশের উৎপাদক, রপ্তানিকারক, পাইকার ও ক্রেতারা সহজেই পণ্য বেচাকেনা ও ব্যবসায়িক সম্পর্ক গড়ে তুলতে পারেন।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বাংলাবাজার কি বিনামূল্যে ব্যবহার করা যায়?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ! বাংলাবাজারে নিবন্ধন ও বেসিক অ্যাকাউন্ট সম্পূর্ণ বিনামূল্যে। বিক্রেতারা বিনামূল্যে ১০টি পণ্য তালিকাভুক্ত করতে পারেন। আরও সুবিধার জন্য প্রিমিয়াম প্ল্যান (৳৫০০/মাস) রয়েছে।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বাংলাবাজার কোথা থেকে পরিচালিত হয়?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">আমাদের প্রধান কার্যালয় ঢাকার বনানীতে। আমরা সারা বাংলাদেশে ৬৪ জেলায় কার্যক্রম পরিচালনা করি।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">মোবাইলে কি বাংলাবাজার ব্যবহার করা যায়?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ, বাংলাবাজারের ওয়েবসাইট সম্পূর্ণ মোবাইল-বান্ধব। শীঘ্রই Android ও iOS অ্যাপ আসছে।</div>
+            </div>
+          </section>
+
+          <section class="faq-section" id="buyer">
+            <h2 class="faq-section__title">🛒 ক্রেতার জন্য</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">কীভাবে পণ্য খুঁজব?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">সার্চ বারে পণ্যের নাম, ক্যাটাগরি বা বিক্রেতার নাম লিখুন। ফিল্টার দিয়ে জেলা, মূল্য ও মান অনুযায়ী বাছাই করতে পারবেন।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বিক্রেতার সাথে সরাসরি যোগাযোগ করা যাবে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ, নিবন্ধনের পর আপনি যেকোনো বিক্রেতাকে সরাসরি বার্তা পাঠাতে পারবেন। আমাদের ইন-প্ল্যাটফর্ম মেসেজিং সিস্টেম সম্পূর্ণ নিরাপদ।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">পণ্যের মান যাচাই কীভাবে করব?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">প্রতিটি বিক্রেতার পেজে অন্য ক্রেতাদের রিভিউ ও রেটিং দেখতে পাবেন। "যাচাইকৃত বিক্রেতা" ব্যাজ থাকলে তাদের ডকুমেন্ট আমরা যাচাই করেছি।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">নমুনা (Sample) পণ্য পাওয়া যায়?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">অনেক বিক্রেতা নমুনা পাঠান। পণ্যের পেজে "নমুনা অনুরোধ" বাটন থাকলে সেটি ব্যবহার করুন। বিক্রেতাকে সরাসরি মেসেজ করেও নমুনার জন্য জিজ্ঞেস করতে পারেন।</div>
+            </div>
+          </section>
+
+          <section class="faq-section" id="seller">
+            <h2 class="faq-section__title">🏪 বিক্রেতার জন্য</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বিক্রেতা হিসেবে কীভাবে নিবন্ধন করব?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">"বিক্রেতা হিসেবে যোগ দিন" বাটনে ক্লিক করুন। ট্রেড লাইসেন্স, জাতীয় পরিচয়পত্র ও ব্যবসার তথ্য দিয়ে ফর্ম পূরণ করুন। আমাদের টিম ৪৮ ঘণ্টার মধ্যে যাচাই করে অনুমোদন দেবে।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">কতটি পণ্য বিনামূল্যে তালিকাভুক্ত করা যাবে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">বিনামূল্যে ১০টি পণ্য তালিকাভুক্ত করতে পারবেন। প্রিমিয়াম প্ল্যানে (৳৫০০/মাস) পর্যন্ত ৫০০টি পণ্য এবং অতিরিক্ত সুবিধা পাবেন।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">পণ্য অনুমোদনে কতক্ষণ লাগে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">সাধারণত ২৪ ঘণ্টার মধ্যে পণ্য অনুমোদন হয়। যদি অতিরিক্ত যাচাই প্রয়োজন হয়, আমরা ইমেইলে জানাবো।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বিক্রেতা হিসেবে কী কী ডকুমেন্ট লাগবে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">
+                বাধ্যতামূলক:
+                <ul>
+                  <li>বৈধ ট্রেড লাইসেন্স (স্ক্যান কপি)</li>
+                  <li>মালিকের জাতীয় পরিচয়পত্র</li>
+                  <li>মোবাইল ব্যাংকিং বা ব্যাংক অ্যাকাউন্ট</li>
+                </ul>
+                ঐচ্ছিক (যাচাই ব্যাজের জন্য): TIN সার্টিফিকেট, BRC/ERC (রপ্তানিকারকদের জন্য), কারখানার ছবি।
+              </div>
+            </div>
+          </section>
+
+          <section class="faq-section" id="payment">
+            <h2 class="faq-section__title">💳 পেমেন্ট</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">কোন পেমেন্ট পদ্ধতি গৃহীত হয়?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">বাংলাদেশি পেমেন্ট: bKash, Nagad, Rocket, DBBL Mobile Banking। ব্যাংক ট্রান্সফার (NPSB/BEFTN)। ক্রেডিট/ডেবিট কার্ড (Visa, Mastercard)। আন্তর্জাতিক ক্রেতাদের জন্য PayPal ও SWIFT ট্রান্সফার।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">পেমেন্ট কি নিরাপদ?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ, সমস্ত পেমেন্ট SSL এনক্রিপশন ও PCI DSS সার্টিফাইড গেটওয়ে SSLCommerz-এর মাধ্যমে প্রক্রিয়া করা হয়। আমরা কোনো কার্ড নম্বর সংরক্ষণ করি না।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">বিক্রেতারা কখন পেমেন্ট পাবেন?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">ক্রেতার পণ্য নিশ্চিত করার ৩-৫ কার্যদিবসের মধ্যে বিক্রেতার অ্যাকাউন্টে পেমেন্ট স্থানান্তর করা হয়।</div>
+            </div>
+          </section>
+
+          <section class="faq-section" id="account">
+            <h2 class="faq-section__title">👤 অ্যাকাউন্ট ব্যবস্থাপনা</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">পাসওয়ার্ড ভুলে গেলে কী করব?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">লগইন পেজে "পাসওয়ার্ড ভুলে গেছেন?" লিংকে ক্লিক করুন। নিবন্ধিত ইমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হবে।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">অ্যাকাউন্ট মুছে ফেলা যাবে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ, সেটিংস → অ্যাকাউন্ট → "অ্যাকাউন্ট বন্ধ করুন" থেকে অ্যাকাউন্ট মুছে ফেলতে পারবেন। মুছে ফেলার আগে সমস্ত চলমান লেনদেন সম্পন্ন করুন।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">দুই-স্তরীয় প্রমাণীকরণ (2FA) কীভাবে চালু করব?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">সেটিংস → নিরাপত্তা → "দুই-স্তরীয় যাচাইকরণ" চালু করুন। Google Authenticator বা SMS OTP পদ্ধতি বেছে নিতে পারবেন।</div>
+            </div>
+          </section>
+
+          <section class="faq-section" id="rfq">
+            <h2 class="faq-section__title">📋 RFQ সিস্টেম</h2>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">RFQ কী?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">RFQ (Request for Quotation) হলো পণ্যের দাম জানার অনুরোধ। ক্রেতা তার চাহিদা, পরিমাণ ও বাজেট উল্লেখ করে RFQ পাঠান, এবং আগ্রহী বিক্রেতারা মূল্য প্রস্তাব পাঠান।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">RFQ পাঠানো কি বিনামূল্যে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">হ্যাঁ, ক্রেতারা বিনামূল্যে RFQ পাঠাতে পারেন। বিক্রেতারাও বিনামূল্যে RFQ-তে সাড়া দিতে পারেন (বেসিক প্ল্যানে মাসে ৫টি পর্যন্ত)।</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q__text">RFQ পাঠানোর পর কত দিনের মধ্যে সাড়া আসে?</span><span class="faq-q__chevron">▼</span></div>
+              <div class="faq-a">সাধারণত ২৪–৭২ ঘণ্টার মধ্যে বিক্রেতারা সাড়া দেন। RFQ পাঠানোর সময় পছন্দের সময়সীমা উল্লেখ করতে পারবেন।</div>
+            </div>
+          </section>
+
+          <div class="still-need">
+            <h3>এখনও সাহায্য দরকার?</h3>
+            <p>আপনার প্রশ্নের উত্তর পাননি? আমাদের সাপোর্ট টিম সর্বদা প্রস্তুত।</p>
+            <div class="still-need__btns">
+              <a href="contact.html" class="btn btn--gold">বার্তা পাঠান</a>
+              <a href="help.html" class="btn" style="background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2)">সাহায্য কেন্দ্র</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><div class="footer__brand-name">বাংলাবাজার</div><p class="footer__brand-desc">বাংলাদেশের ব্যবসায়ীদের জন্য নির্মিত দেশের প্রথম সম্পূর্ণ বাংলা ভাষার B2B মার্কেটপ্লেস।</p></div>
+        <div><div class="footer__col-title">ক্রেতাদের জন্য</div><a href="search.html" class="footer__link">পণ্য খুঁজুন</a><a href="search.html?type=sellers" class="footer__link">বিক্রেতা খুঁজুন</a><a href="auth.html" class="footer__link">নিবন্ধন করুন</a></div>
+        <div><div class="footer__col-title">বিক্রেতাদের জন্য</div><a href="auth.html?type=seller" class="footer__link">বিক্রেতা হন</a><a href="seller-guide.html" class="footer__link">বিক্রেতা গাইড</a><a href="success-stories.html" class="footer__link">সফলতার গল্প</a><a href="help.html" class="footer__link">সাহায্য কেন্দ্র</a></div>
+        <div><div class="footer__col-title">প্রতিষ্ঠান</div><a href="about.html" class="footer__link">আমাদের সম্পর্কে</a><a href="contact.html" class="footer__link">যোগাযোগ করুন</a><a href="privacy.html" class="footer__link">গোপনীয়তা নীতি</a><a href="terms.html" class="footer__link">সেবার শর্তাবলী</a></div>
+      </div>
+      <div class="footer__bottom"><div class="footer__copy">© ২০২৬ বাংলাবাজার। সর্বস্বত্ব সংরক্ষিত।</div></div>
+    </div>
+  </footer>
+
+<script>
+function toggleFAQ(el){const item=el.closest('.faq-item');item.classList.toggle('open');}
+function filterFAQ(q){const term=q.toLowerCase();document.querySelectorAll('.faq-item').forEach(item=>{const text=item.textContent.toLowerCase();item.style.display=text.includes(term)||term===''?'':'none';});}
+</script>
+</body>
+</html>

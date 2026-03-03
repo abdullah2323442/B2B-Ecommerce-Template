@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>বার্তা — বাংলাবাজার</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body { background: var(--parchment); }
+    .dash-wrap { display: block; min-height: 100vh; }
+    .sb { background: var(--green-deep); position: fixed; inset: 0 auto 0 0; width: 260px; display: flex; flex-direction: column; overflow-y: auto; z-index: 200; box-shadow: 2px 0 24px rgba(0,0,0,0.2); }
+    .sb__brand { padding: 22px var(--s-6); border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+    .sb__brand a { text-decoration: none; }
+    .sb__brand-name { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 800; color: var(--gold); display: block; }
+    .sb__brand-sub { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .sb__user { padding: var(--s-4) var(--s-5); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: var(--s-3); flex-shrink: 0; }
+    .sb__avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(200,151,43,0.18); border: 1.5px solid rgba(200,151,43,0.35); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .sb__username { font-size: 0.875rem; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .sb__userrole { font-size: 0.65rem; color: #4ade80; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+    .sb__nav { flex: 1; padding: var(--s-3) 0; }
+    .sb__label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.2); padding: var(--s-4) var(--s-6) var(--s-1); }
+    .sb__item { display: flex; align-items: center; gap: var(--s-3); padding: 9px var(--s-6); font-size: 0.875rem; color: rgba(255,255,255,0.58); transition: all 0.14s; border-left: 3px solid transparent; text-decoration: none; }
+    .sb__item:hover { color: var(--white); background: rgba(255,255,255,0.05); border-left-color: rgba(200,151,43,0.35); }
+    .sb__item.active { color: var(--white); background: rgba(200,151,43,0.1); border-left-color: var(--gold); font-weight: 600; }
+    .sb__item .ico { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+    .sb__badge { margin-left: auto; background: #dc2626; color: var(--white); font-size: 0.6rem; font-weight: 800; padding: 2px 6px; border-radius: var(--r-full); min-width: 20px; text-align: center; }
+    .sb__badge--gold { background: var(--gold); color: var(--green-deep); }
+    .sb__footer { padding: var(--s-3) var(--s-5) var(--s-4); border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+    .sb__footer-link { display: flex; align-items: center; gap: var(--s-2); font-size: 0.78rem; color: rgba(255,255,255,0.32); padding: 5px 0; text-decoration: none; transition: color 0.14s; }
+    .sb__footer-link:hover { color: rgba(255,255,255,0.7); }
+    .dash-main { margin-left: 260px; min-height: 100vh; padding: var(--s-6) var(--s-8); background: var(--parchment); }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s-6); flex-wrap: wrap; gap: var(--s-4); }
+    .dash-topbar h1 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 800; color: var(--green-deep); }
+    .dash-topbar p { font-size: 0.78rem; color: var(--ink-60); margin-top: 2px; }
+    /* messages layout */
+    .msg-layout { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - 160px); background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+    /* conversation list */
+    .conv-list { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .conv-search { padding: var(--s-3); border-bottom: 1px solid var(--border); }
+    .conv-search input { width: 100%; padding: 7px 12px; border: 1.5px solid var(--border); border-radius: var(--r-md); font-size: 0.8rem; font-family: var(--font-sans); color: var(--ink-80); outline: none; }
+    .conv-search input:focus { border-color: var(--green-mid); }
+    .conv-items { flex: 1; overflow-y: auto; }
+    .conv-item { padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; display: flex; gap: var(--s-3); align-items: flex-start; }
+    .conv-item:hover { background: var(--ink-02); }
+    .conv-item.active { background: rgba(15,45,30,0.05); border-left: 3px solid var(--green-mid); }
+    .conv-av { width: 38px; height: 38px; border-radius: 50%; background: var(--green-soft); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+    .conv-info { flex: 1; min-width: 0; }
+    .conv-name { font-size: 0.82rem; font-weight: 700; color: var(--ink-90); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .conv-preview { font-size: 0.72rem; color: var(--ink-50); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    .conv-time { font-size: 0.65rem; color: var(--ink-40); flex-shrink: 0; }
+    .conv-unread { width: 18px; height: 18px; background: #dc2626; border-radius: 50%; font-size: 0.6rem; color: var(--white); font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    /* chat area */
+    .chat-area { display: flex; flex-direction: column; }
+    .chat-hd { padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .chat-buyer { font-weight: 700; font-size: 0.9rem; color: var(--green-deep); }
+    .chat-prod  { font-size: 0.72rem; color: var(--ink-50); margin-top: 2px; }
+    .chat-msgs  { flex: 1; overflow-y: auto; padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-3); }
+    .msg-bubble { max-width: 68%; }
+    .msg-bubble--in  { align-self: flex-start; }
+    .msg-bubble--out { align-self: flex-end; }
+    .bubble-text { padding: var(--s-3) var(--s-4); border-radius: var(--r-xl); font-size: 0.82rem; line-height: 1.5; }
+    .msg-bubble--in  .bubble-text { background: var(--ink-05); color: var(--ink-80); border-bottom-left-radius: 4px; }
+    .msg-bubble--out .bubble-text { background: var(--green-deep); color: var(--white); border-bottom-right-radius: 4px; }
+    .bubble-time { font-size: 0.64rem; color: var(--ink-40); margin-top: 3px; }
+    .msg-bubble--out .bubble-time { text-align: right; }
+    /* input */
+    .chat-input-row { padding: var(--s-4); border-top: 1px solid var(--border); display: flex; gap: var(--s-3); }
+    .chat-input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--r-xl); font-size: 0.82rem; font-family: var(--font-sans); color: var(--ink-80); outline: none; resize: none; }
+    .chat-input:focus { border-color: var(--green-mid); }
+    .chat-send { padding: 10px 20px; background: var(--green-deep); color: var(--white); border: none; border-radius: var(--r-xl); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background 0.14s; font-family: var(--font-sans); }
+    .chat-send:hover { background: var(--green-mid); }
+    @media (max-width: 900px) { .dash-main { margin-left: 0; padding: var(--s-5); } .sb { display: none; } .msg-layout { grid-template-columns: 1fr; } .conv-list { display: none; } }
+  </style>
+</head>
+<body>
+<div class="dash-wrap">
+  <aside class="sb">
+    <div class="sb__brand"><a href="../index.html"><span class="sb__brand-name">বাংলাবাজার</span><span class="sb__brand-sub">বিক্রেতা প্যানেল</span></a></div>
+    <div class="sb__user">
+      <div class="sb__avatar">র</div>
+      <div><div class="sb__username">রহিম টেক্সটাইলস</div><div class="sb__userrole"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>যাচাইকৃত বিক্রেতা</div></div>
+    </div>
+    <nav class="sb__nav">
+      <div class="sb__label">প্রধান মেনু</div>
+      <a href="dashboard-seller.html" class="sb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="seller-products.html"  class="sb__item"><span class="ico">📦</span> পণ্য তালিকা <span class="sb__badge sb__badge--gold">১৫৩</span></a>
+      <a href="seller-enquiries.html" class="sb__item"><span class="ico">💬</span> জিজ্ঞাসাসমূহ <span class="sb__badge">৮</span></a>
+      <a href="seller-messages.html"  class="sb__item active"><span class="ico">✉️</span> বার্তা <span class="sb__badge">৩</span></a>
+      <a href="seller-reviews.html"   class="sb__item"><span class="ico">⭐</span> পর্যালোচনা</a>
+      <a href="seller-rfq.html"       class="sb__item"><span class="ico">📋</span> ক্রেতার চাহিদা (RFQ)</a>
+      <a href="seller-analytics.html" class="sb__item"><span class="ico">📈</span> পরিসংখ্যান</a>
+      <div class="sb__label" style="margin-top:var(--s-2);">অ্যাকাউন্ট</div>
+      <a href="seller-profile.html"       class="sb__item"><span class="ico">🏪</span> প্রোফাইল সম্পাদনা</a>
+      <a href="seller-settings.html"      class="sb__item"><span class="ico">⚙️</span> সেটিংস</a>
+      <a href="seller-notifications.html" class="sb__item"><span class="ico">🔔</span> নোটিফিকেশন সেটিং</a>
+    </nav>
+    <div class="sb__footer">
+      <a href="../seller.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>পাবলিক প্রোফাইল দেখুন</a>
+      <a href="../index.html" class="sb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>মার্কেটপ্লেসে ফিরুন</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div><h1>বার্তা</h1><p>ক্রেতাদের সাথে সরাসরি কথোপকথন</p></div>
+    </div>
+
+    <div class="msg-layout">
+      <!-- conversation list -->
+      <div class="conv-list">
+        <div class="conv-search"><input type="search" placeholder="কথোপকথন খুঁজুন..." /></div>
+        <div class="conv-items">
+          <div class="conv-item active">
+            <div class="conv-av" style="background:var(--green-mid);">ম</div>
+            <div class="conv-info">
+              <div class="conv-name">মেহমুদ ট্রেডিং</div>
+              <div class="conv-preview">স্যাম্পল পেয়েছি, ধন্যবাদ...</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <span class="conv-time">১০:২২</span>
+              <span class="conv-unread">৩</span>
+            </div>
+          </div>
+          <div class="conv-item">
+            <div class="conv-av" style="background:#7c3aed;">গ</div>
+            <div class="conv-info">
+              <div class="conv-name">গ্রীন এক্সপোর্ট হাউস</div>
+              <div class="conv-preview">মূল্য তালিকা পাঠান...</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <span class="conv-time">গতকাল</span>
+            </div>
+          </div>
+          <div class="conv-item">
+            <div class="conv-av" style="background:#b45309;">ঢ</div>
+            <div class="conv-info">
+              <div class="conv-name">ঢাকা গার্মেন্টস</div>
+              <div class="conv-preview">ডেলিভারি কবে হবে?</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <span class="conv-time">সোমবার</span>
+            </div>
+          </div>
+          <div class="conv-item">
+            <div class="conv-av" style="background:#1a7a45;">র</div>
+            <div class="conv-info">
+              <div class="conv-name">রাজশাহী ফ্যাব্রিক্স</div>
+              <div class="conv-preview">ঠিক আছে, পরে যোগাযোগ করব</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <span class="conv-time">শুক্র</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- chat area -->
+      <div class="chat-area">
+        <div class="chat-hd">
+          <div>
+            <div class="chat-buyer">মেহমুদ ট্রেডিং — চট্টগ্রাম</div>
+            <div class="chat-prod">পণ্য: সুতাবালিশ কভার (২০×২০ ইঞ্চি)</div>
+          </div>
+          <a href="seller-enquiries.html" style="font-size:0.75rem;color:var(--green-mid);text-decoration:none;font-weight:600;">জিজ্ঞাসা দেখুন →</a>
+        </div>
+        <div class="chat-msgs">
+          <div class="msg-bubble msg-bubble--in">
+            <div class="bubble-text">আসসালামু আলাইকুম। আপনার সুতাবালিশ কভারের মান সম্পর্কে বিস্তারিত জানতে চাই।</div>
+            <div class="bubble-time">সকাল ৯:১৫</div>
+          </div>
+          <div class="msg-bubble msg-bubble--out">
+            <div class="bubble-text">ওয়ালাইকুম আসসালাম। আমাদের বালিশ কভার ১০০% কটন দিয়ে তৈরি, ৩৮০ GSM। এক্সপোর্ট কোয়ালিটি রেডি স্টক আছে। স্যাম্পল পাঠাতে পারি।</div>
+            <div class="bubble-time">সকাল ৯:৩০</div>
+          </div>
+          <div class="msg-bubble msg-bubble--in">
+            <div class="bubble-text">স্যাম্পল পাঠান। ঠিকানা হলো: মেহমুদ ট্রেডিং, আগ্রাবাদ বাণিজ্যিক এলাকা, চট্টগ্রাম।</div>
+            <div class="bubble-time">সকাল ৯:৪৫</div>
+          </div>
+          <div class="msg-bubble msg-bubble--out">
+            <div class="bubble-text">ঠিক আছে, আজই কুরিয়ারে পাঠিয়ে দিচ্ছি। ট্র্যাকিং নম্বর পরে দেব।</div>
+            <div class="bubble-time">সকাল ১০:০০</div>
+          </div>
+          <div class="msg-bubble msg-bubble--in">
+            <div class="bubble-text">স্যাম্পল পেয়েছি, ধন্যবাদ। মান ভালো। ৫,০০০ পিসের জন্য দাম কত হবে?</div>
+            <div class="bubble-time">১০:২২</div>
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <textarea class="chat-input" rows="2" placeholder="বার্তা লিখুন..."></textarea>
+          <button class="chat-send" onclick="BB.showToast('বার্তা পাঠানো হয়েছে ✓')">পাঠান</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

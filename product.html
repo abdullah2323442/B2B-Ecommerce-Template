@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>কমব কটন পপলিন ফেব্রিক — বাংলাবাজার</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--s-10);
+      align-items: start;
+    }
+
+    /* Gallery */
+    .gallery { display:flex; flex-direction:column; gap:var(--s-3); }
+    .gallery__main {
+      aspect-ratio: 4/3;
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery__main img[data-gallery-main] {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s;
+    }
+
+    .gallery__thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-2);
+    }
+
+    .gallery__thumb {
+      aspect-ratio: 1;
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .gallery__thumb--active,
+    .gallery__thumb:hover {
+      border-color: var(--green-mid);
+    }
+
+    /* Product info */
+    .product-info { display:flex; flex-direction:column; gap:var(--s-6); }
+
+    .product-info__header h1 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: var(--s-2);
+    }
+
+    .product-info__header .sub-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      font-size: 0.8rem;
+      color: var(--ink-60);
+    }
+
+    .product-price-block {
+      padding: var(--s-5);
+      background: var(--parchment);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-md);
+    }
+
+    .product-price-block .price-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-30);
+      font-weight: 700;
+      margin-bottom: var(--s-1);
+    }
+
+    .product-price-block .price-range {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green-mid);
+      margin-bottom: var(--s-1);
+    }
+
+    .product-price-block .price-note {
+      font-size: 0.8rem;
+      color: var(--ink-60);
+      margin-bottom: var(--s-4);
+    }
+
+    .product-price-block .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-2);
+      border-top: 1px solid var(--ink-10);
+      padding-top: var(--s-4);
+    }
+
+    .tier-cell {
+      text-align: center;
+      padding: var(--s-2);
+      background: var(--white);
+      border-radius: var(--r-md);
+      border: 1px solid var(--ink-10);
+    }
+
+    .tier-cell .tier-qty { font-size: 0.72rem; color:var(--ink-60); margin-bottom: 3px; }
+    .tier-cell .tier-price { font-weight: 700; font-size: 0.9rem; color: var(--green-mid); }
+
+    /* Attributes table */
+    .attr-table { width: 100%; }
+    .attr-table tr:nth-child(even) td { background: var(--parchment); }
+    .attr-table td {
+      padding: var(--s-2) var(--s-3);
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .attr-table td:first-child {
+      width: 45%;
+      color: var(--ink-60);
+      font-weight: 600;
+    }
+    .attr-table td:last-child {
+      color: var(--ink);
+    }
+
+    /* Sidebar */
+    .product-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-5);
+      position: sticky;
+      top: 80px;
+    }
+
+    .seller-card-mini {
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-lg);
+      padding: var(--s-5);
+    }
+
+    .seller-mini__top {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      margin-bottom: var(--s-4);
+      padding-bottom: var(--s-4);
+      border-bottom: 1px solid var(--ink-10);
+    }
+
+    .seller-mini__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .seller-mini__info .name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .seller-mini__stat {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      padding: var(--s-1) 0;
+      color: var(--ink-60);
+    }
+
+    .seller-mini__stat span:last-child {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .enquiry-sticky {
+      background: var(--green-deep);
+      border-radius: var(--r-lg);
+      padding: var(--s-5);
+      color: var(--white);
+    }
+
+    .enquiry-sticky h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: var(--s-1);
+    }
+
+    .enquiry-sticky p {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-bottom: var(--s-4);
+    }
+
+    .enquiry-sticky .form-input,
+    .enquiry-sticky .form-textarea {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--white);
+      margin-bottom: var(--s-3);
+    }
+
+    .enquiry-sticky .form-input::placeholder,
+    .enquiry-sticky .form-textarea::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .review-card {
+      padding: var(--s-5) 0;
+      border-bottom: 1px solid var(--ink-10);
+    }
+    .review-card:last-child { border-bottom: none; }
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--s-2);
+    }
+    .reviewer-info { display: flex; align-items: center; gap: var(--s-3); }
+    .reviewer-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .reviewer-name { font-weight: 700; font-size: 0.875rem; }
+    .reviewer-date { font-size: 0.72rem; color: var(--ink-30); }
+    .review-stars { color: #C8972B; font-size: 0.9rem; }
+    .review-text { font-size: 0.875rem; color: var(--ink-60); line-height: 1.7; }
+
+    @media (max-width: 1024px) {
+      .product-detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .product-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="announce-bar">
+    🆕 প্রতিদিন নতুন পণ্য যোগ হচ্ছে — এই সপ্তাহে ৩৪০টি নতুন তালিকা!
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo">
+          <span class="navbar__logo-name">বাংলাবাজার</span>
+          <span class="navbar__logo-tagline">Bangladesh B2B Marketplace</span>
+        </a>
+        <div class="navbar__search search-with-suggest" style="position:relative;">
+          <input class="navbar__search-input" type="search" placeholder="পণ্য, ক্যাটাগরি বা বিক্রেতা খুঁজুন..." />
+          <button class="navbar__search-btn" type="button">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+          </button>
+          <div class="suggestions-box" style="display:none; position:absolute; top:100%; left:0; right:0; background:var(--white); border:1.5px solid var(--cream-dark); border-radius:0 0 var(--r-md) var(--r-md); z-index:50; box-shadow:var(--shadow-lg);"></div>
+        </div>
+        <div class="navbar__actions">
+          <a href="search.html" class="navbar__link">পণ্য খুঁজুন</a>
+          <a href="auth.html" class="btn btn--gold btn--sm">প্রবেশ করুন</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Category Bar -->
+  <nav class="cat-bar">
+    <div class="container">
+      <div class="cat-bar__inner">
+        <a href="search.html" class="cat-bar__item">সব পণ্য</a>
+        <a href="search.html?cat=textile" class="cat-bar__item cat-bar__item--active">🧵 কাপড় ও সুতা</a>
+        <a href="search.html?cat=food" class="cat-bar__item">🌾 খাদ্যপণ্য</a>
+        <a href="search.html?cat=agri" class="cat-bar__item">🌱 কৃষি ও মৎস্য</a>
+        <a href="search.html?cat=electronics" class="cat-bar__item">⚡ ইলেকট্রনিক্স</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container" style="padding-top:var(--s-6); padding-bottom:var(--s-16);">
+
+      <!-- Breadcrumb -->
+      <div class="page-header__breadcrumb" style="margin-bottom:var(--s-6);">
+        <a href="index.html">হোম</a>
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <a href="search.html">পণ্য</a>
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <a href="search.html?cat=textile">কাপড় ও সুতা</a>
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <span>কমব কটন পপলিন</span>
+      </div>
+
+      <div class="product-detail-grid">
+
+        <!-- ── Left: Gallery + Info ─────────────────────── -->
+        <div>
+          <!-- Gallery -->
+          <div class="gallery reveal">
+            <div class="gallery__main">
+              <span data-gallery-main style="font-size:6rem;">🧵</span>
+            </div>
+            <div class="gallery__thumbs">
+              <div class="gallery__thumb gallery__thumb--active" data-gallery-thumb data-src="🧵">🧵</div>
+              <div class="gallery__thumb" data-gallery-thumb data-src="🎨">🎨</div>
+              <div class="gallery__thumb" data-gallery-thumb data-src="🟦">🟦</div>
+              <div class="gallery__thumb" data-gallery-thumb data-src="📦">📦</div>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info" style="margin-top:var(--s-8);">
+            <div class="product-info__header fade-up">
+              <h1>কমব কটন পপলিন ৬০×৬০ ডায়েড ফেব্রিক — হালকা ও টেকসই</h1>
+              <div class="sub-meta">
+                <span class="badge badge--success">✓ যাচাইকৃত পণ্য</span>
+                <span>★ ৪.৭ (৮৩টি রিভিউ)</span>
+                <span>·</span>
+                <span>১২,৪৫০ অর্ডার সম্পন্ন</span>
+              </div>
+            </div>
+
+            <!-- Price block -->
+            <div class="product-price-block fade-up fade-up--1">
+              <div class="price-label">মূল্য পরিসীমা</div>
+              <div class="price-range">৳৮৫ – ৳১১০</div>
+              <div class="price-note">প্রতি গজ · পরিমাণ অনুযায়ী মূল্য পরিবর্তন হয়</div>
+              <div class="tiers">
+                <div class="tier-cell">
+                  <div class="tier-qty">৫০০–৯৯৯ গজ</div>
+                  <div class="tier-price">৳১১০</div>
+                </div>
+                <div class="tier-cell">
+                  <div class="tier-qty">১,০০০–৪,৯৯৯ গজ</div>
+                  <div class="tier-price">৳৯৫</div>
+                </div>
+                <div class="tier-cell" style="border-color:var(--gold);">
+                  <div class="tier-qty">৫,০০০+ গজ</div>
+                  <div class="tier-price" style="color:var(--gold);">৳৮৫</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabs: Details / Specs / Reviews -->
+            <div data-tabs class="fade-up fade-up--2">
+              <div style="display:flex; gap:0; border-bottom:2px solid var(--ink-10); margin-bottom:var(--s-5);">
+                <button data-tab data-target="tab-overview" class="tab-btn">বিবরণ</button>
+                <button data-tab data-target="tab-specs" class="tab-btn">বৈশিষ্ট্য</button>
+                <button data-tab data-target="tab-reviews" class="tab-btn">পর্যালোচনা (৮৩)</button>
+              </div>
+
+              <!-- Tab: Overview -->
+              <div id="tab-overview" data-panel>
+                <p style="font-size:0.9rem; line-height:1.85; color:var(--ink-60); margin-bottom:var(--s-4);">
+                  এই কটন পপলিন ফেব্রিক বাংলাদেশের সেরা তৈরি পোশাক কারখানাগুলোতে ব্যাপকভাবে ব্যবহৃত হয়। ৬০×৬০ থ্রেড কাউন্টের এই উচ্চমানের কাপড় শার্ট, কামিজ এবং হালকা ড্রেসের জন্য আদর্শ।
+                </p>
+                <ul style="padding-left:var(--s-5); display:flex; flex-direction:column; gap:var(--s-2); font-size:0.875rem; color:var(--ink-60); line-height:1.7;">
+                  <li>১০০% কমব কটন — সর্বোচ্চ মানের তুলা ব্যবহৃত</li>
+                  <li>রিঅ্যাক্টিভ ডাই — রঙ দীর্ঘস্থায়ী ও উজ্জ্বল</li>
+                  <li>ওজন: ৮০–৯০ GSM (হালকা গ্রীষ্মকালীন কাপড়)</li>
+                  <li>প্রস্থ: ৫৮/৬০ ইঞ্চি</li>
+                  <li>ধোয়ার পরে সংকোচন: সর্বোচ্চ ৩%</li>
+                  <li>OEKO-TEX® Standard 100 সার্টিফাইড রং ব্যবহৃত</li>
+                </ul>
+              </div>
+
+              <!-- Tab: Specs -->
+              <div id="tab-specs" data-panel style="display:none;">
+                <table class="attr-table">
+                  <tr><td>উপাদান</td><td>১০০% কমব কটন</td></tr>
+                  <tr><td>থ্রেড কাউন্ট</td><td>৬০×৬০</td></tr>
+                  <tr><td>ওজন (GSM)</td><td>৮০–৯০ গ্রাম/বর্গমিটার</td></tr>
+                  <tr><td>প্রস্থ</td><td>৫৮/৬০ ইঞ্চি</td></tr>
+                  <tr><td>রং প্রক্রিয়া</td><td>রিঅ্যাক্টিভ ডাই</td></tr>
+                  <tr><td>সর্বনিম্ন অর্ডার (MOQ)</td><td>৫০০ গজ</td></tr>
+                  <tr><td>প্যাকেজিং</td><td>রোল প্যাকিং (প্রতি রোল ৮০–১০০ গজ)</td></tr>
+                  <tr><td>সার্টিফিকেশন</td><td>ISO 9001:2015</td></tr>
+                  <tr><td>সরবরাহের সময়</td><td>অর্ডারের ৭–১৪ কার্যদিবস</td></tr>
+                  <tr><td>পোর্ট</td><td>চট্টগ্রাম বন্দর</td></tr>
+                </table>
+              </div>
+
+              <!-- Tab: Reviews -->
+              <div id="tab-reviews" data-panel style="display:none;">
+                <!-- Rating summary -->
+                <div style="display:grid; grid-template-columns:160px 1fr; gap:var(--s-6); align-items:center; padding:var(--s-5); background:var(--parchment); border-radius:var(--r-md); margin-bottom:var(--s-6);">
+                  <div style="text-align:center;">
+                    <div style="font-family:var(--font-serif); font-size:3.5rem; font-weight:800; color:var(--gold); line-height:1;">৪.৭</div>
+                    <div style="color:var(--gold); font-size:1.1rem; margin:var(--s-1) 0;">★★★★★</div>
+                    <div style="font-size:0.72rem; color:var(--ink-30);">৮৩টি রিভিউ</div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:6px;">
+                    <div style="display:flex; align-items:center; gap:var(--s-2); font-size:0.78rem;">
+                      <span style="width:20px; text-align:right;">৫★</span>
+                      <div style="flex:1; height:6px; background:var(--ink-10); border-radius:var(--r-full);"><div style="width:74%; height:100%; background:var(--gold); border-radius:var(--r-full);"></div></div>
+                      <span style="width:24px; color:var(--ink-60);">৬১</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:var(--s-2); font-size:0.78rem;">
+                      <span style="width:20px; text-align:right;">৪★</span>
+                      <div style="flex:1; height:6px; background:var(--ink-10); border-radius:var(--r-full);"><div style="width:18%; height:100%; background:var(--gold); border-radius:var(--r-full);"></div></div>
+                      <span style="width:24px; color:var(--ink-60);">১৫</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:var(--s-2); font-size:0.78rem;">
+                      <span style="width:20px; text-align:right;">৩★</span>
+                      <div style="flex:1; height:6px; background:var(--ink-10); border-radius:var(--r-full);"><div style="width:7%; height:100%; background:var(--gold); border-radius:var(--r-full);"></div></div>
+                      <span style="width:24px; color:var(--ink-60);">৫</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Individual reviews -->
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="reviewer-info">
+                      <div class="reviewer-avatar">স</div>
+                      <div><div class="reviewer-name">সাকিব আহমেদ</div><div class="reviewer-date">১৫ জানুয়ারি ২০২৫</div></div>
+                    </div>
+                    <div class="review-stars">★★★★★</div>
+                  </div>
+                  <p class="review-text">কাপড়ের মান অত্যন্ত উন্নত। রঙ একদম সঠিক এসেছে। সময়মতো ডেলিভারি পেয়েছি। আমাদের কারখানার জন্য নিয়মিত নেওয়া হবে।</p>
+                </div>
+
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="reviewer-info">
+                      <div class="reviewer-avatar">ন</div>
+                      <div><div class="reviewer-name">নাজমুল হোসেন</div><div class="reviewer-date">৮ ডিসেম্বর ২০২৪</div></div>
+                    </div>
+                    <div class="review-stars">★★★★☆</div>
+                  </div>
+                  <p class="review-text">ভালো কোয়ালিটি। তবে ডেলিভারিতে ২ দিন দেরি হয়েছিল। বিক্রেতা সাথে সাথে জানিয়েছিলেন, সেটা ভালো লেগেছে।</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Right: Sidebar ──────────────────────────── -->
+        <aside class="product-sidebar">
+          <!-- Seller mini card -->
+          <div class="seller-card-mini reveal">
+            <div class="seller-mini__top">
+              <div class="seller-mini__avatar">র</div>
+              <div class="seller-mini__info">
+                <div class="name">রহিম টেক্সটাইলস</div>
+                <div style="display:flex; align-items:center; gap:var(--s-2);">
+                  <span class="badge badge--success" style="font-size:0.65rem; padding:2px 7px;">✓ যাচাইকৃত</span>
+                  <span style="font-size:0.72rem; color:var(--ink-60);">নরসিংদী</span>
+                </div>
+              </div>
+            </div>
+            <div class="seller-mini__stat"><span>মোট পণ্য</span><span>১৪৫টি</span></div>
+            <div class="seller-mini__stat"><span>রেটিং</span><span>★ ৪.৭ (৩৮০টি)</span></div>
+            <div class="seller-mini__stat"><span>সদস্যপদ</span><span>২০২১ সাল থেকে</span></div>
+            <div class="seller-mini__stat"><span>প্রতিক্রিয়ার সময়</span><span>সাধারণত ২ ঘণ্টার মধ্যে</span></div>
+            <a href="seller.html" class="btn btn--outline" style="width:100%; margin-top:var(--s-4);">বিক্রেতার প্রোফাইল দেখুন</a>
+          </div>
+
+          <!-- Sticky enquiry form -->
+          <div class="enquiry-sticky reveal">
+            <h3>জিজ্ঞাসা পাঠান</h3>
+            <p>সরাসরি বিক্রেতার সাথে যোগাযোগ করুন</p>
+            <form id="sidebar-enquiry" style="display:flex; flex-direction:column; gap:0;">
+              <input class="form-input" type="text" placeholder="আপনার নাম" style="margin-bottom:var(--s-3);" />
+              <input class="form-input" type="tel" placeholder="ফোন নম্বর" style="margin-bottom:var(--s-3);" />
+              <input class="form-input" type="text" placeholder="প্রয়োজনীয় পরিমাণ (যেমন: ৫০০ গজ)" style="margin-bottom:var(--s-3);" />
+              <textarea class="form-textarea" placeholder="আপনার চাহিদা লিখুন..." rows="3" style="background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:var(--white); margin-bottom:var(--s-4);"></textarea>
+              <button type="submit" class="btn btn--gold btn--lg" style="width:100%;">জিজ্ঞাসা পাঠান →</button>
+            </form>
+          </div>
+
+          <!-- Quick info badges -->
+          <div style="display:flex; flex-direction:column; gap:var(--s-2);">
+            <div style="display:flex; align-items:center; gap:var(--s-3); padding:var(--s-3); background:var(--parchment); border-radius:var(--r-md); font-size:0.8rem; color:var(--ink-60);">
+              <span>🚚</span>
+              <span>সরবরাহের সময়: <strong style="color:var(--ink);">৭–১৪ কার্যদিবস</strong></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:var(--s-3); padding:var(--s-3); background:var(--parchment); border-radius:var(--r-md); font-size:0.8rem; color:var(--ink-60);">
+              <span>📦</span>
+              <span>MOQ: <strong style="color:var(--ink);">৫০০ গজ</strong></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:var(--s-3); padding:var(--s-3); background:var(--parchment); border-radius:var(--r-md); font-size:0.8rem; color:var(--ink-60);">
+              <span>🔒</span>
+              <span><strong style="color:var(--ink);">নিরাপদ লেনদেন</strong> নিশ্চিত</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Related products -->
+      <section class="reveal" style="margin-top:var(--s-16);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--s-8);">
+          <h2 class="section-title">সম্পর্কিত পণ্য</h2>
+          <a href="search.html?cat=textile" class="btn btn--outline btn--sm">সব দেখুন →</a>
+        </div>
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-card__img-placeholder img-mock" style="height:160px;">🎨</div>
+            <div class="product-card__body">
+              <div class="product-card__cat">প্রিন্টেড কটন</div>
+              <a href="product.html" class="product-card__name">ব্লক প্রিন্ট কটন ফেব্রিক</a>
+              <div class="product-card__price">৳৯৫ – ৳১৩০</div>
+              <div class="product-card__meta"><div class="product-card__seller"><div class="product-card__seller-avatar">ক</div><span>করিম ট্রেডার্স</span></div></div>
+            </div>
+            <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="ব্লক প্রিন্ট কটন">জিজ্ঞাসা</button></div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__img-placeholder img-mock" style="height:160px;">🟦</div>
+            <div class="product-card__body">
+              <div class="product-card__cat">ডেনিম</div>
+              <a href="product.html" class="product-card__name">ডেনিম ফেব্রিক ৮ আউন্স</a>
+              <div class="product-card__price">৳১৪০ – ৳১৮০</div>
+              <div class="product-card__meta"><div class="product-card__seller"><div class="product-card__seller-avatar">চ</div><span>চট্টগ্রাম ফেব্রিক্স</span></div></div>
+            </div>
+            <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="ডেনিম ফেব্রিক">জিজ্ঞাসা</button></div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__img-placeholder img-mock" style="height:160px;">🧶</div>
+            <div class="product-card__body">
+              <div class="product-card__cat">সুতা</div>
+              <a href="product.html" class="product-card__name">কমব কটন ইয়ার্ন ৪০/১</a>
+              <div class="product-card__price">৳৩৮০ – ৳৪২০</div>
+              <div class="product-card__meta"><div class="product-card__seller"><div class="product-card__seller-avatar">ম</div><span>মুন্সীগঞ্জ স্পিনিং</span></div></div>
+            </div>
+            <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="কটন ইয়ার্ন">জিজ্ঞাসা</button></div>
+          </article>
+          <article class="product-card">
+            <div class="product-card__img-placeholder img-mock" style="height:160px;">🌿</div>
+            <div class="product-card__body">
+              <div class="product-card__cat">ভিসকোজ</div>
+              <a href="product.html" class="product-card__name">ভিসকোজ রেয়ন কাপড়</a>
+              <div class="product-card__price">৳১১০ – ৳১৪০</div>
+              <div class="product-card__meta"><div class="product-card__seller"><div class="product-card__seller-avatar">ন</div><span>নারায়ণগঞ্জ টেক্স</span></div></div>
+            </div>
+            <div class="product-card__footer"><button class="btn--enquire" data-enquire data-product="ভিসকোজ রেয়ন">জিজ্ঞাসা</button></div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Enquiry Modal -->
+  <div id="enquiry-modal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title">জিজ্ঞাসা পাঠান</h2>
+        <button data-modal-close class="btn btn--ghost btn--icon">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p style="font-size:0.875rem; color:var(--ink-60); margin-bottom:var(--s-5);">পণ্য: <strong data-product-name>—</strong></p>
+      <form style="display:flex; flex-direction:column; gap:var(--s-4);">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s-4);">
+          <div class="form-group"><label class="form-label">আপনার নাম <span>*</span></label><input class="form-input" type="text" placeholder="মোঃ আব্দুর রহিম" required /></div>
+          <div class="form-group"><label class="form-label">ফোন নম্বর <span>*</span></label><input class="form-input" type="tel" placeholder="০১৭XXXXXXXXX" required /></div>
+        </div>
+        <div class="form-group"><label class="form-label">প্রয়োজনীয় পরিমাণ</label><input class="form-input" type="text" placeholder="যেমন: ৫০০ গজ" /></div>
+        <div class="form-group"><label class="form-label">আপনার বার্তা <span>*</span></label><textarea class="form-textarea" placeholder="আপনার প্রয়োজনীয়তা বিস্তারিত লিখুন..." required></textarea></div>
+        <button type="submit" class="btn btn--primary btn--lg">জিজ্ঞাসা পাঠান →</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

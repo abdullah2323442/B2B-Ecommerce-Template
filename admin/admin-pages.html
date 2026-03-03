@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS পেজ — বাংলাবাজার অ্যাডমিন</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    body{background:#0a1810;color:rgba(255,255,255,0.82)}.adm-wrap{display:block;min-height:100vh}
+    .asb{background:#060d07;position:fixed;inset:0 auto 0 0;width:240px;display:flex;flex-direction:column;overflow-y:auto;z-index:200;border-right:1px solid rgba(200,151,43,0.12)}
+    .asb__brand{padding:20px var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}.asb__brand a{text-decoration:none}
+    .asb__brand-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--gold);display:block}
+    .asb__brand-sub{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,151,43,0.55)}
+    .asb__nav{flex:1;padding:var(--s-4) 0;overflow-y:auto}
+    .asb__section{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.18);padding:var(--s-3) var(--s-5) var(--s-1)}
+    .asb__item{display:flex;align-items:center;gap:var(--s-3);padding:9px var(--s-5);font-size:0.85rem;color:rgba(255,255,255,0.5);transition:all 0.14s;border-left:2px solid transparent;text-decoration:none}
+    .asb__item:hover{color:rgba(255,255,255,0.88);background:rgba(255,255,255,0.04);border-left-color:rgba(200,151,43,0.3)}
+    .asb__item.active{color:var(--white);background:rgba(200,151,43,0.08);border-left-color:var(--gold);font-weight:600}
+    .asb__item .ico{font-size:0.95rem;width:18px;text-align:center;flex-shrink:0}
+    .asb__badge{margin-left:auto;background:#dc2626;color:var(--white);font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:var(--r-full);min-width:20px;text-align:center}
+    .asb__footer{padding:var(--s-3) var(--s-5) var(--s-4);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+    .asb__footer-link{display:flex;align-items:center;gap:var(--s-2);font-size:0.78rem;color:rgba(255,255,255,0.28);padding:5px 0;text-decoration:none;transition:color 0.14s}.asb__footer-link:hover{color:rgba(255,255,255,0.6)}
+    .adm-main{margin-left:240px;background:#0f1f12;min-height:100vh;padding:var(--s-6) var(--s-8)}
+    .adm-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-6);flex-wrap:wrap;gap:var(--s-4)}
+    .adm-topbar h1{font-family:var(--font-serif);font-size:1.5rem;font-weight:800;color:var(--white)}
+    .adm-topbar p{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-top:3px}
+    .adm-2col{display:grid;grid-template-columns:240px 1fr;gap:var(--s-5)}
+    .page-list{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden}
+    .page-list__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);font-family:var(--font-serif);font-size:0.9rem;font-weight:700;color:var(--white)}
+    .page-item{display:flex;align-items:center;justify-content:space-between;padding:var(--s-3) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.14s}
+    .page-item:last-child{border:none}
+    .page-item:hover,.page-item.active{background:rgba(200,151,43,0.07)}
+    .page-item.active .page-item__name{color:var(--gold);font-weight:600}
+    .page-item__name{font-size:0.85rem;color:rgba(255,255,255,0.65)}
+    .page-str{font-size:0.65rem;color:rgba(255,255,255,0.25)}
+    .editor-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);overflow:hidden}
+    .editor-card__hd{padding:var(--s-4) var(--s-5);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
+    .editor-title{font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--white)}
+    .fi-dark{padding:9px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;transition:border-color 0.15s}.fi-dark:focus{border-color:var(--gold)}.fi-dark::placeholder{color:rgba(255,255,255,0.25)}
+    .form-group-dark{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--s-4)}
+    .form-label-dark{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em}
+    .editor-body{padding:var(--s-5)}
+    .editor-area{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);color:var(--white);font-family:var(--font-sans);font-size:0.82rem;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:240px;padding:var(--s-3);transition:border-color 0.15s}.editor-area:focus{border-color:var(--gold)}.editor-area::placeholder{color:rgba(255,255,255,0.25)}
+    .aab{padding:6px 14px;font-size:0.78rem;font-weight:600;border-radius:var(--r-md);cursor:pointer;transition:all 0.14s;border:1px solid;white-space:nowrap}
+    .aab--save{background:rgba(200,151,43,0.1);color:var(--gold);border-color:rgba(200,151,43,0.25)}.aab--save:hover{background:rgba(200,151,43,0.22)}
+    @media(max-width:1000px){.adm-2col{grid-template-columns:1fr}}
+    @media(max-width:900px){.asb{display:none}.adm-main{margin-left:0;padding:var(--s-5)}}
+  </style>
+</head>
+<body>
+<div class="adm-wrap">
+  <aside class="asb">
+    <div class="asb__brand"><a href="../index.html"><span class="asb__brand-name">বাংলাবাজার</span><span class="asb__brand-sub">অ্যাডমিন প্যানেল</span></a></div>
+    <nav class="asb__nav">
+      <div class="asb__section">ওভারভিউ</div>
+      <a href="admin.html" class="asb__item"><span class="ico">📊</span> ড্যাশবোর্ড</a>
+      <a href="admin-analytics.html" class="asb__item"><span class="ico">📈</span> বিশ্লেষণ</a>
+      <div class="asb__section">পর্যালোচনা</div>
+      <a href="admin-moderation.html" class="asb__item"><span class="ico">🔍</span> পণ্য অনুমোদন <span class="asb__badge">১২</span></a>
+      <a href="admin-sellers.html" class="asb__item"><span class="ico">✅</span> বিক্রেতা যাচাই <span class="asb__badge">৫</span></a>
+      <a href="admin-reviews.html" class="asb__item"><span class="ico">⭐</span> রিভিউ মডারেশন</a>
+      <a href="admin-reports.html" class="asb__item"><span class="ico">🚨</span> অভিযোগ</a>
+      <div class="asb__section">ব্যবস্থাপনা</div>
+      <a href="admin-users.html" class="asb__item"><span class="ico">👥</span> ব্যবহারকারী</a>
+      <a href="admin-categories.html" class="asb__item"><span class="ico">🗂️</span> ক্যাটাগরি</a>
+      <a href="admin-banners.html" class="asb__item"><span class="ico">🖼️</span> ব্যানার</a>
+      <a href="admin-rfq.html" class="asb__item"><span class="ico">📋</span> RFQ তালিকা</a>
+      <div class="asb__section">সিস্টেম</div>
+      <a href="admin-pages.html" class="asb__item active"><span class="ico">📝</span> CMS পেজ</a>
+      <a href="admin-settings.html" class="asb__item"><span class="ico">⚙️</span> সাইট সেটিংস</a>
+      <a href="admin-logs.html" class="asb__item"><span class="ico">🗒️</span> অ্যাক্টিভিটি লগ</a>
+    </nav>
+    <div class="asb__footer"><a href="../index.html" class="asb__footer-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>সাইটে ফিরুন</a></div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div><h1>CMS পেজ</h1><p>সকল স্ট্যাটিক পেজের কনটেন্ট ও SEO সম্পাদনা করুন</p></div>
+      <button class="aab aab--save" onclick="BB.showToast('নতুন পেজ তৈরির ফর্ম খুলছে…')">+ নতুন পেজ যোগ করুন</button>
+    </div>
+
+    <!-- Summary Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);margin-bottom:var(--s-6)">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--gold)">৯</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">মোট পেজ</div></div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:#4ade80">৯</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">প্রকাশিত</div></div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:rgba(255,255,255,0.4)">০</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">খসড়া</div></div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-lg);padding:var(--s-4)"><div style="font-size:1.8rem;font-family:var(--font-serif);font-weight:800;color:var(--white)">SEO</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.35)">সব পেজে সেট</div></div>
+    </div>
+
+    <div class="adm-2col">
+      <!-- Page List -->
+      <div class="page-list">
+        <div class="page-list__hd">📄 পেজ তালিকা</div>
+        <div class="page-item active" onclick="selectPage('about')">
+          <div><div class="page-item__name">আমাদের সম্পর্কে</div><div class="page-str">about.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('contact')">
+          <div><div class="page-item__name">যোগাযোগ করুন</div><div class="page-str">contact.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('privacy')">
+          <div><div class="page-item__name">গোপনীয়তা নীতি</div><div class="page-str">privacy.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('terms')">
+          <div><div class="page-item__name">সেবার শর্তাবলী</div><div class="page-str">terms.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('faq')">
+          <div><div class="page-item__name">সচরাচর জিজ্ঞাসা</div><div class="page-str">faq.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('help')">
+          <div><div class="page-item__name">সাহায্য কেন্দ্র</div><div class="page-str">help.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('seller-guide')">
+          <div><div class="page-item__name">বিক্রেতা গাইড</div><div class="page-str">seller-guide.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('buyer-guide')">
+          <div><div class="page-item__name">ক্রেতা গাইড</div><div class="page-str">buyer-guide.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+        <div class="page-item" onclick="selectPage('success-stories')">
+          <div><div class="page-item__name">সফলতার গল্প</div><div class="page-str">success-stories.html</div></div>
+          <span style="font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,0.12);color:#4ade80">প্রকাশিত</span>
+        </div>
+      </div>
+
+      <!-- Editor Panel -->
+      <div class="editor-card" id="editor-panel">
+        <div class="editor-card__hd">
+          <span class="editor-title" id="editor-title">আমাদের সম্পর্কে — সম্পাদনা</span>
+          <div style="display:flex;gap:var(--s-2)">
+            <a id="preview-link" href="../about.html" target="_blank" class="aab" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1)">👁️ প্রিভিউ</a>
+            <button class="aab aab--save" onclick="savePage()">💾 সংরক্ষণ করুন</button>
+          </div>
+        </div>
+        <div class="editor-body">
+          <!-- SEO Fields -->
+          <div style="background:rgba(200,151,43,0.06);border:1px solid rgba(200,151,43,0.15);border-radius:var(--r-md);padding:var(--s-4);margin-bottom:var(--s-4)">
+            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:var(--s-3)">SEO সেটিংস</div>
+            <div style="display:grid;gap:var(--s-3)">
+              <div class="form-group-dark" style="margin:0"><label class="form-label-dark">মেটা শিরোনাম</label><input class="fi-dark" type="text" id="meta-title" value="আমাদের সম্পর্কে — বাংলাবাজার" /></div>
+              <div class="form-group-dark" style="margin:0"><label class="form-label-dark">মেটা বিবরণ</label><input class="fi-dark" type="text" id="meta-desc" value="বাংলাদেশের সেরা B2B মার্কেটপ্লেস বাংলাবাজার সম্পর্কে জানুন।" /></div>
+              <div class="form-group-dark" style="margin:0"><label class="form-label-dark">URL স্লাগ</label><input class="fi-dark" type="text" id="url-slug" value="about.html" /></div>
+            </div>
+          </div>
+          <!-- Hero Fields -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);margin-bottom:var(--s-4)">
+            <div class="form-group-dark" style="margin:0"><label class="form-label-dark">হিরো আইব্রো টেক্সট</label><input class="fi-dark" type="text" id="hero-eyebrow" value="আমাদের প্রতিষ্ঠান" /></div>
+            <div class="form-group-dark" style="margin:0"><label class="form-label-dark">হিরো শিরোনাম</label><input class="fi-dark" type="text" id="hero-title" value="আমাদের সম্পর্কে" /></div>
+          </div>
+          <div class="form-group-dark"><label class="form-label-dark">হিরো সাবটাইটেল</label><input class="fi-dark" type="text" id="hero-sub" value="বাংলাদেশের প্রথম বাংলা ভাষার B2B মার্কেটপ্লেস — উদ্যোক্তাদের জন্য, উদ্যোক্তাদের দ্বারা।" /></div>
+          <!-- Content Editor -->
+          <div class="form-group-dark">
+            <label class="form-label-dark">পেজ কনটেন্ট (HTML / Markdown)</label>
+            <textarea class="editor-area" id="page-content">## বাংলাবাজার সম্পর্কে
+
+বাংলাবাজার বাংলাদেশের প্রথম বাংলা ভাষার B2B মার্কেটপ্লেস। আমরা দেশীয় উৎপাদনকারী, রপ্তানিকারক ও ক্রেতাদের একটি ডিজিটাল প্ল্যাটফর্মে সংযুক্ত করি।
+
+### আমাদের লক্ষ্য
+- দেশীয় পণ্যের প্রচার ও বৈশ্বিক বাজারে প্রবেশ সুলভ করা
+- ক্ষুদ্র ও মাঝারি উদ্যোক্তাদের ডিজিটাল রূপান্তরে সহায়তা
+- বাংলা ভাষায় সহজ ব্যবসা পরিচালনার সুযোগ তৈরি
+
+### প্রতিষ্ঠা
+২০২৫ সালে ঢাকায় প্রতিষ্ঠিত।</textarea>
+          </div>
+          <!-- Publish Controls -->
+          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.07);padding-top:var(--s-4)">
+            <div style="display:flex;align-items:center;gap:var(--s-3)">
+              <label style="font-size:0.78rem;color:rgba(255,255,255,0.45)">স্ট্যাটাস:</label>
+              <select class="fi-dark" style="width:auto;padding:6px 10px">
+                <option value="published">প্রকাশিত</option>
+                <option value="draft">খসড়া</option>
+              </select>
+              <label style="font-size:0.78rem;color:rgba(255,255,255,0.45)">শেষ সম্পাদনা:</label>
+              <span id="last-edited" style="font-size:0.78rem;color:rgba(255,255,255,0.3)">আজ ১৫:৩২</span>
+            </div>
+            <div style="display:flex;gap:var(--s-2)">
+              <button class="aab" style="background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.4);border-color:rgba(255,255,255,0.08)" onclick="BB.showToast('পূর্ববর্তী সংস্করণ পুনরুদ্ধার করা হয়েছে')">↩ পূর্বাবস্থা</button>
+              <button class="aab aab--save" onclick="savePage()">💾 পেজ সংরক্ষণ করুন</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+const PAGE_DATA = {
+  'about':          {title:'আমাদের সম্পর্কে',    file:'about.html',           eyebrow:'আমাদের প্রতিষ্ঠান',  hero:'আমাদের সম্পর্কে',   sub:'বাংলাদেশের প্রথম বাংলা ভাষার B2B মার্কেটপ্লেস।',      metaT:'আমাদের সম্পর্কে — বাংলাবাজার',  metaD:'বাংলাদেশের সেরা B2B মার্কেটপ্লেস সম্পর্কে জানুন।'},
+  'contact':        {title:'যোগাযোগ করুন',        file:'contact.html',          eyebrow:'আমাদের সাথে কথা বলুন', hero:'যোগাযোগ করুন',    sub:'আমাদের টিম সর্বদা সাহায্য করতে প্রস্তুত।',           metaT:'যোগাযোগ করুন — বাংলাবাজার',     metaD:'বাংলাবাজারের সাথে যোগাযোগ করুন।'},
+  'privacy':        {title:'গোপনীয়তা নীতি',      file:'privacy.html',          eyebrow:'আইনি তথ্য',           hero:'গোপনীয়তা নীতি',   sub:'আমরা আপনার তথ্য কীভাবে সংগ্রহ ও ব্যবহার করি।',      metaT:'গোপনীয়তা নীতি — বাংলাবাজার',   metaD:'বাংলাবাজারের গোপনীয়তা নীতি।'},
+  'terms':          {title:'সেবার শর্তাবলী',      file:'terms.html',            eyebrow:'আইনি দলিল',           hero:'সেবার শর্তাবলী',   sub:'বাংলাবাজার ব্যবহারের নিয়মাবলী ও শর্ত।',             metaT:'সেবার শর্তাবলী — বাংলাবাজার',   metaD:'বাংলাবাজার ব্যবহারের শর্তসমূহ।'},
+  'faq':            {title:'সচরাচর জিজ্ঞাসা',     file:'faq.html',              eyebrow:'প্রশ্নোত্তর',         hero:'সচরাচর জিজ্ঞাসা',  sub:'সবচেয়ে বেশি জিজ্ঞাসিত প্রশ্নের উত্তর।',             metaT:'সচরাচর জিজ্ঞাসা — বাংলাবাজার',  metaD:'বাংলাবাজার সম্পর্কে সাধারণ প্রশ্নের উত্তর।'},
+  'help':           {title:'সাহায্য কেন্দ্র',      file:'help.html',             eyebrow:'সহায়তা কেন্দ্র',     hero:'সাহায্য কেন্দ্র',   sub:'দ্রুত উত্তর খুঁজুন বা আমাদের সাথে কথা বলুন।',        metaT:'সাহায্য কেন্দ্র — বাংলাবাজার',   metaD:'বাংলাবাজার সাহায্য কেন্দ্র।'},
+  'seller-guide':   {title:'বিক্রেতা গাইড',       file:'seller-guide.html',     eyebrow:'বিক্রেতার নির্দেশিকা', hero:'বিক্রেতা গাইড',  sub:'নিবন্ধন থেকে প্রথম বিক্রয় পর্যন্ত ধাপে ধাপে।',      metaT:'বিক্রেতা গাইড — বাংলাবাজার',    metaD:'বাংলাবাজারে বিক্রেতা হওয়ার সম্পূর্ণ গাইড।'},
+  'buyer-guide':    {title:'ক্রেতা গাইড',          file:'buyer-guide.html',      eyebrow:'ক্রেতার নির্দেশিকা',  hero:'ক্রেতা গাইড',     sub:'পণ্য কেনা, RFQ ও নিরাপদ লেনদেন গাইড।',              metaT:'ক্রেতা গাইড — বাংলাবাজার',      metaD:'বাংলাবাজারে পণ্য কেনার সম্পূর্ণ গাইড।'},
+  'success-stories':{title:'সফলতার গল্প',          file:'success-stories.html',  eyebrow:'অনুপ্রেরণা',          hero:'সফলতার গল্প',      sub:'সারা বাংলাদেশের উদ্যোক্তাদের সাফল্যের গল্প।',        metaT:'সফলতার গল্প — বাংলাবাজার',      metaD:'বাংলাবাজারের সফল বিক্রেতাদের গল্প।'},
+};
+
+function selectPage(key) {
+  const d = PAGE_DATA[key];
+  if (!d) return;
+  // highlight list item
+  document.querySelectorAll('.page-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // update editor
+  document.getElementById('editor-title').textContent = d.title + ' — সম্পাদনা';
+  document.getElementById('meta-title').value = d.metaT;
+  document.getElementById('meta-desc').value = d.metaD;
+  document.getElementById('url-slug').value = d.file;
+  document.getElementById('hero-eyebrow').value = d.eyebrow;
+  document.getElementById('hero-title').value = d.hero;
+  document.getElementById('hero-sub').value = d.sub;
+  document.getElementById('preview-link').href = '../' + d.file;
+  document.getElementById('last-edited').textContent = 'আজ ' + new Date().toLocaleTimeString('bn-BD', {hour:'2-digit',minute:'2-digit'});
+  BB.showToast(d.title + ' লোড হয়েছে');
+}
+
+function savePage() {
+  const now = new Date().toLocaleTimeString('bn-BD', {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-edited').textContent = 'আজ ' + now;
+  BB.showToast('পেজ সংরক্ষিত হয়েছে ✓', 'success');
+}
+</script>
+</body>
+</html>
